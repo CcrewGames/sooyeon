@@ -5,10 +5,11 @@ using UnityEngine.UI;
 
 public class Buttonclick : MonoBehaviour
 {
+    public GameObject punch;
+
     public Button btn1, btn2, btn3, btn4, btn5, btn6, btn7, btn8, btn9, btn10, btn11, btn12, btn13; //버튼
 
-    public GameObject punch; //계산
-
+    //숫자
     public GameObject num1;
     public GameObject num2;
     public GameObject num3;
@@ -18,7 +19,7 @@ public class Buttonclick : MonoBehaviour
     public GameObject num7;
     public GameObject num8;
     public GameObject num9;
-
+    //연산기호
     public GameObject sign1;
     public GameObject sign2;
     public GameObject sign3;
@@ -53,7 +54,7 @@ public class Buttonclick : MonoBehaviour
         btn13.onClick.AddListener(() => btnprint(sign4));
     }
 
-    // 1번
+    
     void btnprint(GameObject Num)
     {
         if (Num == num1)
@@ -108,6 +109,6 @@ public class Buttonclick : MonoBehaviour
         {
             punch.GetComponent<PunchScript>().sign = 4;
         }
-        punch.GetComponent<PunchScript>().calculator();
+        punch.GetComponent<PunchScript>().calculator(); //버튼 클릭할 때마다 펀치 스크립트에서 계산 함수 실행
     }
 }

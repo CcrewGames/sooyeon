@@ -4,22 +4,26 @@ using UnityEngine;
 
 public class PlayerScript : MonoBehaviour
 {
-    public int heart;
-    float speed = 4f;
-    public Animator animator;
-    public GameObject punch;
-    public int random;
+    public int heart; //플레이어 체력
+    public int move; //플레이어 이동 변수
+    float speed = 4f; //플레이어 이동속도
 
+    public GameObject punch;
+
+    bool healmode; //힐모드 제어용 변수
+    int random; //힐모드 난수
+
+    //난수 표시 관련
     public GameObject number;
     private GameObject num1;
     private GameObject num2;
     float dis = 0.35f;
 
-    private GameObject target;
+    private GameObject target; //마우스 클릭 확인용 변수
 
-    bool healmode;
+    public Animator animator;
 
-    void CastRay()
+    void CastRay() //마우스 클릭 확인용 함수
     {
         target = null;
         Vector2 pos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
@@ -27,20 +31,30 @@ public class PlayerScript : MonoBehaviour
 
         if (hit.collider != null)
         {
-            target = hit.collider.gameObject;  //히트 된 게임 오브젝트를 타겟으로 지정
+            target = hit.collider.gameObject;
         }
     }
 
-    void setting()
+    void Start() //게임 시작 초기화
+    {
+        heart = 100;
+        move = 0;
+
+        healmode = false;
+
+        animator = GetComponent<Animator>();
+    }
+
+    void setting() //난수 설정
     {
         random = Random.Range(1, 15);
         nummaker();
     }
 
-    void nummaker()
+    void nummaker() //플레이어 머리 위 난수 생성 함수
     {
         Sprite[] sprites = Resources.LoadAll<Sprite>("number");
-        if (random > 9 && random <= 99)
+        if (random > 9 && random <= 99) //난수가 십의 자리일 때
         {
             int a = random / 10;
             int b = random % 10;
@@ -51,7 +65,7 @@ public class PlayerScript : MonoBehaviour
             SpriteRenderer spriteB = num2.GetComponent<SpriteRenderer>();
             spriteB.sprite = sprites[b];
         }
-        else if (random > 0 && random <= 9)
+        else if (random > 0 && random <= 9) //난수가 일의 자리일 때
         {
             num1 = Instantiate(number, new Vector2(transform.position.x, transform.position.y + 2), transform.rotation);
             SpriteRenderer spriteR = num1.GetComponent<SpriteRenderer>();
@@ -59,41 +73,32 @@ public class PlayerScript : MonoBehaviour
         }
     }
 
-    void Start()
-    {
-        move = 0;
-        healmode = false;
-        heart = 100;
-        animator = GetComponent<Animator>();
-    }
-
-    public int move;
     void Update()
     {
+        if (heart == 0) //실패
+        {
+            Destroy(gameObject);
+            GameObject.Find("Stage").GetComponent<Stage>().Fail();
+        }
+
         if (move == 1)
             Run();
 
         if (move == 2)
             Re();
 
-        if (heart == 0)
-        {
-            Destroy(gameObject);
-            GameObject.Find("Stage").GetComponent<Stage>().Fail();
-        }
-
         if (Input.GetMouseButtonDown(0))
         {
             CastRay();
 
-            if (target == this.gameObject && healmode == false)
+            if (target == this.gameObject && healmode == false) //힐모드 시작
             {
                 healmode = true;
                 setting();
             }
-            else if (target == this.gameObject && healmode == true)
+            else if (target == this.gameObject && healmode == true) //힐모드 종료
             {
-                if (punch.GetComponent<PunchScript>().result == random)
+                if (punch.GetComponent<PunchScript>().result == random) //난수 = 결과 일치
                 {
                     heart += random;
                     if (random > 9 && random <= 99)
@@ -109,7 +114,7 @@ public class PlayerScript : MonoBehaviour
                     punch.GetComponent<PunchScript>().re();
                     punch.GetComponent<PunchScript>().ScrollChange2();
                 }
-                else
+                else //난수 = 결과 불일치
                 {
                     Debug.Log("다시");
                     if (random > 9 && random <= 99)
@@ -130,14 +135,14 @@ public class PlayerScript : MonoBehaviour
         }
     }
 
-    void Run()
+    void Run() //중간으로 이동 함수
     {
         transform.position = Vector3.MoveTowards(transform.position, new Vector3(0, transform.position.y, 0), Time.deltaTime * speed);
         animator.SetBool("fight", true);
         Invoke("Re", 5f);
     }
 
-    void Re()
+    void Re() //원위치로 이동 함수
     {
         move = 2;
         transform.position = Vector3.MoveTowards(transform.position, new Vector3(-7, transform.position.y, 0), Time.deltaTime * speed);
@@ -145,25 +150,10 @@ public class PlayerScript : MonoBehaviour
         Invoke("Next", 5f);
     }
 
-    public void Next()
+    public void Next() //이동 변수 초기화 함수
     {
         move = 0;
         animator.SetBool("fight", false);
-    }
-
-    public void Attack1()
-    {
-        heart -= 0;
-    }
-
-    public void Attack2()
-    {
-        heart -= 0;
-    }
-
-    public void Attack3()
-    {
-        heart -= 0;
     }
 }
 

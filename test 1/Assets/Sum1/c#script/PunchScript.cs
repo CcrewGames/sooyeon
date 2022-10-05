@@ -4,17 +4,19 @@ using UnityEngine;
 
 public class PunchScript : MonoBehaviour
 {
-    int i;
     public int[] attack = new int[3];
+    int i;
+
     public int num;
     public int sign;
     public int result;
+
     int first;
 
     public GameObject NumScollview; //숫자
     public GameObject CalculScollview; //연산기호
 
-    public void re ()
+    public void re () //계산 초기화 함수
     {
         i = 0;
         sign = 0;
@@ -23,12 +25,12 @@ public class PunchScript : MonoBehaviour
         num = -1;
     }
 
-    void Start ()
+    void Start () //게임 시작 초기화
     {
         num = -1;
     }
 
-    void Update()
+    void Update() //계산 초기화 실행 함수
     {
         if (Input.GetKeyDown(KeyCode.D))
         {
@@ -37,7 +39,7 @@ public class PunchScript : MonoBehaviour
         }
     }
 
-    public void calculator ()
+    public void calculator () //계산 함수
     {
         if(i == 0)
         {
@@ -96,12 +98,12 @@ public class PunchScript : MonoBehaviour
         }
     }
 
-    public void ScrollChange1()
+    public void ScrollChange1() //연산기호만
     {
         NumScollview.SetActive(false);
         CalculScollview.SetActive(true);
     }
-    public void ScrollChange2()
+    public void ScrollChange2() //숫자만
     {
         NumScollview.SetActive(true);
         CalculScollview.SetActive(false);

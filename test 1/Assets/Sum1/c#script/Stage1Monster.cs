@@ -4,30 +4,32 @@ using UnityEngine;
 
 public class Stage1Monster : MonoBehaviour
 {
-    Rigidbody2D rigid;
+    int heart = 3; //몬스터 체력
+    private bool move; //몬스터 이동 변수
 
-    int heart = 3;
-    private bool move; //움직임 변수
-    private bool stagemove;
     public int random;
 
-    public Animator animator; //애니
-
-    private GameObject target;
-
+    //난수 표시 관련
     public GameObject number;
     private GameObject num1;
     private GameObject num2;
+    float dis = 0.35f;
 
+    //체력바 표시 관련
     public GameObject circle;
     private GameObject hpbar1;
     private GameObject hpbar2;
     private GameObject hpbar3;
-
-    float dis = 0.35f;
     float dis1 = 0.5f;
 
-    void CastRay()
+    private bool stagemove;
+
+    private GameObject target; //마우스 클릭 확인용 변수
+
+    Rigidbody2D rigid;
+    public Animator animator; //애니
+
+    void CastRay() //마우스 클릭 확인용 함수
     {
         target = null;
         Vector2 pos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
@@ -39,11 +41,11 @@ public class Stage1Monster : MonoBehaviour
         }
     }
 
-    void Start()
+    void Start() //스폰 초기화
     {
         setting();
-        stagemove = false;
         move = true;
+        stagemove = false;
 
         Sprite[] sprites = Resources.LoadAll<Sprite>("hpbar");
         hpbar1 = Instantiate(circle, new Vector2(transform.position.x - dis1, transform.position.y + 2), transform.rotation);
@@ -57,16 +59,16 @@ public class Stage1Monster : MonoBehaviour
         sprite3.sprite = sprites[1];
     }
 
-    void setting()
+    void setting() //난수 설정
     {
         random = Random.Range(1, 15);
         nummaker();
     }
 
-    void nummaker()
+    void nummaker() //몬스터 머리 위 난수 생성 함수
     {
         Sprite[] sprites = Resources.LoadAll<Sprite>("number");
-        if (random > 9 && random <= 99)
+        if (random > 9 && random <= 99) //십의 자리일 때
         {
             int a = random / 10;
             int b = random % 10;
@@ -77,7 +79,7 @@ public class Stage1Monster : MonoBehaviour
             SpriteRenderer spriteB = num2.GetComponent<SpriteRenderer>();
             spriteB.sprite = sprites[b];
         }
-        else if (random > 0 && random <= 9)
+        else if (random > 0 && random <= 9)// 일의 자리일 때
         {
             num1 = Instantiate(number, transform.position, transform.rotation);
             SpriteRenderer spriteR = num1.GetComponent<SpriteRenderer>();
@@ -91,15 +93,15 @@ public class Stage1Monster : MonoBehaviour
         animator = GetComponent<Animator>(); //애니
     }
 
-    void FixedUpdate() //리자드바디용 업데이트함수
+    void FixedUpdate()
     {
         if (move == true)
             rigid.velocity = new Vector2(-1, rigid.velocity.y); //몬스터 자체에게 속도 줌
     }
 
-    public void Update() //주인공에게 공격받았을 때
+    public void Update()
     {
-        if (heart == 0 && stagemove == false)
+        if (heart == 0 && stagemove == false) //삭제
         {
             Destroy(hpbar1);
             Destroy(hpbar2);
@@ -114,7 +116,7 @@ public class Stage1Monster : MonoBehaviour
 
             if (target == this.gameObject)
             {
-                if (GameObject.Find("Punch").GetComponent<PunchScript>().result == random)
+                if (GameObject.Find("Punch").GetComponent<PunchScript>().result == random) //난수 = 결과 일치
                 {
                     heart--;
                     OnDamaged();
@@ -143,7 +145,7 @@ public class Stage1Monster : MonoBehaviour
             }
         }
 
-        if (Input.GetKeyDown(KeyCode.Space))
+        if (Input.GetKeyDown(KeyCode.Space)) //임의 피격
         {
             heart--;
             OnDamaged();
@@ -170,6 +172,7 @@ public class Stage1Monster : MonoBehaviour
             GameObject.Find("Punch").GetComponent<PunchScript>().ScrollChange2();
         }
 
+        //난수와 체력바 이동
         if (random > 9 && heart != 0)
         {
             hpbar1.transform.position = new Vector2(transform.position.x - dis1, transform.position.y + 2);
@@ -195,7 +198,18 @@ public class Stage1Monster : MonoBehaviour
         }
     }
 
-    void OnDamaged() //피격
+    void Attack() //공격 함수
+    {
+        move = false;
+        rigid.velocity = Vector2.zero;
+        Vector2 JumpVelocity = new Vector2(2, 2);
+        rigid.AddForce(JumpVelocity, ForceMode2D.Impulse);
+        GameObject.Find("Player").GetComponent<PlayerScript>().heart -= 0;
+
+        Invoke("Stop", 1f); // 1초 스턴
+    }
+
+    void OnDamaged() //피격 함수
     {
         if (random > 9 && random <= 99)
         {
@@ -227,23 +241,12 @@ public class Stage1Monster : MonoBehaviour
         }
     }
 
-    void Attack() //공격(몸빵)
-    {
-        move = false;
-        rigid.velocity = Vector2.zero;
-        Vector2 JumpVelocity = new Vector2(2, 2);
-        rigid.AddForce(JumpVelocity, ForceMode2D.Impulse);
-        GameObject.Find("Player").GetComponent<PlayerScript>().Attack1();
-
-        Invoke("Stop", 1f); // 1초 스턴
-    }
-
     void Stop() //스턴 함수
     {
         move = true;
     }
 
-    void Destroy()
+    void Destroy() //삭제 함수
     {
         Destroy(gameObject);
         GameObject.Find("Stage").GetComponent<Stage>().remain -= 1;

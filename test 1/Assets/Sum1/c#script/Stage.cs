@@ -4,26 +4,28 @@ using UnityEngine;
 
 public class Stage : MonoBehaviour
 {
-    private int stage;
-    private bool stagemove;
-    public int remain; //남은 몬스터 수
+    private int stage; //현재 단계 확인용 변수
+    private bool stagemove; //단계 사이 이동 시간 확보용 변수
 
-    public GameObject punch;
-    public GameObject cul;
+    public int remain; //단계별 남은 몬스터 수 확인용 변수
 
-    GameObject ForDestroy;
+    public GameObject cul; //플레이어 머리 위 무기
 
-    public GameObject NumScollview; //숫자
-    public GameObject CalculScollview; //연산기호
-
-    public GameObject Stage1Moster;
+    public GameObject Stage1Moster; //단계별 몬스터 소환용
     public GameObject Stage2Moster;
     public GameObject Stage3Moster;
 
-    public void Start()
+    public GameObject punch;
+    public GameObject NumScollview; //숫자
+    public GameObject CalculScollview; //연산기호
+
+    GameObject ForDestroy;
+
+    public void Start() //게임 시작 초기화
     {
         NumScollview.SetActive(true);
         CalculScollview.SetActive(false);
+
         punch.GetComponent<PunchScript>().re();
 
         stage = 1;
@@ -35,7 +37,7 @@ public class Stage : MonoBehaviour
     {
         if(stage == 1 && stagemove == false) //1단계 시작
         {
-            Debug.Log("Stage 1 Start");
+            Debug.Log("1단계 시작");
             cul.SetActive(true);
 
             for (int i = 0; i < 3; i++)
@@ -47,18 +49,18 @@ public class Stage : MonoBehaviour
 
         if (stage == 1 && remain == 0) //1단계 종료
         {
-            Debug.Log("Stage 1 Clear");
+            Debug.Log("1단계 클리어");
 
             cul.SetActive(false);
             GameObject.Find("Player").GetComponent<PlayerScript>().move = 1;
-            Invoke("StageMove", 10f);
+            Invoke("StageMove", 11f);
 
             remain = 3;
         }
 
         if (stage == 2 && stagemove == false) //2단계 시작
         {
-            Debug.Log("Stage 2 Start");
+            Debug.Log("2단계 시작");
             cul.SetActive(true);
 
             for (int i = 0; i < 3; i++)
@@ -70,18 +72,18 @@ public class Stage : MonoBehaviour
 
         if (stage == 2 && remain == 0) //2단계 종료
         {
-            Debug.Log("Stage 2 Clear");
+            Debug.Log("2단계 클리어");
 
             cul.SetActive(false);
             GameObject.Find("Player").GetComponent<PlayerScript>().move = 1;
-            Invoke("StageMove", 10f);
+            Invoke("StageMove", 11f);
 
             remain = 3;
         }
 
         if (stage == 3 && stagemove == false) //3단계 시작
         {
-            Debug.Log("Stage 3 Start");
+            Debug.Log("3단계 시작");
             cul.SetActive(true);
 
             for (int i = 0; i < 3; i++)
@@ -93,16 +95,16 @@ public class Stage : MonoBehaviour
 
         if (stage == 3 && remain == 0) //클리어
         {
-            Debug.Log("All Clear!");
+            Debug.Log("클리어!");
             cul.SetActive(false);
             Invoke("StageEnding", 2);
             Invoke("Clear", 5);
 
-            remain = 3; //한 번만 되도록
+            remain = 3; //얘는 남은 몬스터 수 확인용이 아니라 한 번만 실행되도록 하기 위함
         }
     }
 
-    public void StageMove()
+    void StageMove() //단계 사이 이동 시간 확보용 함수
     {
         stage++;
         stagemove = false;
@@ -117,13 +119,13 @@ public class Stage : MonoBehaviour
         }
     }
 
-    public void Clear()
+    public void Clear() //클리어 함수
     {
         Application.Quit();
         UnityEditor.EditorApplication.isPlaying = false;
     }
 
-    public void Fail()
+    public void Fail() //실패 함수
     {
         Debug.Log("Fail");
         Application.Quit();
