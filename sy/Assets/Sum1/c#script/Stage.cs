@@ -97,8 +97,8 @@ public class Stage : MonoBehaviour
         {
             Debug.Log("클리어!");
             cul.SetActive(false);
-            Invoke("StageEnding", 2);
-            Invoke("Clear", 5);
+            Invoke("StageEnding", 2f);
+            Invoke("Clear", 5f);
 
             remain = 3; //얘는 남은 몬스터 수 확인용이 아니라 한 번만 실행되도록 하기 위함
         }

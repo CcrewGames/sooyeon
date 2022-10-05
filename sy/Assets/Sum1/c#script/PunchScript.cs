@@ -41,20 +41,20 @@ public class PunchScript : MonoBehaviour
 
     public void calculator () //계산 함수
     {
-        if(i == 0)
+        if(i == 0) //첫번째 숫자
         {
             attack[i] = num;
             i++;
             result = num;
             ScrollChange1();
         }
-        else if(i == 1)
+        else if(i == 1) //두번째 연산기호
         {
             attack[i] = sign;
             i++;
             ScrollChange2();
         }
-        else if(i == 2)
+        else if(i == 2) //세번째 숫자
         {
             attack[i] = num;
             ScrollChange1();

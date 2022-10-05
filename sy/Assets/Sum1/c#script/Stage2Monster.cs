@@ -11,9 +11,10 @@ public class Stage2Monster : MonoBehaviour
 
     //난수 표시 관련
     public GameObject number;
+    private GameObject num;
     private GameObject num1;
     private GameObject num2;
-    float dis = 0.35f;
+    float dis = 0.3f;
 
     //체력바 표시 관련
     public GameObject circle;
@@ -21,8 +22,6 @@ public class Stage2Monster : MonoBehaviour
     private GameObject hpbar2;
     private GameObject hpbar3;
     float dis1 = 0.5f;
-
-    private bool stagemove;
 
     private GameObject target; //마우스 클릭 확인용 변수
 
@@ -42,20 +41,21 @@ public class Stage2Monster : MonoBehaviour
 
     void Start() //스폰 초기화
     {
-        setting();
         move = true;
-        stagemove = false;
 
-        Sprite[] sprites = Resources.LoadAll<Sprite>("hpbar");
-        hpbar1 = Instantiate(circle, new Vector2(transform.position.x - dis1, transform.position.y + 2), transform.rotation);
-        SpriteRenderer sprite1 = hpbar1.GetComponent<SpriteRenderer>();
-        sprite1.sprite = sprites[1];
-        hpbar2 = Instantiate(circle, new Vector2(transform.position.x, transform.position.y + 2), transform.rotation);
-        SpriteRenderer sprite2 = hpbar2.GetComponent<SpriteRenderer>();
-        sprite2.sprite = sprites[1];
-        hpbar3 = Instantiate(circle, new Vector2(transform.position.x + dis1, transform.position.y + 2), transform.rotation);
-        SpriteRenderer sprite3 = hpbar3.GetComponent<SpriteRenderer>();
-        sprite3.sprite = sprites[1];
+        num = Instantiate(number, transform.position, transform.rotation);
+        num1 = Instantiate(number, transform.position, transform.rotation);
+        num2 = Instantiate(number, transform.position, transform.rotation);
+
+        num.SetActive(false);
+        num1.SetActive(false);
+        num2.SetActive(false);
+
+        setting();
+
+        hpbar1 = Instantiate(circle, transform.position, transform.rotation);
+        hpbar2 = Instantiate(circle, transform.position, transform.rotation);
+        hpbar3 = Instantiate(circle, transform.position, transform.rotation);
     }
 
     void setting() //난수 설정
@@ -71,18 +71,23 @@ public class Stage2Monster : MonoBehaviour
         {
             int a = random / 10;
             int b = random % 10;
-            num1 = Instantiate(number, transform.position, transform.rotation);
-            num2 = Instantiate(number, transform.position, transform.rotation);
             SpriteRenderer spriteA = num1.GetComponent<SpriteRenderer>();
             spriteA.sprite = sprites[a];
             SpriteRenderer spriteB = num2.GetComponent<SpriteRenderer>();
             spriteB.sprite = sprites[b];
+
+            num.SetActive(false);
+            num1.SetActive(true);
+            num2.SetActive(true);
         }
         else if (random > 0 && random <= 9)// 일의 자리일 때
         {
-            num1 = Instantiate(number, transform.position, transform.rotation);
-            SpriteRenderer spriteR = num1.GetComponent<SpriteRenderer>();
+            SpriteRenderer spriteR = num.GetComponent<SpriteRenderer>();
             spriteR.sprite = sprites[random];
+
+            num.SetActive(true);
+            num1.SetActive(false);
+            num2.SetActive(false);
         }
     }
 
@@ -94,18 +99,20 @@ public class Stage2Monster : MonoBehaviour
     void FixedUpdate()
     {
         if (move == true)
-            rigid.velocity = new Vector2(-1, rigid.velocity.y); //몬스터 자체에게 속도 줌
+            rigid.velocity = new Vector2(-1, rigid.velocity.y); //몬스터에게 속도 줌
     }
 
     public void Update()
     {
-        if (heart == 0 && stagemove == false) //삭제
+        if (heart == 0) //삭제
         {
+            Destroy(num);
+            Destroy(num1);
+            Destroy(num2);
+
             Destroy(hpbar1);
             Destroy(hpbar2);
             Destroy(hpbar3);
-            Invoke("Destroy", 2f);
-            stagemove = true;
         }
 
         if (Input.GetMouseButtonDown(0))
@@ -118,7 +125,7 @@ public class Stage2Monster : MonoBehaviour
                 {
                     heart--;
                     OnDamaged();
-                    Sprite[] sprites = Resources.LoadAll<Sprite>("hpbar");
+                    Sprite[] sprites = Resources.LoadAll<Sprite>("hpmonster");
                     if (heart == 2)
                     {
                         SpriteRenderer sprite1 = hpbar3.GetComponent<SpriteRenderer>();
@@ -146,7 +153,7 @@ public class Stage2Monster : MonoBehaviour
         {
             heart--;
             OnDamaged();
-            Sprite[] sprites = Resources.LoadAll<Sprite>("hpbar");
+            Sprite[] sprites = Resources.LoadAll<Sprite>("hpmonster");
             if (heart == 2)
             {
                 SpriteRenderer sprite1 = hpbar3.GetComponent<SpriteRenderer>();
@@ -169,20 +176,15 @@ public class Stage2Monster : MonoBehaviour
         }
 
         //난수와 체력바 이동
-        if (random > 9 && heart != 0)
+        if (heart != 0)
         {
-            hpbar1.transform.position = new Vector2(transform.position.x - dis1, transform.position.y + 2);
-            hpbar2.transform.position = new Vector2(transform.position.x, transform.position.y + 2);
-            hpbar3.transform.position = new Vector2(transform.position.x + dis1, transform.position.y + 2);
+            num.transform.position = new Vector2(transform.position.x, transform.position.y + 3);
             num1.transform.position = new Vector2(transform.position.x - dis, transform.position.y + 3);
             num2.transform.position = new Vector2(transform.position.x + dis, transform.position.y + 3);
-        }
-        else if (random <= 9 && heart != 0)
-        {
+
             hpbar1.transform.position = new Vector2(transform.position.x - dis1, transform.position.y + 2);
             hpbar2.transform.position = new Vector2(transform.position.x, transform.position.y + 2);
             hpbar3.transform.position = new Vector2(transform.position.x + dis1, transform.position.y + 2);
-            num1.transform.position = new Vector2(transform.position.x, transform.position.y + 3);
         }
     }
 
@@ -198,31 +200,21 @@ public class Stage2Monster : MonoBehaviour
     {
         move = false;
         rigid.velocity = Vector2.zero;
-        Vector2 JumpVelocity = new Vector2(2, 2);
+        Vector2 JumpVelocity = new Vector2(3, 3);
         rigid.AddForce(JumpVelocity, ForceMode2D.Impulse);
-        GameObject.Find("Player").GetComponent<PlayerScript>().heart -= 0;
+        GameObject.Find("Player").GetComponent<PlayerScript>().heart -= 5;
 
         Invoke("Stop", 1f); // 1초 스턴
     }
 
     void OnDamaged() //피격 함수
     {
-        if (random > 9 && random <= 99)
-        {
-            Destroy(num1);
-            Destroy(num2);
-        }
-        else if (random > 0 && random <= 9)
-        {
-            Destroy(num1);
-        }
-
         if (heart != 0)
         {
             CancelInvoke("Stop");
             move = false;
             rigid.velocity = Vector2.zero;
-            Vector2 JumpVelocity = new Vector2(3, 3);
+            Vector2 JumpVelocity = new Vector2(5, 4);
             rigid.AddForce(JumpVelocity, ForceMode2D.Impulse);
 
             Invoke("Stop", 2f); //2초 스턴
@@ -232,8 +224,10 @@ public class Stage2Monster : MonoBehaviour
             CancelInvoke("Stop");
             move = false;
             rigid.velocity = Vector2.zero;
-            Vector2 JumpVelocity = new Vector2(3, 3);
+            Vector2 JumpVelocity = new Vector2(2, 2);
             rigid.AddForce(JumpVelocity, ForceMode2D.Impulse);
+
+            Invoke("Destroy", 0.5f);
         }
     }
 
