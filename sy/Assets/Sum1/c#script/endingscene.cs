@@ -10,14 +10,16 @@ public class endingscene : MonoBehaviour
     private GameObject endingstar1;
     private GameObject endingstar2;
     private GameObject endingstar3;
+    private GameObject endingfailstar2;
+    private GameObject endingfailstar3;
 
     //시간 불러오기 
-    //var time = GameObject.Find("ending").GetComponent<endingscene>();
     
     public void endingStart()
     {
-        /*
-        if (time < 0){//별 1개
+        float time = GameObject.Find("Timecount").GetComponent<Timecount>().countdownSeconds;
+
+        if ( 30 >= time && time > 0){//별 1개
             endingback = Resources.Load<GameObject>("ending/endingBackground");
             Instantiate(endingback, new Vector3(-0.08f,-0.02f,-5.14f), Quaternion.identity); // 배경이미지 생성
             endingPlayer = Resources.Load<GameObject>("ending/realendingplayer");
@@ -30,7 +32,7 @@ public class endingscene : MonoBehaviour
             endingfailstar3 = Resources.Load<GameObject>("ending/realendingfailstar3");
             Instantiate(endingfailstar3, new Vector3(5,1.5f, -5), endingfailstar3.transform.rotation);
         }
-        else if (time < 5){//별 2개
+        else if (60 >= time && time > 30){//별 2개
             endingback = Resources.Load<GameObject>("ending/endingBackground");
             Instantiate(endingback, new Vector3(-0.08f,-0.02f,-5.14f), Quaternion.identity); // 배경이미지 생성
             endingPlayer = Resources.Load<GameObject>("ending/realendingplayer");
@@ -56,7 +58,6 @@ public class endingscene : MonoBehaviour
             endingstar3 = Resources.Load<GameObject>("ending/realendingstar3");
             Instantiate(endingstar3, new Vector3(5,1.5f, -5), endingstar3.transform.rotation);
         }
-        */
     }
 }
   

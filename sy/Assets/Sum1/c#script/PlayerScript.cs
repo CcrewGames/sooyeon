@@ -115,6 +115,7 @@ public class PlayerScript : MonoBehaviour
                 if (punch.GetComponent<PunchScript>().result == random) //난수 = 결과 일치
                 {
                     heart += random;
+                    animator.SetTrigger("heal");
                     num.SetActive(false);
                     num1.SetActive(false);
                     num2.SetActive(false);
@@ -135,12 +136,17 @@ public class PlayerScript : MonoBehaviour
                 healmode = false;
             }
         }
+
+        if (Input.GetKeyDown(KeyCode.Space)) //임의 피격
+        {
+            animator.SetTrigger("fight");
+        }
     }
 
     void Run() //중간으로 이동 함수
     {
         transform.position = Vector3.MoveTowards(transform.position, new Vector3(0, transform.position.y, 0), Time.deltaTime * speed);
-        animator.SetBool("fight", true);
+        animator.SetBool("walk", true);
         Invoke("Re", 5f);
     }
 
@@ -148,14 +154,14 @@ public class PlayerScript : MonoBehaviour
     {
         move = 2;
         transform.position = Vector3.MoveTowards(transform.position, new Vector3(-7, transform.position.y, 0), Time.deltaTime * speed);
-        animator.SetBool("fight", true);
+        animator.SetBool("walk", true);
         Invoke("Next", 5f);
     }
 
     public void Next() //이동 변수 초기화 함수
     {
         move = 0;
-        animator.SetBool("fight", false);
+        animator.SetBool("walk", false);
     }
 }
 
