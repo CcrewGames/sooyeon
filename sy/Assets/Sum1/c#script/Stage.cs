@@ -16,6 +16,9 @@ public class Stage : MonoBehaviour
     public GameObject Stage3Moster;
 
     public GameObject punch;
+    public GameObject canvas;
+    public GameObject text;
+
     public GameObject NumScollview; //숫자
     public GameObject CalculScollview; //연산기호
 
@@ -25,6 +28,8 @@ public class Stage : MonoBehaviour
     {
         NumScollview.SetActive(true);
         CalculScollview.SetActive(false);
+
+        text.SetActive(false);
 
         punch.GetComponent<PunchScript>().re();
 
@@ -40,6 +45,10 @@ public class Stage : MonoBehaviour
             Debug.Log("1단계 시작");
             cul.SetActive(true);
 
+            canvas.GetComponent<TextScript>().text.text = "Stage 1 Start!";
+            text.SetActive(true);
+            Invoke("textoff", 2f);
+
             for (int i = 0; i < 3; i++)
             {
                 Instantiate(Stage1Moster, new Vector3(12 + i, 3, 0), Stage1Moster.transform.rotation);
@@ -50,8 +59,12 @@ public class Stage : MonoBehaviour
         if (stage == 1 && remain == 0) //1단계 종료
         {
             Debug.Log("1단계 클리어");
-
             cul.SetActive(false);
+
+            canvas.GetComponent<TextScript>().text.text = "Stage 1 Clear!";
+            text.SetActive(true);
+            Invoke("textoff", 2f);
+
             GameObject.Find("Player").GetComponent<PlayerScript>().move = 1;
             Invoke("StageMove", 11f);
 
@@ -63,6 +76,10 @@ public class Stage : MonoBehaviour
             Debug.Log("2단계 시작");
             cul.SetActive(true);
 
+            canvas.GetComponent<TextScript>().text.text = "Stage 2 Start!";
+            text.SetActive(true);
+            Invoke("textoff", 2f);
+
             for (int i = 0; i < 3; i++)
             {
                 Instantiate(Stage2Moster, new Vector3(12 + i, 3, 0), Stage2Moster.transform.rotation);
@@ -73,8 +90,12 @@ public class Stage : MonoBehaviour
         if (stage == 2 && remain == 0) //2단계 종료
         {
             Debug.Log("2단계 클리어");
-
             cul.SetActive(false);
+
+            canvas.GetComponent<TextScript>().text.text = "Stage 2 Clear!";
+            text.SetActive(true);
+            Invoke("textoff", 2f);
+
             GameObject.Find("Player").GetComponent<PlayerScript>().move = 1;
             Invoke("StageMove", 11f);
 
@@ -85,6 +106,10 @@ public class Stage : MonoBehaviour
         {
             Debug.Log("3단계 시작");
             cul.SetActive(true);
+
+            canvas.GetComponent<TextScript>().text.text = "Stage 3 Start!";
+            text.SetActive(true);
+            Invoke("textoff", 2f);
 
             for (int i = 0; i < 3; i++)
             {
@@ -97,6 +122,11 @@ public class Stage : MonoBehaviour
         {
             Debug.Log("클리어!");
             cul.SetActive(false);
+
+            canvas.GetComponent<TextScript>().text.text = "Clear!";
+            text.SetActive(true);
+            Invoke("textoff", 2f);
+
             Invoke("StageEnding", 2f);
             Invoke("Clear", 5f);
 
@@ -128,7 +158,22 @@ public class Stage : MonoBehaviour
     public void Fail() //실패 함수
     {
         Debug.Log("Fail");
+
+        canvas.GetComponent<TextScript>().text.text = "Fail...";
+        text.SetActive(true);
+        Invoke("textoff", 2f);
+
+        Invoke("end", 2f);
+    }
+
+    void end()
+    {
         Application.Quit();
         UnityEditor.EditorApplication.isPlaying = false;
+    }
+
+    void textoff()
+    {
+        text.SetActive(false);
     }
 }

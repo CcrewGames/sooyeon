@@ -15,6 +15,7 @@ public class PlayerScript : MonoBehaviour
 
     //난수 표시 관련
     public GameObject number;
+    private GameObject num;
     private GameObject num1;
     private GameObject num2;
     float dis = 0.35f;
@@ -42,6 +43,14 @@ public class PlayerScript : MonoBehaviour
 
         healmode = false;
 
+        num = Instantiate(number, new Vector2(transform.position.x, transform.position.y + 2), transform.rotation);
+        num1 = Instantiate(number, new Vector2(transform.position.x - dis, transform.position.y + 2), transform.rotation);
+        num2 = Instantiate(number, new Vector2(transform.position.x + dis, transform.position.y + 2), transform.rotation);
+
+        num.SetActive(false);
+        num1.SetActive(false);
+        num2.SetActive(false);
+
         animator = GetComponent<Animator>();
     }
 
@@ -58,18 +67,23 @@ public class PlayerScript : MonoBehaviour
         {
             int a = random / 10;
             int b = random % 10;
-            num1 = Instantiate(number, new Vector2(transform.position.x - dis, transform.position.y + 2), transform.rotation);
-            num2 = Instantiate(number, new Vector2(transform.position.x + dis, transform.position.y + 2), transform.rotation);
             SpriteRenderer spriteA = num1.GetComponent<SpriteRenderer>();
             spriteA.sprite = sprites[a];
             SpriteRenderer spriteB = num2.GetComponent<SpriteRenderer>();
             spriteB.sprite = sprites[b];
+
+            num.SetActive(false);
+            num1.SetActive(true);
+            num2.SetActive(true);
         }
         else if (random > 0 && random <= 9) //난수가 일의 자리일 때
         {
-            num1 = Instantiate(number, new Vector2(transform.position.x, transform.position.y + 2), transform.rotation);
-            SpriteRenderer spriteR = num1.GetComponent<SpriteRenderer>();
+            SpriteRenderer spriteR = num.GetComponent<SpriteRenderer>();
             spriteR.sprite = sprites[random];
+
+            num.SetActive(true);
+            num1.SetActive(false);
+            num2.SetActive(false);
         }
     }
 
@@ -101,15 +115,9 @@ public class PlayerScript : MonoBehaviour
                 if (punch.GetComponent<PunchScript>().result == random) //난수 = 결과 일치
                 {
                     heart += random;
-                    if (random > 9 && random <= 99)
-                    {
-                        Destroy(num1);
-                        Destroy(num2);
-                    }
-                    else if (random > 0 && random <= 9)
-                    {
-                        Destroy(num1);
-                    }
+                    num.SetActive(false);
+                    num1.SetActive(false);
+                    num2.SetActive(false);
                     random = 0;
                     punch.GetComponent<PunchScript>().re();
                     punch.GetComponent<PunchScript>().ScrollChange2();
@@ -117,15 +125,9 @@ public class PlayerScript : MonoBehaviour
                 else //난수 = 결과 불일치
                 {
                     Debug.Log("다시");
-                    if (random > 9 && random <= 99)
-                    {
-                        Destroy(num1);
-                        Destroy(num2);
-                    }
-                    else if (random > 0 && random <= 9)
-                    {
-                        Destroy(num1);
-                    }
+                    num.SetActive(false);
+                    num1.SetActive(false);
+                    num2.SetActive(false);
                     random = 0;
                     punch.GetComponent<PunchScript>().re();
                     punch.GetComponent<PunchScript>().ScrollChange2();

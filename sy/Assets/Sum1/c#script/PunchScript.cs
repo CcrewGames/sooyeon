@@ -11,7 +11,7 @@ public class PunchScript : MonoBehaviour
     public int sign;
     public int result;
 
-    int first;
+    public GameObject numberbar;
 
     public GameObject NumScollview; //숫자
     public GameObject CalculScollview; //연산기호
@@ -21,7 +21,6 @@ public class PunchScript : MonoBehaviour
         i = 0;
         sign = 0;
         result = 0;
-        first = 1;
         num = -1;
     }
 
@@ -47,53 +46,37 @@ public class PunchScript : MonoBehaviour
             i++;
             result = num;
             ScrollChange1();
+            numberbar.GetComponent<NumberBarScript>().nummaker();
         }
         else if(i == 1) //두번째 연산기호
         {
             attack[i] = sign;
             i++;
             ScrollChange2();
+            numberbar.GetComponent<NumberBarScript>().nummaker();
         }
         else if(i == 2) //세번째 숫자
         {
             attack[i] = num;
             ScrollChange1();
-            if (attack[1] == 1 && first == 1)
+            numberbar.GetComponent<NumberBarScript>().nummaker();
+            if (attack[1] == 1)
             {
                 result = attack[0] + attack[2];
-                first = 0;
             }
-            else if (attack[1] == 2 && first == 1)
+            else if (attack[1] == 2)
             {
                 result = attack[0] - attack[2];
-                first = 0;
             }
-            else if (attack[1] == 3 && first == 1)
+            else if (attack[1] == 3)
             {
                 result = attack[0] * attack[2];
-                first = 0;
             }
-            else if (attack[1] == 4 && first == 1)
+            else if (attack[1] == 4)
             {
                 result = attack[0] / attack[2];
-                first = 0;
             }
-            else if (attack[1] == 1 && first == 0)
-            {
-                result += attack[2];
-            }
-            else if (attack[1] == 2 && first == 0)
-            {
-                result -= attack[2];
-            }
-            else if (attack[1] == 3 && first == 0)
-            {
-                result *= attack[2];
-            }
-            else if (attack[1] == 4 && first == 0)
-            {
-                result /= attack[2];
-            }
+            attack[0] = result;
             i = 1;
         }
     }

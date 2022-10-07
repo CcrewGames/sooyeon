@@ -206,7 +206,7 @@ public class Stage1Monster : MonoBehaviour
         rigid.velocity = Vector2.zero;
         Vector2 JumpVelocity = new Vector2(3, 3);
         rigid.AddForce(JumpVelocity, ForceMode2D.Impulse);
-        GameObject.Find("Player").GetComponent<PlayerScript>().heart -= 5;
+        GameObject.Find("Player").GetComponent<PlayerScript>().heart -= 0;
 
         Invoke("Stop", 1f); // 1초 스턴
     }

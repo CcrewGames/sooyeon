@@ -6,6 +6,7 @@ using UnityEngine.UI;
 public class Buttonclick : MonoBehaviour
 {
     public GameObject punch;
+    public GameObject numberbar;
 
     public Button btn1, btn2, btn3, btn4, btn5, btn6, btn7, btn8, btn9, btn10, btn11, btn12, btn13; //버튼
 
