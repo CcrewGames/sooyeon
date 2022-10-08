@@ -31,8 +31,6 @@ public class Stage : MonoBehaviour
 
         text.SetActive(false);
 
-        punch.GetComponent<PunchScript>().re();
-
         stage = 1;
         stagemove =false;
         remain = 3;

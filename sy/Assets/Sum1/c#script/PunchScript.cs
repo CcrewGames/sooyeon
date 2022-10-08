@@ -22,10 +22,15 @@ public class PunchScript : MonoBehaviour
         sign = 0;
         result = 0;
         num = -1;
+
+        numberbar.GetComponent<NumberBarScript>().re();
     }
 
     void Start () //게임 시작 초기화
     {
+        i = 0;
+        sign = 0;
+        result = 0;
         num = -1;
     }
 

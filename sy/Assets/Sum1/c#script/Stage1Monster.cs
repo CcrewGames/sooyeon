@@ -131,19 +131,19 @@ public class Stage1Monster : MonoBehaviour
                     if (heart == 2)
                     {
                         SpriteRenderer sprite1 = hpbar3.GetComponent<SpriteRenderer>();
-                        sprite1.sprite = sprites[0];
+                        sprite1.sprite = sprites[1];
                         setting();
                     }
                     else if (heart == 1)
                     {
                         SpriteRenderer sprite2 = hpbar2.GetComponent<SpriteRenderer>();
-                        sprite2.sprite = sprites[0];
+                        sprite2.sprite = sprites[1];
                         setting();
                     }
                     else if (heart == 0)
                     {
                         SpriteRenderer sprite1 = hpbar1.GetComponent<SpriteRenderer>();
-                        sprite1.sprite = sprites[0];
+                        sprite1.sprite = sprites[1];
                     }
                     animator.SetFloat("hit", heart); //애니
                     GameObject.Find("Punch").GetComponent<PunchScript>().re();
@@ -160,19 +160,19 @@ public class Stage1Monster : MonoBehaviour
             if (heart == 2)
             {
                 SpriteRenderer sprite1 = hpbar3.GetComponent<SpriteRenderer>();
-                sprite1.sprite = sprites[0];
+                sprite1.sprite = sprites[1];
                 setting();
             }
             else if (heart == 1)
             {
                 SpriteRenderer sprite2 = hpbar2.GetComponent<SpriteRenderer>();
-                sprite2.sprite = sprites[0];
+                sprite2.sprite = sprites[1];
                 setting();
             }
             else if (heart == 0)
             {
                 SpriteRenderer sprite1 = hpbar1.GetComponent<SpriteRenderer>();
-                sprite1.sprite = sprites[0];
+                sprite1.sprite = sprites[1];
             }
             animator.SetFloat("hit", heart); //애니
             GameObject.Find("Punch").GetComponent<PunchScript>().re();
