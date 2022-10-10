@@ -6,4 +6,6 @@ using UnityEngine;
 public class TextScript : MonoBehaviour
 {
     public TextMeshProUGUI text;
+    public TextMeshProUGUI endingtext1;
+    public TextMeshProUGUI endingtext2;
 }

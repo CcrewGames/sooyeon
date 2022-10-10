@@ -8,7 +8,7 @@ public class Buttonclick : MonoBehaviour
     public GameObject punch;
     public GameObject numberbar;
 
-    public Button btn1, btn2, btn3, btn4, btn5, btn6, btn7, btn8, btn9, btn10, btn11, btn12, btn13; //버튼
+    public Button btn1, btn2, btn3, btn4, btn5, btn6, btn7, btn8, btn9, btn10, btn11, btn12, btn13, btn14; //버튼
 
     //숫자
     public GameObject num1;
@@ -25,6 +25,8 @@ public class Buttonclick : MonoBehaviour
     public GameObject sign2;
     public GameObject sign3;
     public GameObject sign4;
+
+    public GameObject re;
 
     //날려보내는 함수
     public IEnumerator flying(GameObject NumberImage){
@@ -53,6 +55,8 @@ public class Buttonclick : MonoBehaviour
         btn11.onClick.AddListener(() => btnprint(sign2));
         btn12.onClick.AddListener(() => btnprint(sign3));
         btn13.onClick.AddListener(() => btnprint(sign4));
+
+        btn14.onClick.AddListener(() => btnprint(re));
     }
 
     
@@ -109,6 +113,12 @@ public class Buttonclick : MonoBehaviour
         else if (Num == sign4)
         {
             punch.GetComponent<PunchScript>().sign = 4;
+        }
+        else if (Num == re)
+        {
+            punch.GetComponent<PunchScript>().re();
+            punch.GetComponent<PunchScript>().ScrollChange2();
+            numberbar.GetComponent<NumberBarScript>().re();
         }
         punch.GetComponent<PunchScript>().calculator(); //버튼 클릭할 때마다 펀치 스크립트에서 계산 함수 실행
     }

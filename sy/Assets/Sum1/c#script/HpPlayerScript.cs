@@ -6,7 +6,6 @@ using UnityEngine.UI;
 public class HpPlayerScript : MonoBehaviour
 {
     public int healthbar;
-    public int Image;
     
     public GameObject healthbarObject;
 
@@ -18,7 +17,7 @@ public class HpPlayerScript : MonoBehaviour
 
     void Update() 
     {
-        healthbar_player();
+        if(GameObject.Find("Player").GetComponent<PlayerScript>().heart >= 0)
+            healthbar_player();
     }
-
 }

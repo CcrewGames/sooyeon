@@ -24,12 +24,19 @@ public class Stage : MonoBehaviour
     public GameObject NumScollview; //숫자
     public GameObject CalculScollview; //연산기호
 
+    public GameObject Zero;
+    public GameObject Timeout;
+    public GameObject timebox;
+
     GameObject ForDestroy;
 
     public void Start() //게임 시작 초기화
     {
         NumScollview.SetActive(true);
         CalculScollview.SetActive(false);
+        Zero.SetActive(false);
+        Timeout.SetActive(false);
+        timebox.SetActive(false);
 
         text.SetActive(false);
 
@@ -111,7 +118,7 @@ public class Stage : MonoBehaviour
             cul.SetActive(true);
 
             canvas.GetComponent<TextScript>().text.text = "Stage 3 Start!";
-            canvas.GetComponent<TextScript>().text.fontSize = 10;
+            //canvas.GetComponent<TextScript>().text.fontSize = 10;
             text.SetActive(true);
             Invoke("textoff", 2f);
 
@@ -168,12 +175,7 @@ public class Stage : MonoBehaviour
     public void Fail() //실패 함수
     {
         Debug.Log("Fail");
-
-        canvas.GetComponent<TextScript>().text.text = "Fail...";
-        text.SetActive(true);
-        Invoke("textoff", 2f);
-
-        Invoke("end", 2f);
+        Invoke("end", 3f);
     }
 
     void end()
@@ -182,6 +184,10 @@ public class Stage : MonoBehaviour
         UnityEditor.EditorApplication.isPlaying = false;
     }
 
+    void textoff()
+    {
+        text.SetActive(false);
+    }
     void textgo()
     {
         

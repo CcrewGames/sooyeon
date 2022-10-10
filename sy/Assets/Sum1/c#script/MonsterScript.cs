@@ -99,7 +99,7 @@ public class MonsterScript : MonoBehaviour
     void FixedUpdate()
     {
         if (move == true)
-            rigid.velocity = new Vector2(-1, rigid.velocity.y); //몬스터에게 속도 줌
+            rigid.velocity = new Vector2(-3, rigid.velocity.y); //몬스터에게 속도 줌
     }
 
     public void Update()
@@ -202,7 +202,7 @@ public class MonsterScript : MonoBehaviour
         rigid.velocity = Vector2.zero;
         Vector2 JumpVelocity = new Vector2(3, 3);
         rigid.AddForce(JumpVelocity, ForceMode2D.Impulse);
-        GameObject.Find("Player").GetComponent<PlayerScript>().heart -= 0;
+        GameObject.Find("Player").GetComponent<PlayerScript>().heart -= 5;
         GameObject.Find("Player").GetComponent<Animator>().SetTrigger("hurt2");
 
         Invoke("Stop", 1f); // 1초 스턴

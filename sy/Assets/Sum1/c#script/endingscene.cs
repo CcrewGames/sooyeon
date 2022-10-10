@@ -12,12 +12,19 @@ public class endingscene : MonoBehaviour
     private GameObject endingstar3;
     private GameObject endingfailstar2;
     private GameObject endingfailstar3;
+    public GameObject Zero;
+    public GameObject canvas;
+    public GameObject Timeout;
+    public GameObject realTime;
+    public GameObject power;
+    public GameObject timebox;
 
     //시간 불러오기 
     
     public void endingStart()
     {
         float time = GameObject.Find("Timecount").GetComponent<Timecount>().countdownSeconds;
+        realTime.SetActive(false);  
 
         if ( 30 >= time && time > 0){//별 1개
             endingback = Resources.Load<GameObject>("ending/endingBackground");
@@ -58,6 +65,43 @@ public class endingscene : MonoBehaviour
             endingstar3 = Resources.Load<GameObject>("ending/realendingstar3");
             Instantiate(endingstar3, new Vector3(5,1.5f, -5), endingstar3.transform.rotation);
         }
+    }
+    public void Stagetimeout()
+    {
+        endingback = Resources.Load<GameObject>("ending/endingBackground");
+        Instantiate(endingback, new Vector3(-0.08f,-0.02f,-4f), Quaternion.identity); // 배경이미지 생성
+        endingPlayer = Resources.Load<GameObject>("ending/timeendingplayer1");
+        Instantiate(endingPlayer, new Vector3(-0.18f,-7.89f,-7.17f), Quaternion.identity); //주인공이미지생성
+        Zero.SetActive(true);    
+        timebox.SetActive(true);    
+        Timeout.SetActive(true);
+        realTime.SetActive(false);  
+        power.SetActive(false);  
+        StartCoroutine(BlinkText());
+    }
+
+    public IEnumerator BlinkText(){
+        while (true) {
+            Zero.SetActive(false);    
+            yield return new WaitForSeconds (0.4f);
+            Zero.SetActive(true);    
+            yield return new WaitForSeconds (0.4f);
+        }
+    }  
+
+    public void Playerpowerend(){
+        endingback = Resources.Load<GameObject>("ending/endingBackground");
+        Instantiate(endingback, new Vector3(-0.08f,-0.02f,-4f), Quaternion.identity); // 배경이미지 생성
+        endingPlayer = Resources.Load<GameObject>("ending/timeendingplayer1");
+        Instantiate(endingPlayer, new Vector3(-0.18f,-7.89f,-7.17f), Quaternion.identity); //주인공이미지생성
+        canvas.GetComponent<TextScript>().endingtext1.text = "     Power";
+        canvas.GetComponent<TextScript>().endingtext2.text = "     0";
+        Zero.SetActive(true);    
+        timebox.SetActive(true);    
+        Timeout.SetActive(true);
+        realTime.SetActive(false);  
+        power.SetActive(false);  
+        StartCoroutine(BlinkText());
     }
 }
   

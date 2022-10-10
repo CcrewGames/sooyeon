@@ -20,6 +20,8 @@ public class PlayerScript : MonoBehaviour
     private GameObject num2;
     float dis = 0.35f;
 
+    float x1 = -6.6f;
+
     private GameObject target; //마우스 클릭 확인용 변수
 
     public Animator animator;
@@ -89,10 +91,11 @@ public class PlayerScript : MonoBehaviour
 
     void Update()
     {
-        if (heart == 0) //실패
+        if (heart <= 0) //실패
         {
             Destroy(gameObject);
             GameObject.Find("Stage").GetComponent<Stage>().Fail();
+            GameObject.Find("ending").GetComponent<endingscene>().Playerpowerend();
         }
 
         if (move == 1)
@@ -109,13 +112,13 @@ public class PlayerScript : MonoBehaviour
             {
                 healmode = true;
                 setting();
+                animator.SetBool("heal", true);
             }
             else if (target == this.gameObject && healmode == true) //힐모드 종료
             {
                 if (punch.GetComponent<PunchScript>().result == random) //난수 = 결과 일치
                 {
                     heart += random;
-                    animator.SetTrigger("heal");
                     num.SetActive(false);
                     num1.SetActive(false);
                     num2.SetActive(false);
@@ -134,6 +137,7 @@ public class PlayerScript : MonoBehaviour
                     punch.GetComponent<PunchScript>().ScrollChange2();
                 }
                 healmode = false;
+                animator.SetBool("heal", false);
             }
         }
 
@@ -153,7 +157,7 @@ public class PlayerScript : MonoBehaviour
     void Re() //원위치로 이동 함수
     {
         move = 2;
-        transform.position = Vector3.Lerp(transform.position, new Vector3(-7, transform.position.y, 0), Time.deltaTime * speed);
+        transform.position = Vector3.Lerp(transform.position, new Vector3(x1, transform.position.y, 0), Time.deltaTime * speed);
         animator.SetBool("walk", true);
         Invoke("Next", 5f);
     }

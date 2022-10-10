@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 978beec9c5640476e8a549e06ff0c315
+guid: 58e611f8444084a1199bee4cbfe3ef10
 TrueTypeFontImporter:
   externalObjects: {}
   serializedVersion: 4
@@ -9,9 +9,8 @@ TrueTypeFontImporter:
   characterPadding: 1
   includeFontData: 1
   fontNames:
-  - CookieRun
-  fallbackFontReferences:
-  - {fileID: 12800000, guid: 452349bd54aca4fbc859accc2693c5c1, type: 3}
+  - OK DDUNG
+  fallbackFontReferences: []
   customCharacters: 
   fontRenderingMode: 0
   ascentCalculationMode: 1

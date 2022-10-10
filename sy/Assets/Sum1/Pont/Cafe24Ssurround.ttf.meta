@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 452349bd54aca4fbc859accc2693c5c1
+guid: c8dc0b3995d114305b7a2aff5b63760c
 TrueTypeFontImporter:
   externalObjects: {}
   serializedVersion: 4
@@ -9,7 +9,7 @@ TrueTypeFontImporter:
   characterPadding: 1
   includeFontData: 1
   fontNames:
-  - CookieRun
+  - Cafe24 Ssurround
   fallbackFontReferences: []
   customCharacters: 
   fontRenderingMode: 0
