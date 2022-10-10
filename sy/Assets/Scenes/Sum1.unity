@@ -385,7 +385,7 @@ MonoBehaviour:
   m_fontColor32:
     serializedVersion: 2
     rgba: 4292710912
-  m_fontColor: {r: 0, g: 0.57254905, b: 0.86666673, a: 1}
+  m_fontColor: {r: 0.37254903, g: 0.48627454, b: 0.8705883, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -402,8 +402,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 2
-  m_fontSizeBase: 2
+  m_fontSize: 1.5
+  m_fontSizeBase: 1.5
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -803,9 +803,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   remain: 3
   cul: {fileID: 1541377216}
-  Stage1Moster: {fileID: 4532252063502814962, guid: 2e1501ae4ecb0c04598c77bfe32f4fde, type: 3}
-  Stage2Moster: {fileID: 6172786553322974575, guid: 5c3622e1b254a384b87dba4c0dea12a8, type: 3}
-  Stage3Moster: {fileID: 2939068731140345439, guid: 6801ec32f852dc44793456037fdec85f, type: 3}
+  monster: {fileID: 4532252063502814962, guid: 2e1501ae4ecb0c04598c77bfe32f4fde, type: 3}
   punch: {fileID: 882607787}
   canvas: {fileID: 426157319}
   text: {fileID: 98279072}
@@ -2017,7 +2015,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 722660899}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 7, y: 4, z: 0}
+  m_LocalPosition: {x: 0, y: 4, z: 0}
   m_LocalScale: {x: 1.2, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -2771,7 +2769,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 7, y: 4}
+  m_AnchoredPosition: {x: 0, y: 4}
   m_SizeDelta: {x: 3.4414, y: 1.5772}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1234916623

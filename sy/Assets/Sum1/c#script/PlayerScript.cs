@@ -6,7 +6,7 @@ public class PlayerScript : MonoBehaviour
 {
     public int heart; //플레이어 체력
     public int move; //플레이어 이동 변수
-    float speed = 4f; //플레이어 이동속도
+    float speed = 1f; //플레이어 이동속도
 
     public GameObject punch;
 

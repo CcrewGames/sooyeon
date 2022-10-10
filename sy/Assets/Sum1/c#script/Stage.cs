@@ -11,13 +11,15 @@ public class Stage : MonoBehaviour
 
     public GameObject cul; //플레이어 머리 위 무기
 
-    public GameObject Stage1Moster; //단계별 몬스터 소환용
-    public GameObject Stage2Moster;
-    public GameObject Stage3Moster;
+    public GameObject monster;
 
     public GameObject punch;
     public GameObject canvas;
     public GameObject text;
+
+    float speed = 2f;
+    bool textmove1;
+    bool textmove2;
 
     public GameObject NumScollview; //숫자
     public GameObject CalculScollview; //연산기호
@@ -34,6 +36,9 @@ public class Stage : MonoBehaviour
         stage = 1;
         stagemove =false;
         remain = 3;
+
+        textmove1 = false;
+        textmove2 = false;
     }
 
     void Update()
@@ -49,7 +54,7 @@ public class Stage : MonoBehaviour
 
             for (int i = 0; i < 3; i++)
             {
-                Instantiate(Stage1Moster, new Vector3(12 + i, 3, 0), Stage1Moster.transform.rotation);
+                Instantiate(monster, new Vector3(12 + i, 3, 0), monster.transform.rotation);
             }
             stagemove = true;
         }
@@ -80,7 +85,7 @@ public class Stage : MonoBehaviour
 
             for (int i = 0; i < 3; i++)
             {
-                Instantiate(Stage2Moster, new Vector3(12 + i, 3, 0), Stage2Moster.transform.rotation);
+                Instantiate(monster, new Vector3(12 + i, 3, 0), monster.transform.rotation);
             }
             stagemove = true;
         }
@@ -106,12 +111,13 @@ public class Stage : MonoBehaviour
             cul.SetActive(true);
 
             canvas.GetComponent<TextScript>().text.text = "Stage 3 Start!";
+            canvas.GetComponent<TextScript>().text.fontSize = 10;
             text.SetActive(true);
             Invoke("textoff", 2f);
 
             for (int i = 0; i < 3; i++)
             {
-                Instantiate(Stage3Moster, new Vector3(12 + i, 3, 0), Stage3Moster.transform.rotation);
+                Instantiate(monster, new Vector3(12 + i, 3, 0), monster.transform.rotation);
             }
             stagemove = true;
         }
@@ -121,7 +127,7 @@ public class Stage : MonoBehaviour
             Debug.Log("클리어!");
             cul.SetActive(false);
 
-            canvas.GetComponent<TextScript>().text.text = "Clear!";
+            canvas.GetComponent<TextScript>().text.text = "All Clear!";
             text.SetActive(true);
             Invoke("textoff", 2f);
 
@@ -130,6 +136,12 @@ public class Stage : MonoBehaviour
 
             remain = 3; //얘는 남은 몬스터 수 확인용이 아니라 한 번만 실행되도록 하기 위함
         }
+
+        if(textmove1 == true)
+            text.transform.position = Vector3.Lerp(text.transform.position, new Vector3(6, 4, 0), Time.deltaTime * speed);
+        else if(textmove2 == true)
+            text.transform.position = Vector3.Lerp(text.transform.position, new Vector3(0, 0, 0), Time.deltaTime * speed);
+
     }
 
     void StageMove() //단계 사이 이동 시간 확보용 함수
@@ -170,7 +182,11 @@ public class Stage : MonoBehaviour
         UnityEditor.EditorApplication.isPlaying = false;
     }
 
-    void textoff()
+    void textgo()
+    {
+        
+    }
+    void textre()
     {
         text.SetActive(false);
     }
