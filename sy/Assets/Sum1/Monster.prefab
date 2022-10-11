@@ -150,6 +150,7 @@ MonoBehaviour:
   random: 0
   number: {fileID: 2687332880628242228, guid: ceaf0a46003de7a4f8ae9c798b98a15c, type: 3}
   circle: {fileID: 520527873553499112, guid: 0c3c023e52808a043947fdebbf224860, type: 3}
+  animator: {fileID: 0}
 --- !u!95 &4532252063502814965
 Animator:
   serializedVersion: 4
@@ -160,7 +161,7 @@ Animator:
   m_GameObject: {fileID: 4532252063502814962}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: b5e2167d9206a442bbe1699a7e75134a, type: 2}
+  m_Controller: {fileID: 9100000, guid: 4748b16d5f8c34aa492475c2c50e44fc, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0

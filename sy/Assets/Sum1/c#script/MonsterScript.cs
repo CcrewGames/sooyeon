@@ -26,6 +26,7 @@ public class MonsterScript : MonoBehaviour
     private GameObject target; //마우스 클릭 확인용 변수
 
     Rigidbody2D rigid;
+    public Animator animator; //애니
 
     void CastRay() //마우스 클릭 확인용 함수
     {
@@ -94,12 +95,13 @@ public class MonsterScript : MonoBehaviour
     void Awake() //start()보다 먼저 호출
     {
         rigid = GetComponent<Rigidbody2D>();
+        animator = GetComponent<Animator>(); //애니
     }
 
     void FixedUpdate()
     {
         if (move == true)
-            rigid.velocity = new Vector2(-3, rigid.velocity.y); //몬스터에게 속도 줌
+            rigid.velocity = new Vector2(-1, rigid.velocity.y); //몬스터에게 속도 줌
     }
 
     public void Update()
@@ -143,6 +145,7 @@ public class MonsterScript : MonoBehaviour
                         SpriteRenderer sprite1 = hpbar1.GetComponent<SpriteRenderer>();
                         sprite1.sprite = sprites[1];
                     }
+                    animator.SetInteger("hit", heart); //애니
                     GameObject.Find("Punch").GetComponent<PunchScript>().re();
                     GameObject.Find("Punch").GetComponent<PunchScript>().ScrollChange2();
                 }
@@ -171,6 +174,7 @@ public class MonsterScript : MonoBehaviour
                 SpriteRenderer sprite1 = hpbar1.GetComponent<SpriteRenderer>();
                 sprite1.sprite = sprites[1];
             }
+            animator.SetInteger("hit", heart); //애니
             GameObject.Find("Punch").GetComponent<PunchScript>().re();
             GameObject.Find("Punch").GetComponent<PunchScript>().ScrollChange2();
         }
@@ -202,7 +206,7 @@ public class MonsterScript : MonoBehaviour
         rigid.velocity = Vector2.zero;
         Vector2 JumpVelocity = new Vector2(3, 3);
         rigid.AddForce(JumpVelocity, ForceMode2D.Impulse);
-        GameObject.Find("Player").GetComponent<PlayerScript>().heart -= 5;
+        GameObject.Find("Player").GetComponent<PlayerScript>().heart -= 3;
         GameObject.Find("Player").GetComponent<Animator>().SetTrigger("hurt2");
 
         Invoke("Stop", 1f); // 1초 스턴
@@ -210,7 +214,7 @@ public class MonsterScript : MonoBehaviour
 
     void OnDamaged() //피격 함수
     {
-        if(heart != 0)
+        if (heart != 0)
         {
             CancelInvoke("Stop");
             move = false;
@@ -228,7 +232,7 @@ public class MonsterScript : MonoBehaviour
             Vector2 JumpVelocity = new Vector2(2, 2);
             rigid.AddForce(JumpVelocity, ForceMode2D.Impulse);
 
-            Invoke("Destroy", 0.5f);
+            Invoke("Destroy", 2.2f);
         }
     }
 

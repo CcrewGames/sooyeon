@@ -34,15 +34,6 @@ public class PunchScript : MonoBehaviour
         num = -1;
     }
 
-    void Update() //계산 초기화 실행 함수
-    {
-        if (Input.GetKeyDown(KeyCode.D))
-        {
-            re();
-            ScrollChange2();
-        }
-    }
-
     public void calculator () //계산 함수
     {
         if(i == 0) //첫번째 숫자

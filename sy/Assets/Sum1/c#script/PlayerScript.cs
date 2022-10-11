@@ -153,7 +153,7 @@ public class PlayerScript : MonoBehaviour
 
     void Run() //중간으로 이동 함수
     {
-        transform.position = Vector3.Lerp(transform.position, new Vector3(0, transform.position.y, 0), Time.deltaTime * speed);
+        transform.position = Vector3.MoveTowards(transform.position, new Vector3(0, transform.position.y, 0), Time.deltaTime * speed);
         animator.SetBool("walk", true);
         Invoke("Re", 5f);
     }
@@ -161,7 +161,7 @@ public class PlayerScript : MonoBehaviour
     void Re() //원위치로 이동 함수
     {
         move = 2;
-        transform.position = Vector3.Lerp(transform.position, new Vector3(x1, transform.position.y, 0), Time.deltaTime * speed);
+        transform.position = Vector3.MoveTowards(transform.position, new Vector3(x1, transform.position.y, 0), Time.deltaTime * speed);
         animator.SetBool("walk", true);
         Invoke("Next", 5f);
     }
