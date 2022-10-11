@@ -114,12 +114,16 @@ public class Buttonclick : MonoBehaviour
         {
             punch.GetComponent<PunchScript>().sign = 4;
         }
-        else if (Num == re)
+
+        if (Num == re)
         {
             punch.GetComponent<PunchScript>().re();
             punch.GetComponent<PunchScript>().ScrollChange2();
             numberbar.GetComponent<NumberBarScript>().re();
         }
-        punch.GetComponent<PunchScript>().calculator(); //버튼 클릭할 때마다 펀치 스크립트에서 계산 함수 실행
+        else
+        {
+            punch.GetComponent<PunchScript>().calculator(); //버튼 클릭할 때마다 펀치 스크립트에서 계산 함수 실행
+        }
     }
 }

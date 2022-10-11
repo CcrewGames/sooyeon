@@ -22,6 +22,8 @@ public class PlayerScript : MonoBehaviour
 
     float x1 = -6.6f;
 
+    bool end;
+
     private GameObject target; //마우스 클릭 확인용 변수
 
     public Animator animator;
@@ -54,6 +56,8 @@ public class PlayerScript : MonoBehaviour
         num2.SetActive(false);
 
         animator = GetComponent<Animator>();
+
+        end = false;
     }
 
     void setting() //난수 설정
@@ -91,9 +95,9 @@ public class PlayerScript : MonoBehaviour
 
     void Update()
     {
-        if (heart <= 0) //실패
+        if (heart <= 0 && end == false) //실패
         {
-            Destroy(gameObject);
+            end = true;
             GameObject.Find("Stage").GetComponent<Stage>().Fail();
             GameObject.Find("ending").GetComponent<endingscene>().Playerpowerend();
         }
