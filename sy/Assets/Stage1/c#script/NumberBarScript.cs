@@ -25,6 +25,7 @@ public class NumberBarScript : MonoBehaviour
     float time = 0.2f;
     float time1 = 0.2f;
 
+    float x0 = -5.5f;
     float height = 2.5f;
 
     Vector2 MousePosition;
@@ -136,33 +137,33 @@ public class NumberBarScript : MonoBehaviour
     {
         if (punch.GetComponent<PunchScript>().result > 99 && punch.GetComponent<PunchScript>().result <= 999)
         {
-            num1.transform.position = Vector3.Lerp(num1.transform.position, new Vector3(-5 + 2 * dis, height, -1), Time.deltaTime * speed);
+            num1.transform.position = Vector3.Lerp(num1.transform.position, new Vector3(x0 + 2 * dis, height, -1), Time.deltaTime * speed);
         }
         else if (punch.GetComponent<PunchScript>().result > 9 && punch.GetComponent<PunchScript>().result <= 99)
         {
-            num1.transform.position = Vector3.Lerp(num1.transform.position, new Vector3(-5 + dis, height, -1), Time.deltaTime * speed);
+            num1.transform.position = Vector3.Lerp(num1.transform.position, new Vector3(x0 + dis, height, -1), Time.deltaTime * speed);
         }
-        else if (punch.GetComponent<PunchScript>().result > 0 && punch.GetComponent<PunchScript>().result <= 9)
+        else if (punch.GetComponent<PunchScript>().result >= 0 && punch.GetComponent<PunchScript>().result <= 9)
         {
-            num1.transform.position = Vector3.Lerp(num1.transform.position, new Vector3(-5, height, -1), Time.deltaTime * speed);
+            num1.transform.position = Vector3.Lerp(num1.transform.position, new Vector3(x0, height, -1), Time.deltaTime * speed);
         }
-        endnum.transform.position = Vector3.Lerp(endnum.transform.position, new Vector3(-5, height, -1), Time.deltaTime * speed);
+        endnum.transform.position = Vector3.Lerp(endnum.transform.position, new Vector3(x0, height, -1), Time.deltaTime * speed);
     }
     void Stop1()
     {
         if (punch.GetComponent<PunchScript>().result > 99 && punch.GetComponent<PunchScript>().result <= 999)
         {
-            num1.transform.position = new Vector3(-5 + 2 * dis, height, -1);
+            num1.transform.position = new Vector3(x0 + 2 * dis, height, -1);
         }
         else if (punch.GetComponent<PunchScript>().result > 9 && punch.GetComponent<PunchScript>().result <= 99)
         {
-            num1.transform.position = new Vector3(-5 + dis, height, -1);
+            num1.transform.position = new Vector3(x0 + dis, height, -1);
         }
-        else if (punch.GetComponent<PunchScript>().result > 0 && punch.GetComponent<PunchScript>().result <= 9)
+        else if (punch.GetComponent<PunchScript>().result >= 0 && punch.GetComponent<PunchScript>().result <= 9)
         {
-            num1.transform.position = new Vector3(-5, height, -1);
+            num1.transform.position = new Vector3(x0, height, -1);
         }
-        endnum.transform.position = new Vector3(-5, height, -1);
+        endnum.transform.position = new Vector3(x0, height, -1);
 
         move1 = false;
         num1.SetActive(false);
@@ -197,7 +198,7 @@ public class NumberBarScript : MonoBehaviour
             num2.SetActive(true);
             num3.SetActive(false);
         }
-        else if (punch.GetComponent<PunchScript>().result > 0 && punch.GetComponent<PunchScript>().result <= 9)
+        else if (punch.GetComponent<PunchScript>().result >= 0 && punch.GetComponent<PunchScript>().result <= 9)
         {
             num1.SetActive(true);
             num2.SetActive(false);
@@ -209,30 +210,30 @@ public class NumberBarScript : MonoBehaviour
     {
         if (punch.GetComponent<PunchScript>().result > 99 && punch.GetComponent<PunchScript>().result <= 999)
         {
-            num1.transform.position = Vector3.Lerp(num1.transform.position, new Vector3(-6 + 2 * dis, height, -1), Time.deltaTime * speed);
+            num1.transform.position = Vector3.Lerp(num1.transform.position, new Vector3(x0 - 1 + 2 * dis, height, -1), Time.deltaTime * speed);
         }
         else if (punch.GetComponent<PunchScript>().result > 9 && punch.GetComponent<PunchScript>().result <= 99)
         {
-            num1.transform.position = Vector3.Lerp(num1.transform.position, new Vector3(-6 + dis, height, -1), Time.deltaTime * speed);
+            num1.transform.position = Vector3.Lerp(num1.transform.position, new Vector3(x0 - 1 + dis, height, -1), Time.deltaTime * speed);
         }
-        else if (punch.GetComponent<PunchScript>().result > 0 && punch.GetComponent<PunchScript>().result <= 9)
+        else if (punch.GetComponent<PunchScript>().result >= 0 && punch.GetComponent<PunchScript>().result <= 9)
         {
-            num1.transform.position = Vector3.Lerp(num1.transform.position, new Vector3(-6, height, -1), Time.deltaTime * speed);
+            num1.transform.position = Vector3.Lerp(num1.transform.position, new Vector3(x0 - 1, height, -1), Time.deltaTime * speed);
         }
     }
     void Stop2()
     {
         if (punch.GetComponent<PunchScript>().result > 99 && punch.GetComponent<PunchScript>().result <= 999)
         {
-            num1.transform.position = new Vector3(-6 + 2 * dis, height, -1);
+            num1.transform.position = new Vector3(x0 - 1 + 2 * dis, height, -1);
         }
         else if (punch.GetComponent<PunchScript>().result > 9 && punch.GetComponent<PunchScript>().result <= 99)
         {
-            num1.transform.position = new Vector3(-6 + dis, height, -1);
+            num1.transform.position = new Vector3(x0 - 1 + dis, height, -1);
         }
-        else if (punch.GetComponent<PunchScript>().result > 0 && punch.GetComponent<PunchScript>().result <= 9)
+        else if (punch.GetComponent<PunchScript>().result >= 0 && punch.GetComponent<PunchScript>().result <= 9)
         {
-            num1.transform.position = new Vector3(-6, height, -1);
+            num1.transform.position = new Vector3(x0 - 1, height, -1);
         }
         move2 = false;
     }
@@ -241,30 +242,30 @@ public class NumberBarScript : MonoBehaviour
     {
         if (j == 0)
         {
-            num1.transform.position = Vector3.Slerp(num1.transform.position, new Vector3(-5, height, -1), Time.deltaTime * 8);
+            num1.transform.position = Vector3.Slerp(num1.transform.position, new Vector3(x0, height, -1), Time.deltaTime * 8);
         }
         else if (j == 1)
         {
-            sign.transform.position = Vector3.Slerp(sign.transform.position, new Vector3(-5, height, -1), Time.deltaTime * 8);
+            sign.transform.position = Vector3.Slerp(sign.transform.position, new Vector3(x0, height, -1), Time.deltaTime * 8);
         }
         else if (j == 2)
         {
-            endnum.transform.position = Vector3.Slerp(endnum.transform.position, new Vector3(-4, height, -1), Time.deltaTime * 8);
+            endnum.transform.position = Vector3.Slerp(endnum.transform.position, new Vector3(x0 + 1, height, -1), Time.deltaTime * 8);
         }
     }
     void Stop3()
     {
         if (j == 0)
         {
-            num1.transform.position = new Vector3(-5, height, -1);
+            num1.transform.position = new Vector3(x0, height, -1);
         }
         else if (j == 1)
         {
-            sign.transform.position = new Vector3(-5, height, -1);
+            sign.transform.position = new Vector3(x0, height, -1);
         }
         else if (j == 2)
         {
-            endnum.transform.position = new Vector3(-4, height, -1);
+            endnum.transform.position = new Vector3(x0 + 1, height, -1);
         }
         move3 = false;
         j++;

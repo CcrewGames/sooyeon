@@ -9,8 +9,7 @@ public class Stage : MonoBehaviour
     public int fortime;
 
     public int remain; //단계별 남은 몬스터 수 확인용 변수
-
-    public GameObject cul; //플레이어 머리 위 무기
+    
     public GameObject canvas;
     public GameObject text;
 
@@ -64,13 +63,15 @@ public class Stage : MonoBehaviour
             fortime = 1;
             Debug.Log("1단계 시작");
             punch.GetComponent<PunchScript>().ScrollChange2();
+            punch.GetComponent<PunchScript>().punchmode = 1;
+            punch.GetComponent<PunchScript>().PunchMode();
+
             mon1.transform.position = new Vector3(x1, y1, -1);
             mon2.transform.position = new Vector3(x2, y2, -1);
             mon3.transform.position = new Vector3(x3, y3, -1);
             mon1.SetActive(true);
             mon2.SetActive(true);
             mon3.SetActive(true);
-            cul.SetActive(true);
 
             canvas.GetComponent<TextScript>().text.text = "Stage 1 Start!";
             text.SetActive(true);
@@ -83,8 +84,8 @@ public class Stage : MonoBehaviour
         {
             fortime = 0;
             Debug.Log("1단계 클리어");
-            punch.GetComponent<PunchScript>().ScrollChange3();
-            cul.SetActive(false);
+            punch.GetComponent<PunchScript>().punchmode = 0;
+            punch.GetComponent<PunchScript>().PunchMode();
 
             canvas.GetComponent<TextScript>().text.text = "Stage 1 Clear!";
             text.SetActive(true);
@@ -101,6 +102,9 @@ public class Stage : MonoBehaviour
             fortime = 1;
             Debug.Log("2단계 시작");
             punch.GetComponent<PunchScript>().ScrollChange2();
+            punch.GetComponent<PunchScript>().punchmode = 1;
+            punch.GetComponent<PunchScript>().PunchMode();
+
             mon1.transform.position = new Vector3(x1, y1, -1);
             mon2.transform.position = new Vector3(x2, y2, -1);
             mon3.transform.position = new Vector3(x3, y3, -1);
@@ -110,7 +114,6 @@ public class Stage : MonoBehaviour
             mon1.SetActive(true);
             mon2.SetActive(true);
             mon3.SetActive(true);
-            cul.SetActive(true);
 
             canvas.GetComponent<TextScript>().text.text = "Stage 2 Start!";
             text.SetActive(true);
@@ -123,8 +126,8 @@ public class Stage : MonoBehaviour
         {
             fortime = 0;
             Debug.Log("2단계 클리어");
-            punch.GetComponent<PunchScript>().ScrollChange3();
-            cul.SetActive(false);
+            punch.GetComponent<PunchScript>().punchmode = 0;
+            punch.GetComponent<PunchScript>().PunchMode();
 
             canvas.GetComponent<TextScript>().text.text = "Stage 2 Clear!";
             text.SetActive(true);
@@ -141,6 +144,9 @@ public class Stage : MonoBehaviour
             fortime = 1;
             Debug.Log("3단계 시작");
             punch.GetComponent<PunchScript>().ScrollChange2();
+            punch.GetComponent<PunchScript>().punchmode = 1;
+            punch.GetComponent<PunchScript>().PunchMode();
+
             mon1.transform.position = new Vector3(x1, y1, -1);
             mon2.transform.position = new Vector3(x2, y2, -1);
             mon3.transform.position = new Vector3(x3, y3, -1);
@@ -150,7 +156,6 @@ public class Stage : MonoBehaviour
             mon1.SetActive(true);
             mon2.SetActive(true);
             mon3.SetActive(true);
-            cul.SetActive(true);
 
             canvas.GetComponent<TextScript>().text.text = "Stage 3 Start!";
             //canvas.GetComponent<TextScript>().text.fontSize = 10;
@@ -164,8 +169,8 @@ public class Stage : MonoBehaviour
         {
             fortime = 0;
             Debug.Log("클리어!");
-            punch.GetComponent<PunchScript>().ScrollChange3();
-            cul.SetActive(false);
+            punch.GetComponent<PunchScript>().punchmode = 0;
+            punch.GetComponent<PunchScript>().PunchMode();
 
             canvas.GetComponent<TextScript>().text.text = "All Clear!";
             text.SetActive(true);

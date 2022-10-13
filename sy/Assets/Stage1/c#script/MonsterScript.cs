@@ -6,15 +6,29 @@ public class MonsterScript : MonoBehaviour
 {
     int heart; //몬스터 체력
 
-    private bool move; //몬스터 이동 변수
-    float speed = 1f; //몬스터 이동 속도
-    float x1 = -10f;
+    private bool move; //몬스터 이동 변수1
+    private int movey; //몬스터 이동 변수2
+    private bool tremble; //몬스터 ㅂㄷㅂㄷ 변수
+    bool attack; //몬스터 공격 변수
+    bool damaged; //몬스터 피격 변수
 
-    private int movey; //몬스터 둥둥 변수
-    float speed1 = 0.35f; //몬스터 둥둥 속도
+    //몬스터 이동 관련
+    float speed = 1f;
+    float xm = -5f;
+
+    //몬스터 둥둥 관련
+    float speed1 = 0.35f;
     float y0;
     float y1;
-    Vector3 st;
+
+    //몬스터 ㅂㄷㅂㄷ 관련
+    float speed2 = 3f;
+    float time;
+    float x0;
+    float x1;
+
+    //몬스터 피격 관련
+    float speed3 = 3;
 
     public int random;
 
@@ -53,10 +67,14 @@ public class MonsterScript : MonoBehaviour
         }
     }
 
-    void Start() //스폰 초기화
+    void Start() //스폰
     {
         move = true;
         movey = 1;
+        tremble = false;
+        attack = false;
+        damaged = false;
+
         y0 = transform.position.y;
         y1 = y0 + 0.3f;
 
@@ -77,10 +95,14 @@ public class MonsterScript : MonoBehaviour
         HeartMaker();
     }
 
-    public void respawn() //스폰 초기화
+    public void respawn() //리스폰
     {
         move = true;
         movey = 1;
+        tremble = false;
+        attack = false;
+        damaged = false;
+
         y0 = transform.position.y;
         y1 = y0 + 0.3f;
 
@@ -95,7 +117,7 @@ public class MonsterScript : MonoBehaviour
 
     void setting() //난수 설정
     {
-        random = Random.Range(1, 30);
+        random = Random.Range(1, 10);
         nummaker();
     }
 
@@ -130,18 +152,20 @@ public class MonsterScript : MonoBehaviour
     {
         if (move == true)
         {
-            transform.position = Vector2.MoveTowards(transform.position, new Vector2(x1, transform.position.y), Time.deltaTime * speed);
+            transform.position = Vector2.MoveTowards(transform.position, new Vector2(xm, transform.position.y), Time.deltaTime * speed);
             if (movey == 1)
                 transform.position = transform.position + transform.up * speed1 * Time.deltaTime;
             else if (movey == 2)
                 transform.position = transform.position - transform.up * speed1 * Time.deltaTime;
         }
 
-        if(movey == 3)
-            gameObject.transform.position = Vector3.Lerp(transform.position, st + new Vector3(3, 0, 0), Time.deltaTime * 2);
+        if (movey == 3) //ㅂㄷㅂㄷ
+            transform.position = new Vector2(transform.position.x - speed2 * Time.deltaTime, transform.position.y);
+        else if (movey == 4) //ㅂㄷㅂㄷ
+            transform.position = new Vector2(transform.position.x + speed2 * Time.deltaTime, transform.position.y);
 
-        if (movey == 4)
-            gameObject.transform.position = Vector3.Lerp(transform.position, st + new Vector3(2, 0, 0), Time.deltaTime * 1);
+        if (movey == 5) //맞음!
+            transform.position = new Vector2(transform.position.x + speed3 * Time.deltaTime, transform.position.y);
     }
 
     public void Update()
@@ -150,6 +174,21 @@ public class MonsterScript : MonoBehaviour
             movey = 2;
         else if (transform.position.y <= y0)
             movey = 1;
+
+        if (tremble == true)
+        {
+            if (transform.position.x >= x1)
+                movey = 3;
+            else if (transform.position.x <= x0)
+                movey = 4;
+        }
+
+        if (transform.position.x >= xm && transform.position.x < xm + 0.1 && attack == false)
+        {
+            move = false;
+            Attack();
+            attack = true;
+        }
 
         if (heart == 0) //UI 비활성화
         {
@@ -166,7 +205,7 @@ public class MonsterScript : MonoBehaviour
         {
             CastRay();
 
-            if (target == this.gameObject)
+            if (target == this.gameObject && GameObject.Find("Punch").GetComponent<PunchScript>().punchmode == 1 && damaged != true)
             {
                 if (GameObject.Find("Punch").GetComponent<PunchScript>().result == random) //난수 = 결과 일치
                 {
@@ -178,10 +217,14 @@ public class MonsterScript : MonoBehaviour
                     GameObject.Find("Punch").GetComponent<PunchScript>().re();
                     GameObject.Find("Punch").GetComponent<PunchScript>().ScrollChange2();
                 }
+                else
+                {
+                    Tremble();
+                }
             }
         }
 
-        if (Input.GetKeyDown(KeyCode.Space)) //임의 피격
+        if (Input.GetKeyDown(KeyCode.Space) && GameObject.Find("Punch").GetComponent<PunchScript>().punchmode == 1) //임의 피격
         {
             heart--;
             HeartMaker();
@@ -231,24 +274,14 @@ public class MonsterScript : MonoBehaviour
         }
     }
 
-    void OnCollisionEnter2D(Collision2D collision)
+    void Tremble() //덜덜 함수
     {
-        if (collision.gameObject.name == "Player")
-        {
-            Attack();
-            Debug.Log("충돌");
-        }
-    }
-
-    void Attack() //공격 함수
-    {
+        CancelInvoke("Stop");
         move = false;
-        movey = 4;
-
-        GameObject.Find("Player").GetComponent<PlayerScript>().heart -= 3;
-        GameObject.Find("Player").GetComponent<Animator>().SetTrigger("hurt2");
-
-        Invoke("Stop", 1f); // 1초 스턴
+        x0 = gameObject.transform.position.x;
+        x1 = x0 + 0.1f;
+        tremble = true;
+        Invoke("Stop", 0.35f);
     }
 
     void OnDamaged() //피격 함수
@@ -257,30 +290,46 @@ public class MonsterScript : MonoBehaviour
         {
             CancelInvoke("Stop");
             move = false;
-            st = transform.position;
-            movey = 3;
+            movey = 5;
+            damaged = true;
 
-            Invoke("Stop", 2f); //2초 스턴
+            Invoke("Stop", 1.2f);
         }
         else
         {
             CancelInvoke("Stop");
             move = false;
-            movey = 3;
+            movey = 5;
+            damaged = true;
 
             Invoke("Inactive", 2.2f);
         }
+    }
+
+    void Stop()
+    {
+        move = true;
+        movey = 1;
+        tremble = false;
+        damaged = false;
+    }
+
+    void Attack() //공격 함수
+    {
+        GameObject.Find("Player").GetComponent<PlayerScript>().heart -= 3;
+        GameObject.Find("Player").GetComponent<Animator>().SetTrigger("hurt2");
+
+        Invoke("reAttack", 2f);
+    }
+
+    void reAttack() //공격 재개 함수
+    {
+        attack = false;
     }
 
     void Inactive() //죽음 처리 함수
     {
         gameObject.SetActive(false);
         GameObject.Find("Stage").GetComponent<Stage>().remain -= 1;
-    }
-
-    void Stop() //스턴 함수
-    {
-        move = true;
-        movey = 1;
     }
 }

@@ -7,10 +7,17 @@ public class PlayerScript : MonoBehaviour
     public int heart; //플레이어 체력
 
     public int move; //플레이어 이동 변수
-    float speed = 3f; //플레이어 이동속도
-    float x1 = -8.6f;
+    private bool tremble; //플레이어 ㅂㄷㅂㄷ 변수
 
-    public GameObject punch;
+    //플레이어 이동 관련
+    float speed = 3f;
+    float xm = -1.6f;
+
+    //플레이어 ㅂㄷㅂㄷ 관련
+    float speed1 = 3f;
+    private int movey; //좌우
+    float x0;
+    float x1;
 
     bool healmode; //힐모드 제어용 변수
     int random; //힐모드 난수
@@ -24,8 +31,9 @@ public class PlayerScript : MonoBehaviour
     float yn = 1.3f;
     float dis = 0.25f;
 
-    bool end;
+    bool end; //게임 실패 변수
 
+    public GameObject punch;
     private GameObject target; //마우스 클릭 확인용 변수
 
     public Animator animator;
@@ -46,6 +54,8 @@ public class PlayerScript : MonoBehaviour
     {
         heart = 100;
         move = 0;
+        movey = 0;
+        tremble = false;
 
         healmode = false;
 
@@ -95,8 +105,24 @@ public class PlayerScript : MonoBehaviour
         }
     }
 
+    void FixedUpdate()
+    {
+        if (movey == 1) //ㅂㄷㅂㄷ
+            transform.position = new Vector2(transform.position.x - speed1 * Time.deltaTime, transform.position.y);
+        else if (movey == 2) //ㅂㄷㅂㄷ
+            transform.position = new Vector2(transform.position.x + speed1 * Time.deltaTime, transform.position.y);
+    }
+
     void Update()
     {
+        if (tremble == true)
+        {
+            if (transform.position.x >= x1)
+                movey = 1;
+            else if (transform.position.x <= x0)
+                movey = 2;
+        }
+
         if (heart <= 0 && end == false) //실패
         {
             end = true;
@@ -117,6 +143,10 @@ public class PlayerScript : MonoBehaviour
             if (target == this.gameObject && healmode == false) //힐모드 시작
             {
                 healmode = true;
+                punch.GetComponent<PunchScript>().re();
+                punch.GetComponent<PunchScript>().ScrollChange2();
+                punch.GetComponent<PunchScript>().punchmode = 2;
+                punch.GetComponent<PunchScript>().PunchMode();
                 setting();
                 animator.SetBool("heal", true);
             }
@@ -134,7 +164,7 @@ public class PlayerScript : MonoBehaviour
                 }
                 else //난수 = 결과 불일치
                 {
-                    Debug.Log("다시");
+                    Tremble();
                     num.SetActive(false);
                     num1.SetActive(false);
                     num2.SetActive(false);
@@ -143,6 +173,8 @@ public class PlayerScript : MonoBehaviour
                     punch.GetComponent<PunchScript>().ScrollChange2();
                 }
                 healmode = false;
+                punch.GetComponent<PunchScript>().punchmode = 1;
+                punch.GetComponent<PunchScript>().PunchMode();
                 animator.SetBool("heal", false);
             }
         }
@@ -155,7 +187,7 @@ public class PlayerScript : MonoBehaviour
 
     void Run() //중간으로 이동 함수
     {
-        transform.position = Vector3.MoveTowards(transform.position, new Vector3(0, transform.position.y, 0), Time.deltaTime * speed);
+        transform.position = Vector3.MoveTowards(transform.position, new Vector3(xm, transform.position.y, 0), Time.deltaTime * speed);
         animator.SetBool("walk", true);
         Invoke("Re", 5f);
     }
@@ -163,7 +195,7 @@ public class PlayerScript : MonoBehaviour
     void Re() //원위치로 이동 함수
     {
         move = 2;
-        transform.position = Vector3.MoveTowards(transform.position, new Vector3(x1, transform.position.y, 0), Time.deltaTime * speed);
+        transform.position = Vector3.MoveTowards(transform.position, new Vector3(-7 + xm, transform.position.y, 0), Time.deltaTime * speed);
         animator.SetBool("walk", true);
         Invoke("Next", 5f);
     }
@@ -172,6 +204,24 @@ public class PlayerScript : MonoBehaviour
     {
         move = 0;
         animator.SetBool("walk", false);
+    }
+
+    void Tremble() //덜덜 함수
+    {
+        CancelInvoke("Stop");
+        x0 = transform.position.x;
+        x1 = x0 + 0.1f;
+
+        movey = 1;
+        tremble = true;
+
+        Invoke("Stop", 0.35f);
+    }
+
+    void Stop() //덜덜 멈추는 함수
+    {
+        movey = 0;
+        tremble = false;
     }
 }
 
