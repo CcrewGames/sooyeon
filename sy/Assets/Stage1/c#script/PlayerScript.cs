@@ -8,7 +8,7 @@ public class PlayerScript : MonoBehaviour
 
     public int move; //플레이어 이동 변수
     float speed = 3f; //플레이어 이동속도
-    float x1 = -6.6f;
+    float x1 = -8.6f;
 
     public GameObject punch;
 
