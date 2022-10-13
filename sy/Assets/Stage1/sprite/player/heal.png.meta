@@ -144,11 +144,11 @@ TextureImporter:
       name: heal_0
       rect:
         serializedVersion: 2
-        x: 0
+        x: 3
         y: 477
         width: 330
         height: 477
-      alignment: 0
+      alignment: 6
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
@@ -165,11 +165,11 @@ TextureImporter:
       name: heal_1
       rect:
         serializedVersion: 2
-        x: 331
+        x: 334
         y: 480
         width: 332
         height: 474
-      alignment: 0
+      alignment: 6
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
@@ -190,7 +190,7 @@ TextureImporter:
         y: 3
         width: 330
         height: 474
-      alignment: 0
+      alignment: 6
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
@@ -211,7 +211,7 @@ TextureImporter:
         y: 3
         width: 332
         height: 474
-      alignment: 0
+      alignment: 6
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []

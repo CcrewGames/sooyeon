@@ -20,7 +20,9 @@ public class PlayerScript : MonoBehaviour
     private GameObject num;
     private GameObject num1;
     private GameObject num2;
-    float dis = 0.35f;
+    float xn = -7f;
+    float yn = 1.3f;
+    float dis = 0.25f;
 
     bool end;
 
@@ -47,9 +49,9 @@ public class PlayerScript : MonoBehaviour
 
         healmode = false;
 
-        num = Instantiate(number, new Vector2(transform.position.x, transform.position.y + 2), transform.rotation);
-        num1 = Instantiate(number, new Vector2(transform.position.x - dis, transform.position.y + 2), transform.rotation);
-        num2 = Instantiate(number, new Vector2(transform.position.x + dis, transform.position.y + 2), transform.rotation);
+        num = Instantiate(number, new Vector2(xn, yn), transform.rotation);
+        num1 = Instantiate(number, new Vector2(xn - dis, yn), transform.rotation);
+        num2 = Instantiate(number, new Vector2(xn + dis, yn), transform.rotation);
 
         num.SetActive(false);
         num1.SetActive(false);

@@ -148,8 +148,8 @@ TextureImporter:
         y: 1007
         width: 484
         height: 487
-      alignment: 0
-      pivot: {x: 0, y: 0}
+      alignment: 1
+      pivot: {x: 0, y: 1}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -169,7 +169,7 @@ TextureImporter:
         y: 1006
         width: 489
         height: 488
-      alignment: 0
+      alignment: 6
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
@@ -190,7 +190,7 @@ TextureImporter:
         y: 1009
         width: 485
         height: 485
-      alignment: 0
+      alignment: 6
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
@@ -211,7 +211,7 @@ TextureImporter:
         y: 508
         width: 487
         height: 488
-      alignment: 0
+      alignment: 6
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
@@ -232,7 +232,7 @@ TextureImporter:
         y: 512
         width: 473
         height: 484
-      alignment: 0
+      alignment: 6
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
@@ -253,7 +253,7 @@ TextureImporter:
         y: 514
         width: 458
         height: 482
-      alignment: 0
+      alignment: 6
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
@@ -274,7 +274,7 @@ TextureImporter:
         y: 4
         width: 484
         height: 494
-      alignment: 0
+      alignment: 6
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
@@ -291,11 +291,11 @@ TextureImporter:
       name: playerwalk_7
       rect:
         serializedVersion: 2
-        x: 485
-        y: 0
+        x: 507
+        y: 9
         width: 489
         height: 498
-      alignment: 0
+      alignment: 6
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
@@ -316,7 +316,7 @@ TextureImporter:
         y: 1
         width: 489
         height: 502
-      alignment: 0
+      alignment: 6
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []

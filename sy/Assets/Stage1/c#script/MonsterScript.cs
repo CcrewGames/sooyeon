@@ -8,7 +8,7 @@ public class MonsterScript : MonoBehaviour
 
     private bool move; //몬스터 이동 변수
     float speed = 1f; //몬스터 이동 속도
-    float x1 = -6.6f; //플레이어 X값
+    float x1 = -10f;
 
     private int movey; //몬스터 둥둥 변수
     float speed1 = 0.35f; //몬스터 둥둥 속도
@@ -138,10 +138,10 @@ public class MonsterScript : MonoBehaviour
         }
 
         if(movey == 3)
-            gameObject.transform.position = Vector3.Lerp(transform.position, st + new Vector3(4, 0, 0), Time.deltaTime * 2);
+            gameObject.transform.position = Vector3.Lerp(transform.position, st + new Vector3(3, 0, 0), Time.deltaTime * 2);
 
         if (movey == 4)
-            gameObject.transform.position = Vector3.Lerp(transform.position, st + new Vector3(3, 0, 0), Time.deltaTime * 1);
+            gameObject.transform.position = Vector3.Lerp(transform.position, st + new Vector3(2, 0, 0), Time.deltaTime * 1);
     }
 
     public void Update()
