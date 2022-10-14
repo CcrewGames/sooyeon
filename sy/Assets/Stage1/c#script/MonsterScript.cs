@@ -13,8 +13,8 @@ public class MonsterScript : MonoBehaviour
     bool damaged; //몬스터 피격 변수
 
     //몬스터 이동 관련
-    float speed = 1f;
-    float xm = -5f;
+    float speed;
+    public float xm;
 
     //몬스터 둥둥 관련
     float speed1 = 0.35f;
@@ -69,6 +69,8 @@ public class MonsterScript : MonoBehaviour
 
     void Start() //스폰
     {
+        xm = -5f;
+        speed = 0.5f;
         move = true;
         movey = 1;
         tremble = false;
@@ -95,20 +97,31 @@ public class MonsterScript : MonoBehaviour
         HeartMaker();
     }
 
-    public void respawn() //리스폰
+    public void respawn1() //리스폰
     {
+        speed = 3f;
         move = true;
         movey = 1;
         tremble = false;
-        attack = false;
+        attack = true;
         damaged = false;
 
         y0 = transform.position.y;
         y1 = y0 + 0.3f;
 
+        heart = 3;
+    }
+
+    public void respawn2() //리스폰
+    {
+        xm = -5f;
+        speed = 0.7f;
+        move = false;
+        move = true;
+        attack = false;
+
         setting();
 
-        heart = 3;
         hpbar1.SetActive(true);
         hpbar2.SetActive(true);
         hpbar3.SetActive(true);
@@ -210,8 +223,6 @@ public class MonsterScript : MonoBehaviour
                 if (GameObject.Find("Punch").GetComponent<PunchScript>().result == random) //난수 = 결과 일치
                 {
                     heart--;
-                    HeartMaker();
-                    setting();
                     OnDamaged();
                     animator.SetInteger("hit", heart); //애니
                     GameObject.Find("Punch").GetComponent<PunchScript>().re();
@@ -227,8 +238,6 @@ public class MonsterScript : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Space) && GameObject.Find("Punch").GetComponent<PunchScript>().punchmode == 1) //임의 피격
         {
             heart--;
-            HeartMaker();
-            setting();
             OnDamaged();
             animator.SetInteger("hit", heart); //애니
             GameObject.Find("Punch").GetComponent<PunchScript>().re();
@@ -292,6 +301,9 @@ public class MonsterScript : MonoBehaviour
             move = false;
             movey = 5;
             damaged = true;
+
+            HeartMaker();
+            setting();
 
             Invoke("Stop", 1.2f);
         }

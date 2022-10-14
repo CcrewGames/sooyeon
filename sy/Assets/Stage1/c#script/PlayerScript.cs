@@ -32,6 +32,7 @@ public class PlayerScript : MonoBehaviour
     float dis = 0.25f;
 
     bool end; //게임 실패 변수
+    public bool one;
 
     public GameObject punch;
     private GameObject target; //마우스 클릭 확인용 변수
@@ -70,6 +71,7 @@ public class PlayerScript : MonoBehaviour
         animator = GetComponent<Animator>();
 
         end = false;
+        one = false;
     }
 
     void setting() //난수 설정
@@ -195,8 +197,22 @@ public class PlayerScript : MonoBehaviour
     void Re() //원위치로 이동 함수
     {
         move = 2;
-        transform.position = Vector3.MoveTowards(transform.position, new Vector3(-7 + xm, transform.position.y, 0), Time.deltaTime * speed);
-        animator.SetBool("walk", true);
+        if(one == false)
+        {
+            GameObject.Find("Stage").GetComponent<Stage>().monstermove = 1;
+            GameObject.Find("Stage").GetComponent<Stage>().MonsterMove();
+            one = true;
+        }
+
+        if (transform.position.x > -7 + xm)
+        {
+            transform.position = Vector3.MoveTowards(transform.position, new Vector3(-7 + xm, transform.position.y, 0), Time.deltaTime * speed);
+            animator.SetBool("walk", true);
+        }
+        else
+        {
+            animator.SetBool("walk", false);
+        }
         Invoke("Next", 5f);
     }
 

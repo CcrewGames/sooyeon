@@ -14,15 +14,19 @@ public class Stage : MonoBehaviour
     public GameObject text;
 
     public GameObject monster;
+    public int monstermove;
     GameObject mon1;
     GameObject mon2;
     GameObject mon3;
-    float x1 = 7f;
-    float x2 = 9f;
-    float x3 = 11f;
+    float x1 = 11f;
+    float x2 = 13f;
+    float x3 = 15f;
     float y1 = 0f;
-    float y2 = -1f;
-    float y3 = -0.5f;
+    float y2 = -1.3f;
+    float y3 = -0.7f;
+    float z1 = -2f;
+    float z2 = -1.5f;
+    float z3 = -1f;
 
     public GameObject punch;
 
@@ -51,9 +55,15 @@ public class Stage : MonoBehaviour
         stagemove = false;
         remain = 3;
 
-        mon1 = Instantiate(monster, new Vector3(0, y1, -1), transform.rotation);
-        mon2 = Instantiate(monster, new Vector3(0, y2, -1), transform.rotation);
-        mon3 = Instantiate(monster, new Vector3(0, y3, -1), transform.rotation);
+        monstermove = 0;
+
+        mon1 = Instantiate(monster, new Vector3(7, y1, z1), transform.rotation);
+        mon2 = Instantiate(monster, new Vector3(9, y2, z2), transform.rotation);
+        mon3 = Instantiate(monster, new Vector3(11, y3, z3), transform.rotation);
+
+        mon1.SetActive(true);
+        mon2.SetActive(true);
+        mon3.SetActive(true);
     }
 
     void Update()
@@ -65,13 +75,6 @@ public class Stage : MonoBehaviour
             punch.GetComponent<PunchScript>().ScrollChange2();
             punch.GetComponent<PunchScript>().punchmode = 1;
             punch.GetComponent<PunchScript>().PunchMode();
-
-            mon1.transform.position = new Vector3(x1, y1, -1);
-            mon2.transform.position = new Vector3(x2, y2, -1);
-            mon3.transform.position = new Vector3(x3, y3, -1);
-            mon1.SetActive(true);
-            mon2.SetActive(true);
-            mon3.SetActive(true);
 
             canvas.GetComponent<TextScript>().text.text = "Stage 1 Start!";
             text.SetActive(true);
@@ -91,6 +94,13 @@ public class Stage : MonoBehaviour
             text.SetActive(true);
             Invoke("textoff", 2f);
 
+            mon1.transform.position = new Vector2(x1, y1);
+            mon2.transform.position = new Vector2(x2, y2);
+            mon3.transform.position = new Vector2(x3, y3);
+            mon1.SetActive(true);
+            mon2.SetActive(true);
+            mon3.SetActive(true);
+
             GameObject.Find("Player").GetComponent<PlayerScript>().move = 1;
             Invoke("StageMove", 11f);
 
@@ -105,15 +115,9 @@ public class Stage : MonoBehaviour
             punch.GetComponent<PunchScript>().punchmode = 1;
             punch.GetComponent<PunchScript>().PunchMode();
 
-            mon1.transform.position = new Vector3(x1, y1, -1);
-            mon2.transform.position = new Vector3(x2, y2, -1);
-            mon3.transform.position = new Vector3(x3, y3, -1);
-            mon1.GetComponent<MonsterScript>().respawn();
-            mon2.GetComponent<MonsterScript>().respawn();
-            mon3.GetComponent<MonsterScript>().respawn();
-            mon1.SetActive(true);
-            mon2.SetActive(true);
-            mon3.SetActive(true);
+            monstermove = 2;
+            MonsterMove();
+            GameObject.Find("Player").GetComponent<PlayerScript>().one = false;
 
             canvas.GetComponent<TextScript>().text.text = "Stage 2 Start!";
             text.SetActive(true);
@@ -133,6 +137,13 @@ public class Stage : MonoBehaviour
             text.SetActive(true);
             Invoke("textoff", 2f);
 
+            mon1.transform.position = new Vector2(x1, y1);
+            mon2.transform.position = new Vector2(x2, y2);
+            mon3.transform.position = new Vector2(x3, y3);
+            mon1.SetActive(true);
+            mon2.SetActive(true);
+            mon3.SetActive(true);
+
             GameObject.Find("Player").GetComponent<PlayerScript>().move = 1;
             Invoke("StageMove", 11f);
 
@@ -147,18 +158,11 @@ public class Stage : MonoBehaviour
             punch.GetComponent<PunchScript>().punchmode = 1;
             punch.GetComponent<PunchScript>().PunchMode();
 
-            mon1.transform.position = new Vector3(x1, y1, -1);
-            mon2.transform.position = new Vector3(x2, y2, -1);
-            mon3.transform.position = new Vector3(x3, y3, -1);
-            mon1.GetComponent<MonsterScript>().respawn();
-            mon2.GetComponent<MonsterScript>().respawn();
-            mon3.GetComponent<MonsterScript>().respawn();
-            mon1.SetActive(true);
-            mon2.SetActive(true);
-            mon3.SetActive(true);
+            monstermove = 2;
+            MonsterMove();
+            GameObject.Find("Player").GetComponent<PlayerScript>().one = false;
 
             canvas.GetComponent<TextScript>().text.text = "Stage 3 Start!";
-            //canvas.GetComponent<TextScript>().text.fontSize = 10;
             text.SetActive(true);
             Invoke("textoff", 2f);
 
@@ -187,6 +191,25 @@ public class Stage : MonoBehaviour
     {
         stage++;
         stagemove = false;
+    }
+
+    public void MonsterMove() //단계 사이 이동 시간 확보용 함수
+    {
+        if (monstermove == 1)
+        {
+            mon1.GetComponent<MonsterScript>().xm = 7f;
+            mon2.GetComponent<MonsterScript>().xm = 9f;
+            mon3.GetComponent<MonsterScript>().xm = 11f;
+            mon1.GetComponent<MonsterScript>().respawn1();
+            mon2.GetComponent<MonsterScript>().respawn1();
+            mon3.GetComponent<MonsterScript>().respawn1();
+        }
+        else if (monstermove == 2)
+        {
+            mon1.GetComponent<MonsterScript>().respawn2();
+            mon2.GetComponent<MonsterScript>().respawn2();
+            mon3.GetComponent<MonsterScript>().respawn2();
+        }
     }
 
     public void StageEnding()

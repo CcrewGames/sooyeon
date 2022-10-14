@@ -66,7 +66,15 @@ public class PunchScript : MonoBehaviour
             }
             else if (attack[1] == 2)
             {
-                result = attack[0] - attack[2];
+                if (attack[0] < attack[2])
+                {
+                    result = 0;
+                    Debug.Log("0보다 작은 수를 만들 수 없습니다.");
+                }
+                else
+                {
+                    result = attack[0] - attack[2];
+                }
             }
             else if (attack[1] == 3)
             {
@@ -87,11 +95,6 @@ public class PunchScript : MonoBehaviour
             attack[0] = result;
             i = 1;
 
-            if(result < 0)
-            {
-                result = 0;
-                Debug.Log("0보다 작은 수는 만들 수 없습니다.");
-            }
             numberbar.GetComponent<NumberBarScript>().nummaker();
         }
     }
