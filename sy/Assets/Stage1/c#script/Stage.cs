@@ -19,8 +19,8 @@ public class Stage : MonoBehaviour
     GameObject mon2;
     GameObject mon3;
     float x1 = 11f;
-    float x2 = 13f;
-    float x3 = 15f;
+    float x2 = 15f;
+    float x3 = 19f;
     float y1 = 0f;
     float y2 = -1.3f;
     float y3 = -0.7f;
@@ -58,8 +58,8 @@ public class Stage : MonoBehaviour
         monstermove = 0;
 
         mon1 = Instantiate(monster, new Vector3(7, y1, z1), transform.rotation);
-        mon2 = Instantiate(monster, new Vector3(9, y2, z2), transform.rotation);
-        mon3 = Instantiate(monster, new Vector3(11, y3, z3), transform.rotation);
+        mon2 = Instantiate(monster, new Vector3(11, y2, z2), transform.rotation);
+        mon3 = Instantiate(monster, new Vector3(15, y3, z3), transform.rotation);
 
         mon1.SetActive(true);
         mon2.SetActive(true);
@@ -198,8 +198,8 @@ public class Stage : MonoBehaviour
         if (monstermove == 1)
         {
             mon1.GetComponent<MonsterScript>().xm = 7f;
-            mon2.GetComponent<MonsterScript>().xm = 9f;
-            mon3.GetComponent<MonsterScript>().xm = 11f;
+            mon2.GetComponent<MonsterScript>().xm = 11f;
+            mon3.GetComponent<MonsterScript>().xm = 15f;
             mon1.GetComponent<MonsterScript>().respawn1();
             mon2.GetComponent<MonsterScript>().respawn1();
             mon3.GetComponent<MonsterScript>().respawn1();
@@ -223,19 +223,17 @@ public class Stage : MonoBehaviour
     public void Clear() //클리어 함수
     {
         Application.Quit();
-        UnityEditor.EditorApplication.isPlaying = false;
     }
 
     public void Fail() //실패 함수
     {
         Debug.Log("Fail");
         Invoke("end", 3f);
-    }
+    } 
 
     void end()
     {
         Application.Quit();
-        UnityEditor.EditorApplication.isPlaying = false;
     }
 
     void textoff()

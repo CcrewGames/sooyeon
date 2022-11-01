@@ -130,7 +130,7 @@ public class MonsterScript : MonoBehaviour
 
     void setting() //난수 설정
     {
-        random = Random.Range(1, 10);
+        random = Random.Range(1, 30);
         nummaker();
     }
 
@@ -218,7 +218,7 @@ public class MonsterScript : MonoBehaviour
         {
             CastRay();
 
-            if (target == this.gameObject && GameObject.Find("Punch").GetComponent<PunchScript>().punchmode == 1 && damaged != true)
+            if ((target == this.gameObject || target == num || target == num1 || target == num2) && GameObject.Find("Punch").GetComponent<PunchScript>().punchmode == 1 && damaged != true)
             {
                 if (GameObject.Find("Punch").GetComponent<PunchScript>().result == random) //난수 = 결과 일치
                 {

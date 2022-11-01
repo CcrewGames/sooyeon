@@ -738,6 +738,7 @@ MonoBehaviour:
   canvas: {fileID: 426157319}
   text: {fileID: 98279072}
   monster: {fileID: 7947195092028119978, guid: 2e1501ae4ecb0c04598c77bfe32f4fde, type: 3}
+  monstermove: 0
   punch: {fileID: 882607787}
   NumScollview: {fileID: 1982255138}
   CalculScollview: {fileID: 1869767614}
@@ -4209,8 +4210,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   heart: 0
   move: 0
-  punch: {fileID: 882607787}
   number: {fileID: 2687332880628242228, guid: ceaf0a46003de7a4f8ae9c798b98a15c, type: 3}
+  one: 0
+  punch: {fileID: 882607787}
   animator: {fileID: 0}
 --- !u!1 &1672483045
 GameObject:

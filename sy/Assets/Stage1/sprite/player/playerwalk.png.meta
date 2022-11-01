@@ -229,7 +229,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 487
-        y: 512
+        y: 516
         width: 473
         height: 484
       alignment: 6
@@ -291,8 +291,8 @@ TextureImporter:
       name: playerwalk_7
       rect:
         serializedVersion: 2
-        x: 507
-        y: 9
+        x: 485
+        y: 0
         width: 489
         height: 498
       alignment: 6

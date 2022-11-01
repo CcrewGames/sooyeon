@@ -156,7 +156,10 @@ public class PlayerScript : MonoBehaviour
             {
                 if (punch.GetComponent<PunchScript>().result == random) //난수 = 결과 일치
                 {
-                    heart += random;
+                    if (heart + random < 100)
+                        heart += random;
+                    else
+                        heart = 100;
                     num.SetActive(false);
                     num1.SetActive(false);
                     num2.SetActive(false);

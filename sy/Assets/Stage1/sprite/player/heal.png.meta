@@ -144,7 +144,7 @@ TextureImporter:
       name: heal_0
       rect:
         serializedVersion: 2
-        x: 3
+        x: 0
         y: 477
         width: 330
         height: 477
@@ -165,7 +165,7 @@ TextureImporter:
       name: heal_1
       rect:
         serializedVersion: 2
-        x: 334
+        x: 331
         y: 480
         width: 332
         height: 474

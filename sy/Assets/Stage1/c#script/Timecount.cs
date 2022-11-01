@@ -49,6 +49,5 @@ public class Timecount : MonoBehaviour
     void end()
     {
         Application.Quit();
-        UnityEditor.EditorApplication.isPlaying = false;
     }
 }
