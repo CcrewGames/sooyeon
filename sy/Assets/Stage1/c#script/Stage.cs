@@ -18,8 +18,8 @@ public class Stage : MonoBehaviour
     GameObject mon1;
     GameObject mon2;
     GameObject mon3;
-    float x1 = 11f;
-    float x2 = 15f;
+    float x1 = 13f;
+    float x2 = 16f;
     float x3 = 19f;
     float y1 = -0.8f;
     float y2 = -1.6f;
@@ -57,9 +57,9 @@ public class Stage : MonoBehaviour
 
         monstermove = 0;
 
-        mon1 = Instantiate(monster, new Vector3(7, y1, z1), transform.rotation);
-        mon2 = Instantiate(monster, new Vector3(11, y2, z2), transform.rotation);
-        mon3 = Instantiate(monster, new Vector3(15, y3, z3), transform.rotation);
+        mon1 = Instantiate(monster, new Vector3(x1 - 4, y1, z1), transform.rotation);
+        mon2 = Instantiate(monster, new Vector3(x2 - 4, y2, z2), transform.rotation);
+        mon3 = Instantiate(monster, new Vector3(x3 - 4, y3, z3), transform.rotation);
 
         mon1.SetActive(true);
         mon2.SetActive(true);
@@ -197,9 +197,9 @@ public class Stage : MonoBehaviour
     {
         if (monstermove == 1)
         {
-            mon1.GetComponent<MonsterScript>().xm = 7f;
-            mon2.GetComponent<MonsterScript>().xm = 11f;
-            mon3.GetComponent<MonsterScript>().xm = 15f;
+            mon1.GetComponent<MonsterScript>().xm = x1 - 4;
+            mon2.GetComponent<MonsterScript>().xm = x2 - 4;
+            mon3.GetComponent<MonsterScript>().xm = x3 - 4;
             mon1.GetComponent<MonsterScript>().respawn1();
             mon2.GetComponent<MonsterScript>().respawn1();
             mon3.GetComponent<MonsterScript>().respawn1();

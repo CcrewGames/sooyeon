@@ -308,7 +308,7 @@ public class MonsterScript : MonoBehaviour
             HeartMaker();
             setting();
 
-            Invoke("Stop", 1.2f);
+            Invoke("Stop", 0.8f);
         }
         else
         {
@@ -317,7 +317,7 @@ public class MonsterScript : MonoBehaviour
             movey = 5;
             damaged = true;
 
-            Invoke("Inactive", 2.2f);
+            Invoke("Inactive", 1.5f);
         }
     }
 

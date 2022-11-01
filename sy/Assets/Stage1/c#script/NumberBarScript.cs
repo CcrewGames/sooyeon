@@ -12,7 +12,7 @@ public class NumberBarScript : MonoBehaviour
     private GameObject num3; //백의 자리
     private GameObject sign;
     private GameObject endnum;
-    
+
     int i;
     int j;
     bool move1; //가운데로 모으기
@@ -25,7 +25,7 @@ public class NumberBarScript : MonoBehaviour
     float time = 0.2f;
     float time1 = 0.2f;
 
-    float x0 = -5.5f;
+    float x0 = -6f;
     float height = 2.8f;
 
     Vector2 MousePosition;
