@@ -21,12 +21,12 @@ public class Stage : MonoBehaviour
     float x1 = 11f;
     float x2 = 15f;
     float x3 = 19f;
-    float y1 = 0f;
-    float y2 = -1.3f;
-    float y3 = -0.7f;
-    float z1 = -2f;
+    float y1 = -0.8f;
+    float y2 = -1.6f;
+    float y3 = -1.2f;
+    float z1 = -1.5f;
     float z2 = -1.5f;
-    float z3 = -1f;
+    float z3 = -1.5f;
 
     public GameObject punch;
 

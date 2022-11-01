@@ -26,7 +26,7 @@ public class NumberBarScript : MonoBehaviour
     float time1 = 0.2f;
 
     float x0 = -5.5f;
-    float height = 2.5f;
+    float height = 2.8f;
 
     Vector2 MousePosition;
 

@@ -37,14 +37,17 @@ public class MonsterScript : MonoBehaviour
     private GameObject num;
     private GameObject num1;
     private GameObject num2;
-    float dis = 0.3f;
+    float dis = 0.2f;
 
     //체력바 표시 관련
     public GameObject circle;
     private GameObject hpbar1;
     private GameObject hpbar2;
     private GameObject hpbar3;
-    float dis1 = 0.5f;
+    float dis1 = 0.4f;
+
+    float dis2 = 1.6f;
+    float dis3 = 2.3f;
 
     private GameObject target; //마우스 클릭 확인용 변수
 
@@ -247,13 +250,13 @@ public class MonsterScript : MonoBehaviour
         //난수와 체력바 이동
         if (heart != 0)
         {
-            num.transform.position = new Vector2(transform.position.x, transform.position.y + 3);
-            num1.transform.position = new Vector2(transform.position.x - dis, transform.position.y + 3);
-            num2.transform.position = new Vector2(transform.position.x + dis, transform.position.y + 3);
+            num.transform.position = new Vector2(transform.position.x, transform.position.y + dis3);
+            num1.transform.position = new Vector2(transform.position.x - dis, transform.position.y + dis3);
+            num2.transform.position = new Vector2(transform.position.x + dis, transform.position.y + dis3);
 
-            hpbar1.transform.position = new Vector2(transform.position.x - dis1, transform.position.y + 2);
-            hpbar2.transform.position = new Vector2(transform.position.x, transform.position.y + 2);
-            hpbar3.transform.position = new Vector2(transform.position.x + dis1, transform.position.y + 2);
+            hpbar1.transform.position = new Vector2(transform.position.x - dis1, transform.position.y + dis2);
+            hpbar2.transform.position = new Vector2(transform.position.x, transform.position.y + dis2);
+            hpbar3.transform.position = new Vector2(transform.position.x + dis1, transform.position.y + dis2);
         }
     }
 
