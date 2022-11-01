@@ -129,6 +129,14 @@ public class NumberBarScript : MonoBehaviour
         }
     }
 
+    public void Cancel()
+    {
+        CancelInvoke("Stop1");
+        CancelInvoke("Stop2");
+        CancelInvoke("Stop3");
+        CancelInvoke("Joff");
+    }
+
     void Run1Start()
     {
         move1 = true;

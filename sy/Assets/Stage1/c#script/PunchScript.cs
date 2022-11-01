@@ -28,6 +28,7 @@ public class PunchScript : MonoBehaviour
         result = 0;
         num = -1;
 
+        numberbar.GetComponent<NumberBarScript>().Cancel();
         numberbar.GetComponent<NumberBarScript>().re();
     }
 
