@@ -30,6 +30,12 @@ public class MonsterScript : MonoBehaviour
     //몬스터 피격 관련
     float speed3 = 5;
 
+    //몬스터 공격 관련
+    public GameObject e1;
+    public GameObject e2;
+    private GameObject ef1;
+    private GameObject ef2;
+
     public int random;
 
     //난수 표시 관련
@@ -52,6 +58,8 @@ public class MonsterScript : MonoBehaviour
     private GameObject target; //마우스 클릭 확인용 변수
 
     public Animator animator; //애니
+
+    public int monnum;
 
     void Awake() //start()보다 먼저 호출
     {
@@ -80,6 +88,9 @@ public class MonsterScript : MonoBehaviour
 
         y0 = transform.position.y;
         y1 = y0 + 0.3f;
+
+        ef1 = Instantiate(e1, transform.position, transform.rotation);
+        ef2 = Instantiate(e2, transform.position, transform.rotation);
 
         num1 = Instantiate(number, transform.position, transform.rotation);
         num2 = Instantiate(number, transform.position, transform.rotation);
@@ -149,8 +160,8 @@ public class MonsterScript : MonoBehaviour
         }
         else if (random > 0 && random <= 9) //일의 자리일 때
         {
-            SpriteRenderer spriteR = num1.GetComponent<SpriteRenderer>();
-            spriteR.sprite = sprites[random];
+            SpriteRenderer spriteA = num1.GetComponent<SpriteRenderer>();
+            spriteA.sprite = sprites[random];
 
             num1.SetActive(true);
             num2.SetActive(false);
@@ -177,7 +188,10 @@ public class MonsterScript : MonoBehaviour
             transform.position = Vector2.MoveTowards(transform.position, new Vector2(dis4, transform.position.y), Time.deltaTime * speed3);
 
         if (movey == 5 && transform.position.x > dis4 - 0.1f) //다시 걷기
+        {
+            CancelInvoke("Stop");
             Stop();
+        }
     }
 
     public void Update()
@@ -212,15 +226,14 @@ public class MonsterScript : MonoBehaviour
                 {
                     GameObject.Find("Stage").GetComponent<Stage>().xf = transform.position.x;
                     GameObject.Find("Stage").GetComponent<Stage>().yf = transform.position.y;
+                    GameObject.Find("Stage").GetComponent<Stage>().monnum2 = monnum;
 
                     GameObject.Find("Stage").GetComponent<Stage>().Fly();
+
                     GameObject.Find("Punch").GetComponent<PunchScript>().punchmode = 0;
                     GameObject.Find("Punch").GetComponent<PunchScript>().PunchMode();
 
                     GameObject.Find("Punch").GetComponent<PunchScript>().re();
-
-                    float dist = (transform.position.x + 5) / 20;
-                    Invoke("OnDamaged", dist);
                 }
                 else
                 {
@@ -236,32 +249,97 @@ public class MonsterScript : MonoBehaviour
             GameObject.Find("Punch").GetComponent<PunchScript>().ScrollChange2();
         }
 
-        //난수와 체력바 이동
+        //난수와 체력바와 효과 이동
         if (heart != 0)
         {
+            ef1.transform.position = new Vector2(transform.position.x - 2.45f, transform.position.y - 1.6f);
+            ef2.transform.position = new Vector2(transform.position.x - 10, transform.position.y - 1.6f);
+
             if (random > 9 && random <= 99) //십의 자리일 때
             {
-                num1.transform.position = new Vector3(transform.position.x + dis, transform.position.y + dis3, transform.position.z);
+                num1.transform.position = new Vector2(transform.position.x + dis, transform.position.y + dis3);
             }
             else if (random > 0 && random <= 9) //일의 자리일 때
             {
-                num1.transform.position = new Vector3(transform.position.x, transform.position.y + dis3, transform.position.z);
+                num1.transform.position = new Vector2(transform.position.x, transform.position.y + dis3);
             }
             num2.transform.position = new Vector3(num1.transform.position.x - 2 * dis, num1.transform.position.y, -1);
 
-            hpbar1.transform.position = new Vector3(transform.position.x - dis1, transform.position.y + dis2, transform.position.z);
-            hpbar2.transform.position = new Vector3(transform.position.x, transform.position.y + dis2, transform.position.z);
-            hpbar3.transform.position = new Vector3(transform.position.x + dis1, transform.position.y + dis2, transform.position.z);
+            hpbar1.transform.position = new Vector2(transform.position.x - dis1, transform.position.y + dis2);
+            hpbar2.transform.position = new Vector2(transform.position.x, transform.position.y + dis2);
+            hpbar3.transform.position = new Vector2(transform.position.x + dis1, transform.position.y + dis2);
         }
 
         if (heart == 0) //UI 삭제
         {
+            Destroy(ef1);
+            Destroy(ef2);
+
             Destroy(num1);
             Destroy(num2);
 
             Destroy(hpbar1);
             Destroy(hpbar2);
             Destroy(hpbar3);
+        }
+    }
+
+    public void Layer()
+    {
+        SpriteRenderer spriteM = GetComponent<SpriteRenderer>();
+        if (monnum == 1)
+        {
+            spriteM.sortingOrder = -7;
+            ef1.GetComponent<LayerScript>().monnum = 1;
+            ef2.GetComponent<LayerScript>().monnum = 1;
+            num1.GetComponent<LayerScript>().monnum = 1;
+            num2.GetComponent<LayerScript>().monnum = 1;
+            hpbar1.GetComponent<LayerScript>().monnum = 1;
+            hpbar2.GetComponent<LayerScript>().monnum = 1;
+            hpbar3.GetComponent<LayerScript>().monnum = 1;
+            ef1.GetComponent<LayerScript>().eLayer();
+            ef2.GetComponent<LayerScript>().eLayer();
+            num1.GetComponent<LayerScript>().Layer();
+            num2.GetComponent<LayerScript>().Layer();
+            hpbar1.GetComponent<LayerScript>().Layer();
+            hpbar2.GetComponent<LayerScript>().Layer();
+            hpbar3.GetComponent<LayerScript>().Layer();
+        }
+        else if(monnum == 2)
+        {
+            spriteM.sortingOrder = -3;
+            ef1.GetComponent<LayerScript>().monnum = 2;
+            ef2.GetComponent<LayerScript>().monnum = 2;
+            num1.GetComponent<LayerScript>().monnum = 2;
+            num2.GetComponent<LayerScript>().monnum = 2;
+            hpbar1.GetComponent<LayerScript>().monnum = 2;
+            hpbar2.GetComponent<LayerScript>().monnum = 2;
+            hpbar3.GetComponent<LayerScript>().monnum = 2;
+            ef1.GetComponent<LayerScript>().eLayer();
+            ef2.GetComponent<LayerScript>().eLayer();
+            num1.GetComponent<LayerScript>().Layer();
+            num2.GetComponent<LayerScript>().Layer();
+            hpbar1.GetComponent<LayerScript>().Layer();
+            hpbar2.GetComponent<LayerScript>().Layer();
+            hpbar3.GetComponent<LayerScript>().Layer();
+        }
+        else if(monnum == 3)
+        {
+            spriteM.sortingOrder = -5;
+            ef1.GetComponent<LayerScript>().monnum = 3;
+            ef2.GetComponent<LayerScript>().monnum = 3;
+            num1.GetComponent<LayerScript>().monnum = 3;
+            num2.GetComponent<LayerScript>().monnum = 3;
+            hpbar1.GetComponent<LayerScript>().monnum = 3;
+            hpbar2.GetComponent<LayerScript>().monnum = 3;
+            hpbar3.GetComponent<LayerScript>().monnum = 3;
+            ef1.GetComponent<LayerScript>().eLayer();
+            ef2.GetComponent<LayerScript>().eLayer();
+            num1.GetComponent<LayerScript>().Layer();
+            num2.GetComponent<LayerScript>().Layer();
+            hpbar1.GetComponent<LayerScript>().Layer();
+            hpbar2.GetComponent<LayerScript>().Layer();
+            hpbar3.GetComponent<LayerScript>().Layer();
         }
     }
 
@@ -298,31 +376,29 @@ public class MonsterScript : MonoBehaviour
         x0 = gameObject.transform.position.x;
         x1 = x0 + 0.1f;
         tremble = true;
+
         Invoke("Stop", 0.35f);
     }
 
-    void OnDamaged() //피격 함수
+    public void OnDamaged() //피격 함수
     {
         heart--;
         animator.SetInteger("hit", heart); //애니
         if (heart != 0)
         {
-            CancelInvoke("Stop");
+            dis4 = transform.position.x + 4;
             move = false;
-            dis4 = transform.position.x + 2;
             movey = 5;
             damaged = true;
 
+            Invoke("Stop", 3f);
             HeartMaker();
             setting();
-
-            Invoke("Stop", 0.8f);
         }
         else
         {
-            CancelInvoke("Stop");
             move = false;
-            movey = 5;
+            movey = 6;
             damaged = true;
 
             Invoke("Inactive", 1.5f);
@@ -339,8 +415,11 @@ public class MonsterScript : MonoBehaviour
 
     void Attack() //공격 함수
     {
-        GameObject.Find("Player").GetComponent<PlayerScript>().heart -= 3;
+        GameObject.Find("Player").GetComponent<PlayerScript>().heart -= 1;
         GameObject.Find("Player").GetComponent<Animator>().SetTrigger("hurt2");
+        animator.SetTrigger("attack");
+        ef1.GetComponent<Animator>().SetTrigger("effect1");
+        ef2.GetComponent<Animator>().SetTrigger("effect2");
 
         Invoke("reAttack", 2f);
     }

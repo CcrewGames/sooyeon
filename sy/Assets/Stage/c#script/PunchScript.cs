@@ -4,22 +4,21 @@ using UnityEngine;
 
 public class PunchScript : MonoBehaviour
 {
-    public int[] attack = new int[3];
-    int i;
+    public int punchmode; //0은 None, 1은 Attack, 2는 Healing
+    public GameObject AttackBar; //공격바
+    public GameObject HealingBar; //힐링바
 
+    public GameObject NumScollview; //숫자
+    public GameObject CalculScollview; //연산기호
+    public GameObject C;
+
+    public int[] attack = new int[3];
+    public int i;
     public int num;
     public int sign;
     public int result;
 
     public GameObject numberbar;
-
-    public GameObject NumScollview; //숫자
-    public GameObject CalculScollview; //연산기호
-    public GameObject C;
-    public GameObject AttackBar; //공격바
-    public GameObject HealingBar; //힐링바
-
-    public int punchmode; //0은 None, 1은 Attack, 2는 Healing
 
     public void re() //계산 초기화 함수
     {
@@ -92,6 +91,13 @@ public class PunchScript : MonoBehaviour
                     result = attack[0] / attack[2];
                 }
             }
+
+            if(result > 999)
+            {
+                result = 999;
+                Debug.Log("999보다 큰 수를 만들 수 없습니다.");
+            }
+
             attack[0] = result;
             i = 1;
 
@@ -111,7 +117,7 @@ public class PunchScript : MonoBehaviour
         CalculScollview.SetActive(false);
         C.SetActive(true);
     }
-    public void ScrollChange3() //다 off
+    public void ScrollChange3() //다 Off
     {
         NumScollview.SetActive(false);
         CalculScollview.SetActive(false);
@@ -120,17 +126,17 @@ public class PunchScript : MonoBehaviour
 
     public void PunchMode()
     {
-        if (punchmode == 1)
+        if (punchmode == 1) //힐모드
         {
             HealingBar.SetActive(false);
             AttackBar.SetActive(true);
         }
-        else if (punchmode == 2)
+        else if (punchmode == 2) //어택모드
         {
             AttackBar.SetActive(false);
             HealingBar.SetActive(true);
         }
-        else if (punchmode == 0)
+        else if (punchmode == 0) //다 Off
         {
             AttackBar.SetActive(false);
             HealingBar.SetActive(false);

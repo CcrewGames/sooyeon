@@ -71,9 +71,9 @@ public class Stage1BossScript : MonoBehaviour
 
         timer = false;
 
-        bom = Instantiate(bomb, new Vector3(0, 0, 1), transform.rotation);
-        num1 = Instantiate(number, new Vector3(bom.transform.position.x - dis, bom.transform.position.y, transform.position.z - 1), transform.rotation);
-        num2 = Instantiate(number, new Vector3(bom.transform.position.x, bom.transform.position.y, transform.position.z - 1), transform.rotation);
+        bom = Instantiate(bomb, new Vector2(0, 0), transform.rotation);
+        num1 = Instantiate(number, new Vector2(bom.transform.position.x - dis, bom.transform.position.y), transform.rotation);
+        num2 = Instantiate(number, new Vector2(bom.transform.position.x, bom.transform.position.y), transform.rotation);
 
         num1.SetActive(false);
         num2.SetActive(false);
@@ -182,14 +182,14 @@ public class Stage1BossScript : MonoBehaviour
 
         if (random > 9 && random <= 99) //십의 자리일 때
         {
-            num1.transform.position = new Vector3(bom.transform.position.x + dis, bom.transform.position.y, transform.position.z - 1);
+            num1.transform.position = new Vector2(bom.transform.position.x + dis, bom.transform.position.y);
         }
         else if (random > 0 && random <= 9) //일의 자리일 때
         {
-            num1.transform.position = new Vector3(bom.transform.position.x, bom.transform.position.y, transform.position.z - 1);
+            num1.transform.position = new Vector2(bom.transform.position.x, bom.transform.position.y);
         }
 
-        num2.transform.position = new Vector3(num1.transform.position.x - 2 * dis, num1.transform.position.y, -1);
+        num2.transform.position = new Vector2(num1.transform.position.x - 2 * dis, num1.transform.position.y);
     }
 
     private void setting1() //난수 설정
@@ -218,8 +218,8 @@ public class Stage1BossScript : MonoBehaviour
         }
         else if (random > 0 && random <= 9) //일의 자리일 때
         {
-            SpriteRenderer spriteR = num1.GetComponent<SpriteRenderer>();
-            spriteR.sprite = sprites[random];
+            SpriteRenderer spriteA = num1.GetComponent<SpriteRenderer>();
+            spriteA.sprite = sprites[random];
 
             num1.SetActive(true);
             num2.SetActive(false);

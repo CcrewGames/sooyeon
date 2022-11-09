@@ -24,15 +24,11 @@ public class Stage : MonoBehaviour
     float y1 = -0.8f;
     float y2 = -1.6f;
     float y3 = -1.2f;
-    float z1 = -2f;
-    float z2 = -3f;
-    float z3 = -4f;
 
     public GameObject BossMonster;
     public GameObject boss;
     float x4 = 14f;
     float y4 = 0f;
-    float z4 = -1f;
 
     public GameObject punch;
 
@@ -46,13 +42,14 @@ public class Stage : MonoBehaviour
     GameObject fly;
     float x5 = -6.5f;
     float y5 = 2.8f;
-    float z5 = 0f;
     public float xf;
     public float yf;
-    float speed = 15f;
+    float speed = 6f;
     bool flymode;
 
     public bool bossdie;
+
+    public int monnum2;
 
     GameObject ForDestroy;
 
@@ -64,18 +61,17 @@ public class Stage : MonoBehaviour
 
         text.SetActive(false);
 
-        stage = 2;
-        //stage = 0;
+        stage = 0;
         stagemove = true;
         remain = 0;
 
         monstermove = 0;
         bossdie = false;
 
-        fly = Instantiate(AttackBar, new Vector3(x5, y5, -1), transform.rotation);
+        monnum2 = 0;
 
+        fly = Instantiate(AttackBar, new Vector2(x5, y5), transform.rotation);
         fly.SetActive(false);
-
         flymode = false;
     }
 
@@ -91,12 +87,7 @@ public class Stage : MonoBehaviour
 
             GameObject.Find("Player").GetComponent<PlayerScript>().HealStop();
 
-            mon1 = Instantiate(monster, new Vector3(x1, y1, z1), transform.rotation);
-            mon2 = Instantiate(monster, new Vector3(x2, y2, z2), transform.rotation);
-            mon3 = Instantiate(monster, new Vector3(x3, y3, z3), transform.rotation);
-            mon1.SetActive(true);
-            mon2.SetActive(true);
-            mon3.SetActive(true);
+            MonsterSpawn();
 
             GameObject.Find("Player").GetComponent<PlayerScript>().Run();
             Invoke("StageMove", 13f);
@@ -111,6 +102,11 @@ public class Stage : MonoBehaviour
 
             punch.GetComponent<PunchScript>().punchmode = 1;
             punch.GetComponent<PunchScript>().PunchMode();
+
+            MonNum();
+            mon1.GetComponent<MonsterScript>().Layer();
+            mon2.GetComponent<MonsterScript>().Layer();
+            mon3.GetComponent<MonsterScript>().Layer();
 
             monstermove = 2;
             MonsterMove();
@@ -136,12 +132,7 @@ public class Stage : MonoBehaviour
             text.SetActive(true);
             Invoke("textoff", 2f);
 
-            mon1 = Instantiate(monster, new Vector3(x1, y1, z1), transform.rotation);
-            mon2 = Instantiate(monster, new Vector3(x2, y2, z2), transform.rotation);
-            mon3 = Instantiate(monster, new Vector3(x3, y3, z3), transform.rotation);
-            mon1.SetActive(true);
-            mon2.SetActive(true);
-            mon3.SetActive(true);
+            MonsterSpawn();
 
             GameObject.Find("Player").GetComponent<PlayerScript>().Run();
             Invoke("StageMove", 13f);
@@ -156,6 +147,11 @@ public class Stage : MonoBehaviour
 
             punch.GetComponent<PunchScript>().punchmode = 1;
             punch.GetComponent<PunchScript>().PunchMode();
+
+            MonNum();
+            mon1.GetComponent<MonsterScript>().Layer();
+            mon2.GetComponent<MonsterScript>().Layer();
+            mon3.GetComponent<MonsterScript>().Layer();
 
             monstermove = 2;
             MonsterMove();
@@ -181,12 +177,7 @@ public class Stage : MonoBehaviour
             text.SetActive(true);
             Invoke("textoff", 2f);
 
-            mon1 = Instantiate(monster, new Vector3(x1, y1, z1), transform.rotation);
-            mon2 = Instantiate(monster, new Vector3(x2, y2, z2), transform.rotation);
-            mon1.SetActive(true);
-            mon2.SetActive(true);
-
-            boss = Instantiate(BossMonster, new Vector3(x4, y4, z4), transform.rotation);
+            MonsterSpawn();
 
             GameObject.Find("Player").GetComponent<PlayerScript>().Run();
             Invoke("StageMove", 13f);
@@ -201,6 +192,10 @@ public class Stage : MonoBehaviour
 
             punch.GetComponent<PunchScript>().punchmode = 1;
             punch.GetComponent<PunchScript>().PunchMode();
+
+            MonNum();
+            mon1.GetComponent<MonsterScript>().Layer();
+            mon2.GetComponent<MonsterScript>().Layer();
 
             canvas.GetComponent<TextScript>().text.text = "Stage 3 Start!";
             text.SetActive(true);
@@ -241,10 +236,10 @@ public class Stage : MonoBehaviour
 
         if (flymode == true)
         {
-            fly.transform.position = Vector3.MoveTowards(fly.transform.position, new Vector3(xf, yf, -1), Time.deltaTime * speed);
+            fly.transform.position = Vector2.Lerp(fly.transform.position, new Vector2(xf, yf), Time.deltaTime * speed);
         }
 
-        if (fly.transform.position.x > xf - 0.3)
+        if (fly.transform.position.x >= xf - 1f && flymode == true)
         {
             Flyoff();
         }
@@ -254,6 +249,28 @@ public class Stage : MonoBehaviour
     {
         stage++;
         stagemove = false;
+    }
+
+    void MonsterSpawn()
+    {
+        if (stage < 2)
+        {
+            mon1 = Instantiate(monster, new Vector2(x1, y1), transform.rotation);
+            mon2 = Instantiate(monster, new Vector2(x2, y2), transform.rotation);
+            mon3 = Instantiate(monster, new Vector2(x3, y3), transform.rotation);
+            mon1.SetActive(true);
+            mon2.SetActive(true);
+            mon3.SetActive(true);
+        }
+        else
+        {
+            mon1 = Instantiate(monster, new Vector2(x1, y1), transform.rotation);
+            mon2 = Instantiate(monster, new Vector2(x2, y2), transform.rotation);
+            mon1.SetActive(true);
+            mon2.SetActive(true);
+
+            boss = Instantiate(BossMonster, new Vector2(x4, y4), transform.rotation);
+        }
     }
 
     public void MonsterMove() //단계 사이 이동 시간 확보용 함수
@@ -279,6 +296,21 @@ public class Stage : MonoBehaviour
         }
     }
 
+    void MonNum()
+    {
+        if (stage < 3)
+        {
+            mon1.GetComponent<MonsterScript>().monnum = 1;
+            mon2.GetComponent<MonsterScript>().monnum = 2;
+            mon3.GetComponent<MonsterScript>().monnum = 3;
+        }
+        else
+        {
+            mon1.GetComponent<MonsterScript>().monnum = 1;
+            mon2.GetComponent<MonsterScript>().monnum = 2;
+        }
+    }
+
     public void Fly()
     {
         fly.SetActive(true);
@@ -286,12 +318,26 @@ public class Stage : MonoBehaviour
 
         float r1 = Mathf.Atan(yf - y5 / xf - x5); //*Mathf.Rad2Deg
         Debug.Log(r1);
-        fly.transform.Rotate(0, 0, r1 - 5);
+        fly.transform.Rotate(0, 0, r1 - 10);
     }
 
     public void Flyoff()
     {
-        fly.transform.position = new Vector3(x5, y5, z5);
+        if(monnum2 == 1)
+        {
+            mon1.GetComponent<MonsterScript>().OnDamaged();
+        }
+        else if(monnum2 == 2)
+        {
+            mon2.GetComponent<MonsterScript>().OnDamaged();
+        }
+        else if (monnum2 == 3)
+        {
+            mon3.GetComponent<MonsterScript>().OnDamaged();
+        }
+        monnum2 = 0;
+
+        fly.transform.position = new Vector2(x5, y5);
         fly.transform.Rotate(0, 0, 0);
         fly.SetActive(false);
         flymode = false;
@@ -302,8 +348,8 @@ public class Stage : MonoBehaviour
 
     public void Boss1Skill()
     {
-        mon1.transform.position = new Vector3(boss.transform.position.x - 2, y1, z1);
-        mon2.transform.position = new Vector3(boss.transform.position.x + 2, y2, z2);
+        mon1.transform.position = new Vector2(boss.transform.position.x - 2, y1);
+        mon2.transform.position = new Vector2(boss.transform.position.x + 2, y2);
         mon1.GetComponent<MonsterScript>().respawn2();
         mon2.GetComponent<MonsterScript>().respawn2();
         boss.GetComponent<Stage1BossScript>().skill1 = false;
