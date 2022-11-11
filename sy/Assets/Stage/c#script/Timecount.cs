@@ -31,8 +31,7 @@ public class Timecount : MonoBehaviour
             if (countdownSeconds <= 0) //시간 초과 fail
             {
                 Invoke("Stagetimeout", 1f);
-                Invoke("end", 5f);
-                Debug.Log("failed");
+                Invoke("End", 5f);
                 timeend = false;
             }
         }
@@ -46,8 +45,8 @@ public class Timecount : MonoBehaviour
         }
     }
 
-    void end()
+    void End()
     {
-        Application.Quit();
+        //다른 씬으로 넘어가도록 해야 됨
     }
 }

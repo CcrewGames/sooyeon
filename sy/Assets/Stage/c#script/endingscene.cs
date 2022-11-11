@@ -5,20 +5,8 @@ using UnityEngine;
 
 public class endingscene : MonoBehaviour
 {   
-    private GameObject endingback;
-    private GameObject endingPlayer;
-    private GameObject endingstar1;
-    private GameObject endingstar2;
-    private GameObject endingstar3;
-    private GameObject endingfailstar2;
-    private GameObject endingfailstar3;
-    public GameObject Zero;
-    public GameObject canvas;
-    public GameObject Timeout;
-    public GameObject realTime;
-    public GameObject power;
-    public GameObject timebox;
-    public GameObject timecount;
+    private GameObject endingback, endingPlayer, endingstar1, endingstar2, endingstar3, endingfailstar2, endingfailstar3;
+    public GameObject Zero, canvas, Timeover, TimeCount, TimeEndingbox, Power;
 
     public GameObject a, b, c, d, e, f, g, h, I;
 
@@ -26,69 +14,63 @@ public class endingscene : MonoBehaviour
 
     public void endingStart()
     {
-        float time = timecount.GetComponent<Timecount>().countdownSeconds;
+        float time = TimeCount.GetComponent<Timecount>().countdownSeconds;
 
         if ( 30 >= time && time > 0){//별 1개
             endingback = Resources.Load<GameObject>("ending/endingBackground");
-            Instantiate(endingback, new Vector3(-0.08f,-0.02f,-5.14f), Quaternion.identity); // 배경이미지 생성
+            Instantiate(endingback, new Vector3(-0.08f,-0.02f,-3f), Quaternion.identity); // 배경이미지 생성
             endingPlayer = Resources.Load<GameObject>("ending/realendingplayer");
-            Instantiate(endingPlayer, new Vector3(-0.18f,-7.89f,-7.17f), Quaternion.identity); //주인공이미지생성
+            Instantiate(endingPlayer, new Vector3(-0.18f,-7.89f,-5f), Quaternion.identity); //주인공이미지생성
             endingstar1 = Resources.Load<GameObject>("ending/realendingstar1");
-            Instantiate(endingstar1, new Vector3(-4.54f,1.12f, -7.27f), endingstar1.transform.rotation); // 별 생성
+            Instantiate(endingstar1, new Vector3(-4.54f,1.12f, -5f), endingstar1.transform.rotation); // 별 생성
             //빈 2.3번째 별 
             endingfailstar2 = Resources.Load<GameObject>("ending/realendingfailstar2");
-            Instantiate(endingfailstar2, new Vector3(0,3,-5),endingfailstar2.transform.rotation);
+            Instantiate(endingfailstar2, new Vector3(0,3, -5f),endingfailstar2.transform.rotation);
             endingfailstar3 = Resources.Load<GameObject>("ending/realendingfailstar3");
-            Instantiate(endingfailstar3, new Vector3(5,1.5f, -5), endingfailstar3.transform.rotation);
+            Instantiate(endingfailstar3, new Vector3(5,1.5f, -5f), endingfailstar3.transform.rotation);
         }
         else if (60 >= time && time > 30){//별 2개
             endingback = Resources.Load<GameObject>("ending/endingBackground");
-            Instantiate(endingback, new Vector3(-0.08f,-0.02f,-5.14f), Quaternion.identity); // 배경이미지 생성
+            Instantiate(endingback, new Vector3(-0.08f,-0.02f,-3f), Quaternion.identity); // 배경이미지 생성
             endingPlayer = Resources.Load<GameObject>("ending/realendingplayer");
-            Instantiate(endingPlayer, new Vector3(-0.18f,-7.89f,-7.17f), Quaternion.identity); //주인공이미지생성
+            Instantiate(endingPlayer, new Vector3(-0.18f,-7.89f,-5f), Quaternion.identity); //주인공이미지생성
             endingstar1 = Resources.Load<GameObject>("ending/realendingstar1");
-            Instantiate(endingstar1, new Vector3(-4.54f,1.12f, -7.27f), endingstar1.transform.rotation); // 별 생성
+            Instantiate(endingstar1, new Vector3(-4.54f,1.12f, -5f), endingstar1.transform.rotation); // 별 생성
             endingstar2 = Resources.Load<GameObject>("ending/realendingstar2");
-            Instantiate(endingstar2, new Vector3(0,3,-5), Quaternion.identity);
+            Instantiate(endingstar2, new Vector3(0,3, -5f), Quaternion.identity);
             //빈 3번째 별 추가하기
             endingfailstar3 = Resources.Load<GameObject>("ending/realendingfailstar3");
-            Instantiate(endingfailstar3, new Vector3(5,1.5f, -5), endingfailstar3.transform.rotation);
+            Instantiate(endingfailstar3, new Vector3(5,1.5f, -5f), endingfailstar3.transform.rotation);
 
         }
         else{//별 3개
             endingback = Resources.Load<GameObject>("ending/endingBackground");
-            Instantiate(endingback, new Vector3(-0.08f,-0.02f,-5.14f), Quaternion.identity); // 배경이미지 생성
+            Instantiate(endingback, new Vector3(-0.08f,-0.02f,-3f), Quaternion.identity); // 배경이미지 생성
             endingPlayer = Resources.Load<GameObject>("ending/realendingplayer");
-            Instantiate(endingPlayer, new Vector3(-0.18f,-7.89f,-7.17f), Quaternion.identity); //주인공이미지생성
+            Instantiate(endingPlayer, new Vector3(-0.18f,-7.89f,-5f), Quaternion.identity); //주인공이미지생성
             endingstar1 = Resources.Load<GameObject>("ending/realendingstar1");
-            Instantiate(endingstar1, new Vector3(-5,1.5f, -5), endingstar1.transform.rotation); // 별 생성
+            Instantiate(endingstar1, new Vector3(-5,1.5f, -5f), endingstar1.transform.rotation); // 별 생성
             endingstar2 = Resources.Load<GameObject>("ending/realendingstar2");
-            Instantiate(endingstar2, new Vector3(0,3,-5), Quaternion.identity);
+            Instantiate(endingstar2, new Vector3(0,3, -5f), Quaternion.identity);
             endingstar3 = Resources.Load<GameObject>("ending/realendingstar3");
-            Instantiate(endingstar3, new Vector3(5,1.5f, -5), endingstar3.transform.rotation);
+            Instantiate(endingstar3, new Vector3(5,1.5f, -5f), endingstar3.transform.rotation);
         }
     }
     public void Stagetimeout()
     {
         endingback = Resources.Load<GameObject>("ending/endingBackground");
-        Instantiate(endingback, new Vector3(-0.08f,-0.02f,-4f), Quaternion.identity); // 배경이미지 생성
+        Instantiate(endingback, new Vector3(-0.08f,-0.02f,-3f), Quaternion.identity); // 배경이미지 생성
         endingPlayer = Resources.Load<GameObject>("ending/timeendingplayer1");
-        Instantiate(endingPlayer, new Vector3(-0.18f,-7.89f,-7.17f), Quaternion.identity); //주인공이미지생성
-        Zero.SetActive(true);    
-        timebox.SetActive(true);    
-        Timeout.SetActive(true);
-        realTime.SetActive(false);  
-        power.SetActive(false);
+        Instantiate(endingPlayer, new Vector3(-0.18f,-7.89f,-5f), Quaternion.identity); //주인공이미지생성
+        canvas.GetComponent<TextScript2>().endingtext1.fontSize = 1.5f;
+        canvas.GetComponent<TextScript2>().endingtext2.fontSize = 1.5f;
 
-        a.SetActive(false);
-        b.SetActive(false);
-        c.SetActive(false);
-        d.SetActive(false);
-        e.SetActive(false);
-        f.SetActive(false);
-        g.SetActive(false);
-        h.SetActive(false);
-        I.SetActive(false);
+        Instantiate(TimeEndingbox, new Vector3(3.75f, -0.3f, -4f), Quaternion.identity);
+
+        TimeCount.SetActive(false);  
+        Power.SetActive(false);
+
+        a.SetActive(false); b.SetActive(false); c.SetActive(false); d.SetActive(false); e.SetActive(false); f.SetActive(false); g.SetActive(false); h.SetActive(false); I.SetActive(false);
 
         StartCoroutine(BlinkText());
     }
@@ -104,26 +86,20 @@ public class endingscene : MonoBehaviour
 
     public void Playerpowerend(){
         endingback = Resources.Load<GameObject>("ending/endingBackground");
-        Instantiate(endingback, new Vector3(-0.08f,-0.02f,-4f), Quaternion.identity); // 배경이미지 생성
+        Instantiate(endingback, new Vector3(-0.08f,-0.02f,-3f), Quaternion.identity); // 배경이미지 생성
         endingPlayer = Resources.Load<GameObject>("ending/timeendingplayer1");
-        Instantiate(endingPlayer, new Vector3(-0.18f,-7.89f,-7.17f), Quaternion.identity); //주인공이미지생성
-        canvas.GetComponent<TextScript>().endingtext1.text = "     Power";
-        canvas.GetComponent<TextScript>().endingtext2.text = "     0";
-        Zero.SetActive(true);    
-        timebox.SetActive(true);    
-        Timeout.SetActive(true);
-        realTime.SetActive(false);  
-        power.SetActive(false);
+        Instantiate(endingPlayer, new Vector3(-0.18f,-7.89f,-5f), Quaternion.identity); //주인공이미지생성
+        canvas.GetComponent<TextScript2>().endingtext1.text = "    Power";
+        canvas.GetComponent<TextScript2>().endingtext2.text = "     0";
+        canvas.GetComponent<TextScript2>().endingtext1.fontSize = 1.5f;
+        canvas.GetComponent<TextScript2>().endingtext2.fontSize = 1.5f;
 
-        a.SetActive(false);
-        b.SetActive(false);
-        c.SetActive(false);
-        d.SetActive(false);
-        e.SetActive(false);
-        f.SetActive(false);
-        g.SetActive(false);
-        h.SetActive(false);
-        I.SetActive(false);
+        Instantiate(TimeEndingbox, new Vector3(3.75f, -0.3f, -4f), Quaternion.identity);
+
+        TimeCount.SetActive(false);
+        Power.SetActive(false);
+
+        a.SetActive(false); b.SetActive(false); c.SetActive(false); d.SetActive(false); e.SetActive(false); f.SetActive(false); g.SetActive(false); h.SetActive(false); I.SetActive(false);
 
         StartCoroutine(BlinkText());
     }

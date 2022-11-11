@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class Stage : MonoBehaviour
 {
+    //스테이지 1
     public int stage; //현재 단계 확인용 변수
     public bool stagemove; //단계 사이 이동 시간 확보용 변수
     public int fortime; //시간 흐르게 하기 위한 변수
@@ -18,9 +19,9 @@ public class Stage : MonoBehaviour
     GameObject mon1;
     GameObject mon2;
     GameObject mon3;
-    float x1 = 15f;
-    float x2 = 18f;
-    float x3 = 21f;
+    float x1 = 17f;
+    float x2 = 20f;
+    float x3 = 23f;
     float y1 = -0.8f;
     float y2 = -1.6f;
     float y3 = -1.2f;
@@ -29,13 +30,12 @@ public class Stage : MonoBehaviour
     public GameObject boss;
     float x4 = 14f;
     float y4 = 0f;
+    public GameObject BH;
+    public GameObject BHBB;
 
     public GameObject punch;
 
     public GameObject ending;
-    public GameObject Zero;
-    public GameObject Timeout;
-    public GameObject timebox;
 
     //칼 날라가기~
     public GameObject AttackBar;
@@ -44,8 +44,9 @@ public class Stage : MonoBehaviour
     float y5 = 2.8f;
     public float xf;
     public float yf;
-    float speed = 6f;
+    float speed = 7.5f;
     bool flymode;
+    bool flymode1;
 
     public bool bossdie;
 
@@ -55,13 +56,9 @@ public class Stage : MonoBehaviour
 
     public void Start() //게임 시작 초기화
     {
-        Zero.SetActive(false);
-        Timeout.SetActive(false);
-        timebox.SetActive(false);
-
         text.SetActive(false);
 
-        stage = 0;
+        stage = 2;
         stagemove = true;
         remain = 0;
 
@@ -73,6 +70,9 @@ public class Stage : MonoBehaviour
         fly = Instantiate(AttackBar, new Vector2(x5, y5), transform.rotation);
         fly.SetActive(false);
         flymode = false;
+        flymode1 = false;
+
+        BossHealthbarOff();
     }
 
     void Update()
@@ -193,6 +193,8 @@ public class Stage : MonoBehaviour
             punch.GetComponent<PunchScript>().punchmode = 1;
             punch.GetComponent<PunchScript>().PunchMode();
 
+            BossHealthbarOn();
+
             MonNum();
             mon1.GetComponent<MonsterScript>().Layer();
             mon2.GetComponent<MonsterScript>().Layer();
@@ -229,7 +231,6 @@ public class Stage : MonoBehaviour
         if (stage == 4 && stagemove == false) //클리어
         {
             StageEnding();
-            Invoke("End", 3f);
 
             stagemove = true;
         }
@@ -238,10 +239,18 @@ public class Stage : MonoBehaviour
         {
             fly.transform.position = Vector2.Lerp(fly.transform.position, new Vector2(xf, yf), Time.deltaTime * speed);
         }
-
         if (fly.transform.position.x >= xf - 1f && flymode == true)
         {
             Flyoff();
+        }
+
+        if (flymode1 == true)
+        {
+            fly.transform.position = Vector2.Lerp(fly.transform.position, new Vector2(xf, yf), Time.deltaTime * speed);
+        }
+        if (fly.transform.position.x >= xf - 0.8f && flymode1 == true)
+        {
+            Flyoff1();
         }
     }
 
@@ -316,9 +325,12 @@ public class Stage : MonoBehaviour
         fly.SetActive(true);
         flymode = true;
 
-        float r1 = Mathf.Atan(yf - y5 / xf - x5); //*Mathf.Rad2Deg
-        Debug.Log(r1);
-        fly.transform.Rotate(0, 0, r1 - 10);
+        float r1 = Mathf.Atan2(yf - y5, xf - x5) * Mathf.Rad2Deg;
+        if(r1 < -30)
+        {
+            r1 = -30;
+        }
+        fly.transform.rotation = Quaternion.Euler(0, 0, r1);
     }
 
     public void Flyoff()
@@ -346,6 +358,43 @@ public class Stage : MonoBehaviour
         punch.GetComponent<PunchScript>().ScrollChange2();
     }
 
+    public void Fly1()
+    {
+        fly.SetActive(true);
+        flymode1 = true;
+
+        float r1 = Mathf.Atan2(yf - y5, xf - x5) * Mathf.Rad2Deg;
+        if (r1 < -30)
+        {
+            r1 = -30;
+        }
+        fly.transform.rotation = Quaternion.Euler(0, 0, r1);
+    }
+
+    public void Flyoff1()
+    {
+        boss.GetComponent<Stage1BossScript>().OnDamaged();
+
+        fly.transform.position = new Vector2(x5, y5);
+        fly.transform.Rotate(0, 0, 0);
+        fly.SetActive(false);
+        flymode1 = false;
+        punch.GetComponent<PunchScript>().punchmode = 1;
+        punch.GetComponent<PunchScript>().PunchMode();
+        punch.GetComponent<PunchScript>().ScrollChange2();
+    }
+
+    public void BossHealthbarOn()
+    {
+        BH.SetActive(true);
+        BHBB.SetActive(true);
+    }
+    public void BossHealthbarOff()
+    {
+        BH.SetActive(false);
+        BHBB.SetActive(false);
+    }
+
     public void Boss1Skill()
     {
         mon1.transform.position = new Vector2(boss.transform.position.x - 2, y1);
@@ -366,15 +415,5 @@ public class Stage : MonoBehaviour
     void textoff()
     {
         text.SetActive(false);
-    }
-
-    public void End() //클리어 함수
-    {
-        //다른 씬으로 넘어가도록 해야 됨
-    }
-
-    public void Fail() //실패 함수
-    {
-        Invoke("End", 3f);
     }
 }

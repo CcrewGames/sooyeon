@@ -128,7 +128,7 @@ MonoBehaviour:
   xm: 0
   skill1: 0
   random: 0
-  number: {fileID: 2687332880628242228, guid: 46a4c4ed2f2fb31498c5200a5b9f13d8, type: 3}
+  number: {fileID: 2687332880628242228, guid: a91cfe33b9aeb534aba367dcc9dcc763, type: 3}
   bomb: {fileID: 3503006311458543851, guid: f4f6654fe73c2d543955d912717b2784, type: 3}
   timemax: 10
   time1: 10

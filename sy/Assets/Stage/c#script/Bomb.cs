@@ -5,6 +5,7 @@ using UnityEngine.UI;
 
 public class Bomb : MonoBehaviour
 {
+    //Find »ç¿ë
     public GameObject bom1, bom2, bom3, bom4, bom5, bom6, bom7, bom8;
 
     float divide;

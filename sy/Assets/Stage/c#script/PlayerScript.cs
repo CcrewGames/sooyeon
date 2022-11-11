@@ -50,7 +50,7 @@ public class PlayerScript : MonoBehaviour
     {
         animator = GetComponent<Animator>();
 
-        heart = 100000;
+        heart = 100;
 
         move = 0;
 
@@ -92,7 +92,6 @@ public class PlayerScript : MonoBehaviour
         if (heart <= 0 && end == false) //실패
         {
             end = true;
-            GameObject.Find("Stage").GetComponent<Stage>().Fail();
             GameObject.Find("ending").GetComponent<endingscene>().Playerpowerend();
         }
 
@@ -114,6 +113,10 @@ public class PlayerScript : MonoBehaviour
         if (move == 3 && transform.position.x <= -0.01f + xm)
         {
             transform.position = Vector2.MoveTowards(transform.position, new Vector2(xm, transform.position.y), Time.deltaTime * (speed + 2));
+        }
+        if (move == 3 && transform.position.x >= -1.2f + xm)
+        {
+            animator.SetBool("walk", false);
         }
         if (move == 3 && transform.position.x >= -0.01f + xm)
         {
@@ -197,12 +200,16 @@ public class PlayerScript : MonoBehaviour
     }
     public void Run() //이동 대기 함수
     {
-        Invoke("Run1", 1f);
+        Invoke("rRun", 1f);
+    }
+    void rRun() //이동 대기 함수
+    {
+        animator.SetBool("walk", true);
+        Invoke("Run1", 0.7f);
     }
     void Run1() //중간으로 이동 함수
     {
         move = 1;
-        animator.SetBool("walk", true);
         Invoke("Find", 5f);
     }
     void Find() //몬스터 마주침! 함수
@@ -288,17 +295,21 @@ public class PlayerScript : MonoBehaviour
     //엔딩 이동
     public void Run_() //이동 대기 함수2
     {
-        Invoke("Run2", 1f);
+        Invoke("rRun1", 1f);
+        f = true;
+    }
+    void rRun1() //이동 대기 함수
+    {
+        animator.SetBool("walk", true);
+        Invoke("Run2", 0.6f);
     }
     void Run2() //중간으로 이동 함수2
     {
         move = 3;
-        animator.SetBool("walk", true);
     }
     void Find1() //끝~ 함수
     {
         move = 0;
-        animator.SetBool("walk", false);
     }
 }
 

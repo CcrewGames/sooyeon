@@ -44,3 +44,9 @@ TagManager:
   - name: Default
     uniqueID: 0
     locked: 0
+  - name: EndingObject
+    uniqueID: 1353284941
+    locked: 0
+  - name: EndingText
+    uniqueID: 1355991815
+    locked: 0

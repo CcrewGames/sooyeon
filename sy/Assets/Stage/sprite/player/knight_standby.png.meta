@@ -1,9 +1,9 @@
 fileFormatVersion: 2
-guid: 46b8015ceee529e4f9b56b063c97fc76
+guid: 75f344920d5ee8b4f84624e2b10c6e86
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
-  serializedVersion: 11
+  serializedVersion: 12
   mipmaps:
     mipMapMode: 0
     enableMipMap: 0
@@ -47,7 +47,7 @@ TextureImporter:
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 100
+  spritePixelsToUnits: 300
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -63,6 +63,7 @@ TextureImporter:
   textureFormatSet: 0
   ignorePngGamma: 0
   applyGammaDecoding: 0
+  cookieLightType: 1
   platformSettings:
   - serializedVersion: 3
     buildTarget: DefaultTexturePlatform
@@ -140,13 +141,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: stage 1 mon(1) attack effect 389x381_0
+      name: knight_standby_0
       rect:
         serializedVersion: 2
         x: 0
-        y: 381
-        width: 389
-        height: 381
+        y: 509
+        width: 486
+        height: 487
       alignment: 6
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -154,20 +155,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: de8646aa27362ae4580cf70f3ef02712
-      internalID: -2036295023
+      spriteID: 05ecb85d2a87ff143b2a121647f47105
+      internalID: 1042156945
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: stage 1 mon(1) attack effect 389x381_1
+      name: knight_standby_1
       rect:
         serializedVersion: 2
-        x: 389
-        y: 381
-        width: 389
-        height: 381
+        x: 487
+        y: 509
+        width: 485
+        height: 487
       alignment: 6
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -175,20 +176,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 2f77e789e240b3e4c9b6f5b66ea37568
-      internalID: -1832757746
+      spriteID: 800f671732de55743907222c96c6c816
+      internalID: 1415261765
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: stage 1 mon(1) attack effect 389x381_2
+      name: knight_standby_2
       rect:
         serializedVersion: 2
-        x: 0
-        y: 0
-        width: 389
-        height: 381
+        x: 976
+        y: 509
+        width: 484
+        height: 487
       alignment: 6
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -196,8 +197,71 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: f3553a1ea60d5e44b910f0f4a9ab3640
-      internalID: -112244964
+      spriteID: 98f84d4e9c322f9429f60798b0afe84c
+      internalID: -1271346035
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: knight_standby_3
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 11
+        width: 486
+        height: 487
+      alignment: 6
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 99941041bb0c92948adc102a8f641c37
+      internalID: -2110543858
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: knight_standby_4
+      rect:
+        serializedVersion: 2
+        x: 487
+        y: 11
+        width: 487
+        height: 492
+      alignment: 6
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0b7f19ed12f897c418ac083a1224044c
+      internalID: 951470541
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: knight_standby_5
+      rect:
+        serializedVersion: 2
+        x: 975
+        y: 11
+        width: 485
+        height: 487
+      alignment: 6
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: af123a2cc20f71c46bfe6615adcdc9dd
+      internalID: -1170342358
       vertices: []
       indices: 
       edges: []
@@ -213,9 +277,12 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      stage 1 mon(1) attack effect 389x381_0: -2036295023
-      stage 1 mon(1) attack effect 389x381_1: -1832757746
-      stage 1 mon(1) attack effect 389x381_2: -112244964
+      knight_standby_3: -2110543858
+      knight_standby_0: 1042156945
+      knight_standby_2: -1271346035
+      knight_standby_1: 1415261765
+      knight_standby_5: -1170342358
+      knight_standby_4: 951470541
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0

@@ -121,7 +121,7 @@ public class MonsterScript : MonoBehaviour
     public void respawn2() //플레이어에게
     {
         speed = 0.8f;
-        xm = -4f;
+        xm = -3f;
         move = false;
         move = true;
         movey = 1;
@@ -192,6 +192,9 @@ public class MonsterScript : MonoBehaviour
             CancelInvoke("Stop");
             Stop();
         }
+
+        if (movey == 6) //막타
+            transform.position = Vector2.MoveTowards(transform.position, new Vector2(dis4, transform.position.y), Time.deltaTime * speed3);
     }
 
     public void Update()
@@ -252,8 +255,8 @@ public class MonsterScript : MonoBehaviour
         //난수와 체력바와 효과 이동
         if (heart != 0)
         {
-            ef1.transform.position = new Vector2(transform.position.x - 2.45f, transform.position.y - 1.6f);
-            ef2.transform.position = new Vector2(transform.position.x - 10, transform.position.y - 1.6f);
+            ef1.transform.position = new Vector2(transform.position.x - 2.6f, transform.position.y - 1.55f);
+            ef2.transform.position = new Vector2(transform.position.x - 5.1f, transform.position.y - 0.795f);
 
             if (random > 9 && random <= 99) //십의 자리일 때
             {
@@ -397,11 +400,12 @@ public class MonsterScript : MonoBehaviour
         }
         else
         {
+            dis4 = transform.position.x + 2;
             move = false;
             movey = 6;
             damaged = true;
 
-            Invoke("Inactive", 1.5f);
+            Invoke("Inactive", 5f);
         }
     }
 
@@ -415,13 +419,17 @@ public class MonsterScript : MonoBehaviour
 
     void Attack() //공격 함수
     {
-        GameObject.Find("Player").GetComponent<PlayerScript>().heart -= 1;
-        GameObject.Find("Player").GetComponent<Animator>().SetTrigger("hurt2");
         animator.SetTrigger("attack");
         ef1.GetComponent<Animator>().SetTrigger("effect1");
         ef2.GetComponent<Animator>().SetTrigger("effect2");
 
-        Invoke("reAttack", 2f);
+        Invoke("realAttack", 0.65f);
+        Invoke("reAttack", 2.5f);
+    }
+    void realAttack() //공격 함수
+    {
+        GameObject.Find("Player").GetComponent<PlayerScript>().heart -= 1;
+        GameObject.Find("Player").GetComponent<Animator>().SetTrigger("hurt2");
     }
 
     void reAttack() //공격 재개 함수
