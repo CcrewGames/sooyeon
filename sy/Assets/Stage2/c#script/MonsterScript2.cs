@@ -53,6 +53,8 @@ public class MonsterScript2 : MonoBehaviour
 
     public Animator animator; //애니
 
+    public int monnum;
+
     void Awake() //start()보다 먼저 호출
     {
         animator = GetComponent<Animator>(); //애니
@@ -149,8 +151,8 @@ public class MonsterScript2 : MonoBehaviour
         }
         else if (random > 0 && random <= 9) //일의 자리일 때
         {
-            SpriteRenderer spriteR = num1.GetComponent<SpriteRenderer>();
-            spriteR.sprite = sprites[random];
+            SpriteRenderer spriteA = num1.GetComponent<SpriteRenderer>();
+            spriteA.sprite = sprites[random];
 
             num1.SetActive(true);
             num2.SetActive(false);
@@ -167,7 +169,7 @@ public class MonsterScript2 : MonoBehaviour
             else if (movey == 2)
                 transform.position = transform.position - transform.up * speed1 * Time.deltaTime;
         }
-        
+
         if (movey == 3) //ㅂㄷㅂㄷ
             transform.position = new Vector2(transform.position.x - speed2 * Time.deltaTime, transform.position.y);
         else if (movey == 4) //ㅂㄷㅂㄷ
@@ -177,7 +179,13 @@ public class MonsterScript2 : MonoBehaviour
             transform.position = Vector2.MoveTowards(transform.position, new Vector2(dis4, transform.position.y), Time.deltaTime * speed3);
 
         if (movey == 5 && transform.position.x > dis4 - 0.1f) //다시 걷기
+        {
+            CancelInvoke("Stop");
             Stop();
+        }
+
+        if (movey == 6) //막타
+            transform.position = Vector2.MoveTowards(transform.position, new Vector2(dis4, transform.position.y), Time.deltaTime * speed3);
     }
 
     public void Update()
@@ -202,7 +210,7 @@ public class MonsterScript2 : MonoBehaviour
             attack = true;
         }
 
-        if (Input.GetMouseButtonDown(0)) //피격
+        if (Input.GetMouseButtonDown(0) && GameObject.Find("Stage").GetComponent<Stage2>().pausemode == false) //피격
         {
             CastRay();
 
@@ -210,17 +218,16 @@ public class MonsterScript2 : MonoBehaviour
             {
                 if (GameObject.Find("Punch").GetComponent<PunchScript>().result == random) //난수 = 결과 일치
                 {
-                    GameObject.Find("Stage").GetComponent<Stage>().xf = transform.position.x;
-                    GameObject.Find("Stage").GetComponent<Stage>().yf = transform.position.y;
+                    GameObject.Find("Stage").GetComponent<Stage2>().xf = transform.position.x;
+                    GameObject.Find("Stage").GetComponent<Stage2>().yf = transform.position.y;
+                    GameObject.Find("Stage").GetComponent<Stage2>().monnum2 = monnum;
 
-                    GameObject.Find("Stage").GetComponent<Stage>().Fly();
+                    GameObject.Find("Stage").GetComponent<Stage2>().Fly();
+
                     GameObject.Find("Punch").GetComponent<PunchScript>().punchmode = 0;
                     GameObject.Find("Punch").GetComponent<PunchScript>().PunchMode();
 
                     GameObject.Find("Punch").GetComponent<PunchScript>().re();
-
-                    float dist = (transform.position.x + 5) / 20;
-                    Invoke("OnDamaged", dist);
                 }
                 else
                 {
@@ -236,22 +243,22 @@ public class MonsterScript2 : MonoBehaviour
             GameObject.Find("Punch").GetComponent<PunchScript>().ScrollChange2();
         }
 
-        //난수와 체력바 이동
+        //난수와 체력바와 효과 이동
         if (heart != 0)
         {
             if (random > 9 && random <= 99) //십의 자리일 때
             {
-                num1.transform.position = new Vector3(transform.position.x + dis, transform.position.y + dis3, transform.position.z);
+                num1.transform.position = new Vector2(transform.position.x + dis, transform.position.y + dis3);
             }
             else if (random > 0 && random <= 9) //일의 자리일 때
             {
-                num1.transform.position = new Vector3(transform.position.x, transform.position.y + dis3, transform.position.z);
+                num1.transform.position = new Vector2(transform.position.x, transform.position.y + dis3);
             }
             num2.transform.position = new Vector3(num1.transform.position.x - 2 * dis, num1.transform.position.y, -1);
 
-            hpbar1.transform.position = new Vector3(transform.position.x - dis1, transform.position.y + dis2, transform.position.z);
-            hpbar2.transform.position = new Vector3(transform.position.x, transform.position.y + dis2, transform.position.z);
-            hpbar3.transform.position = new Vector3(transform.position.x + dis1, transform.position.y + dis2, transform.position.z);
+            hpbar1.transform.position = new Vector2(transform.position.x - dis1, transform.position.y + dis2);
+            hpbar2.transform.position = new Vector2(transform.position.x, transform.position.y + dis2);
+            hpbar3.transform.position = new Vector2(transform.position.x + dis1, transform.position.y + dis2);
         }
 
         if (heart == 0) //UI 삭제
@@ -262,6 +269,53 @@ public class MonsterScript2 : MonoBehaviour
             Destroy(hpbar1);
             Destroy(hpbar2);
             Destroy(hpbar3);
+        }
+    }
+
+    public void Layer()
+    {
+        SpriteRenderer spriteM = GetComponent<SpriteRenderer>();
+        if (monnum == 1)
+        {
+            spriteM.sortingOrder = -7;
+            num1.GetComponent<LayerScript>().monnum = 1;
+            num2.GetComponent<LayerScript>().monnum = 1;
+            hpbar1.GetComponent<LayerScript>().monnum = 1;
+            hpbar2.GetComponent<LayerScript>().monnum = 1;
+            hpbar3.GetComponent<LayerScript>().monnum = 1;
+            num1.GetComponent<LayerScript>().Layer();
+            num2.GetComponent<LayerScript>().Layer();
+            hpbar1.GetComponent<LayerScript>().Layer();
+            hpbar2.GetComponent<LayerScript>().Layer();
+            hpbar3.GetComponent<LayerScript>().Layer();
+        }
+        else if (monnum == 2)
+        {
+            spriteM.sortingOrder = -3;
+            num1.GetComponent<LayerScript>().monnum = 2;
+            num2.GetComponent<LayerScript>().monnum = 2;
+            hpbar1.GetComponent<LayerScript>().monnum = 2;
+            hpbar2.GetComponent<LayerScript>().monnum = 2;
+            hpbar3.GetComponent<LayerScript>().monnum = 2;
+            num1.GetComponent<LayerScript>().Layer();
+            num2.GetComponent<LayerScript>().Layer();
+            hpbar1.GetComponent<LayerScript>().Layer();
+            hpbar2.GetComponent<LayerScript>().Layer();
+            hpbar3.GetComponent<LayerScript>().Layer();
+        }
+        else if (monnum == 3)
+        {
+            spriteM.sortingOrder = -5;
+            num1.GetComponent<LayerScript>().monnum = 3;
+            num2.GetComponent<LayerScript>().monnum = 3;
+            hpbar1.GetComponent<LayerScript>().monnum = 3;
+            hpbar2.GetComponent<LayerScript>().monnum = 3;
+            hpbar3.GetComponent<LayerScript>().monnum = 3;
+            num1.GetComponent<LayerScript>().Layer();
+            num2.GetComponent<LayerScript>().Layer();
+            hpbar1.GetComponent<LayerScript>().Layer();
+            hpbar2.GetComponent<LayerScript>().Layer();
+            hpbar3.GetComponent<LayerScript>().Layer();
         }
     }
 
@@ -298,34 +352,32 @@ public class MonsterScript2 : MonoBehaviour
         x0 = gameObject.transform.position.x;
         x1 = x0 + 0.1f;
         tremble = true;
+
         Invoke("Stop", 0.35f);
     }
 
-    void OnDamaged() //피격 함수
+    public void OnDamaged() //피격 함수
     {
         heart--;
-        animator.SetInteger("hit", heart); //애니
         if (heart != 0)
         {
-            CancelInvoke("Stop");
+            dis4 = transform.position.x + 4;
             move = false;
-            dis4 = transform.position.x + 2;
             movey = 5;
             damaged = true;
 
+            Invoke("Stop", 3f);
             HeartMaker();
             setting();
-
-            Invoke("Stop", 0.8f);
         }
         else
         {
-            CancelInvoke("Stop");
+            dis4 = transform.position.x + 2;
             move = false;
-            movey = 5;
+            movey = 6;
             damaged = true;
 
-            Invoke("Inactive", 1.5f);
+            Invoke("Inactive", 2f);
         }
     }
 
@@ -339,10 +391,15 @@ public class MonsterScript2 : MonoBehaviour
 
     void Attack() //공격 함수
     {
-        GameObject.Find("Player").GetComponent<PlayerScript>().heart -= 3;
-        GameObject.Find("Player").GetComponent<Animator>().SetTrigger("hurt2");
+        animator.SetTrigger("attack");
 
-        Invoke("reAttack", 2f);
+        Invoke("realAttack", 0.55f);
+        Invoke("reAttack", 2.5f);
+    }
+    void realAttack() //공격 함수
+    {
+        GameObject.Find("Player").GetComponent<PlayerScript2>().heart -= 1;
+        GameObject.Find("Player").GetComponent<Animator>().SetTrigger("hurt2");
     }
 
     void reAttack() //공격 재개 함수
@@ -353,6 +410,6 @@ public class MonsterScript2 : MonoBehaviour
     void Inactive() //죽음 처리 함수
     {
         Destroy(gameObject);
-        GameObject.Find("Stage").GetComponent<Stage>().remain -= 1;
+        GameObject.Find("Stage").GetComponent<Stage2>().remain -= 1;
     }
 }

@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Stage1BossScript : MonoBehaviour
 {
@@ -21,7 +22,7 @@ public class Stage1BossScript : MonoBehaviour
     float x1;
 
     public bool skill1;
-    bool skill2;
+    public bool skill2;
     bool damaged;
 
     public int random;
@@ -35,7 +36,8 @@ public class Stage1BossScript : MonoBehaviour
     private GameObject target; //마우스 클릭 확인용 변수
 
     public GameObject bomb;
-    GameObject bom;
+    public GameObject bom;
+    public Image bombtimer;
 
     public float timemax = 10f;
     public float time1;
@@ -167,7 +169,7 @@ public class Stage1BossScript : MonoBehaviour
             skill2 = true;
         }
 
-        if (Input.GetMouseButtonDown(0))
+        if (Input.GetMouseButtonDown(0) && GameObject.Find("Stage").GetComponent<Stage>().pausemode == false)
         {
             CastRay();
 
@@ -186,6 +188,8 @@ public class Stage1BossScript : MonoBehaviour
                     GameObject.Find("Punch").GetComponent<PunchScript>().PunchMode();
 
                     GameObject.Find("Punch").GetComponent<PunchScript>().re();
+
+                    GameObject.Find("Stage").GetComponent<Stage>().BombOff();
                 }
             }
         }
@@ -193,21 +197,27 @@ public class Stage1BossScript : MonoBehaviour
         if (timer == true)
         {
             time1 -= Time.deltaTime;
+            GameObject.Find("Stage").GetComponent<Stage>().BombTimer();
+            GameObject.Find("Stage").GetComponent<Stage>().xb = bom.transform.position.x + 0.17f;
+            GameObject.Find("Stage").GetComponent<Stage>().yb = bom.transform.position.y;
+            GameObject.Find("Stage").GetComponent<Stage>().BombPosition();
         }
 
         if (time1 <= 0)
         {
             bombmove = 2;
+            GameObject.Find("Stage").GetComponent<Stage>().BombOff();
             time1 = timemax;
+            timer = false;
         }
 
         if (random > 9 && random <= 99) //십의 자리일 때
         {
-            num1.transform.position = new Vector2(bom.transform.position.x + dis, bom.transform.position.y);
+            num1.transform.position = new Vector2(bom.transform.position.x + dis + 0.17f, bom.transform.position.y);
         }
         else if (random > 0 && random <= 9) //일의 자리일 때
         {
-            num1.transform.position = new Vector2(bom.transform.position.x, bom.transform.position.y);
+            num1.transform.position = new Vector2(bom.transform.position.x + 0.17f, bom.transform.position.y);
         }
 
         num2.transform.position = new Vector2(num1.transform.position.x - 2 * dis, num1.transform.position.y);
@@ -273,7 +283,6 @@ public class Stage1BossScript : MonoBehaviour
     void Skill_2()
     {
         bom.SetActive(true);
-        bom.GetComponent<Bomb>().Re();
         setting1();
         bombmove = 1;
     }

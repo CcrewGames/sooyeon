@@ -219,7 +219,7 @@ public class MonsterScript : MonoBehaviour
             attack = true;
         }
 
-        if (Input.GetMouseButtonDown(0)) //피격
+        if (Input.GetMouseButtonDown(0) && GameObject.Find("Stage").GetComponent<Stage>().pausemode == false) //피격
         {
             CastRay();
 

@@ -28,17 +28,7 @@ public class Buttonclick : MonoBehaviour
     //초기화
     public GameObject re;
 
-    //날려보내는 함수
-    public IEnumerator flying(GameObject NumberImage){
-        Debug.Log(NumberImage);
-        Vector3 destination = new Vector3(-5.86f, 2.34f, -1.06f); //날려보내기
-        while(transform.position != destination)
-        {
-            //Vector3 speed = Vector3.zero; 
-            NumberImage.transform.position = Vector3.Lerp(NumberImage.transform.position, destination, 0.04f);        
-            yield return null;
-        }
-    }
+    public bool pausemode;
 
     void Start() //클릭하면
     {
@@ -56,72 +46,76 @@ public class Buttonclick : MonoBehaviour
         btn12.onClick.AddListener(() => btnprint(sign3));
         btn13.onClick.AddListener(() => btnprint(sign4));
         btn14.onClick.AddListener(() => btnprint(re));
-    }
 
+        pausemode = false;
+    }
     
     void btnprint(GameObject Num)
     {
-        if (Num == num1)
+        if (pausemode == false)
         {
-            punch.GetComponent<PunchScript>().num = 1;
-        }
-        else if (Num == num2)
-        {
-            punch.GetComponent<PunchScript>().num = 2;
-        }
-        else if (Num == num3)
-        {
-            punch.GetComponent<PunchScript>().num = 3;
-        }
-        else if (Num == num4)
-        {
-            punch.GetComponent<PunchScript>().num = 4;
-        }
-        else if (Num == num5)
-        {
-            punch.GetComponent<PunchScript>().num = 5;
-        }
-        else if (Num == num6)
-        {
-            punch.GetComponent<PunchScript>().num = 6;
-        }
-        else if (Num == num7)
-        {
-            punch.GetComponent<PunchScript>().num = 7;
-        }
-        else if (Num == num8)
-        {
-            punch.GetComponent<PunchScript>().num = 8;
-        }
-        else if (Num == num9)
-        {
-            punch.GetComponent<PunchScript>().num = 9;
-        }
-        else if (Num == sign1)
-        {
-            punch.GetComponent<PunchScript>().sign = 1;
-        }
-        else if (Num == sign2)
-        {
-            punch.GetComponent<PunchScript>().sign = 2;
-        }
-        else if (Num == sign3)
-        {
-            punch.GetComponent<PunchScript>().sign = 3;
-        }
-        else if (Num == sign4)
-        {
-            punch.GetComponent<PunchScript>().sign = 4;
-        }
+            if (Num == num1)
+            {
+                punch.GetComponent<PunchScript>().num = 1;
+            }
+            else if (Num == num2)
+            {
+                punch.GetComponent<PunchScript>().num = 2;
+            }
+            else if (Num == num3)
+            {
+                punch.GetComponent<PunchScript>().num = 3;
+            }
+            else if (Num == num4)
+            {
+                punch.GetComponent<PunchScript>().num = 4;
+            }
+            else if (Num == num5)
+            {
+                punch.GetComponent<PunchScript>().num = 5;
+            }
+            else if (Num == num6)
+            {
+                punch.GetComponent<PunchScript>().num = 6;
+            }
+            else if (Num == num7)
+            {
+                punch.GetComponent<PunchScript>().num = 7;
+            }
+            else if (Num == num8)
+            {
+                punch.GetComponent<PunchScript>().num = 8;
+            }
+            else if (Num == num9)
+            {
+                punch.GetComponent<PunchScript>().num = 9;
+            }
+            else if (Num == sign1)
+            {
+                punch.GetComponent<PunchScript>().sign = 1;
+            }
+            else if (Num == sign2)
+            {
+                punch.GetComponent<PunchScript>().sign = 2;
+            }
+            else if (Num == sign3)
+            {
+                punch.GetComponent<PunchScript>().sign = 3;
+            }
+            else if (Num == sign4)
+            {
+                punch.GetComponent<PunchScript>().sign = 4;
+            }
 
-        if (Num == re)
-        {
-            punch.GetComponent<PunchScript>().re();
-            punch.GetComponent<PunchScript>().ScrollChange2();
-        }
-        else
-        {
-            punch.GetComponent<PunchScript>().calculator(); //버튼 클릭할 때마다 펀치 스크립트에서 계산 함수 실행
+            if (Num == re)
+            {
+                punch.GetComponent<PunchScript>().re();
+                punch.GetComponent<PunchScript>().ScrollChange2();
+            }
+            else
+            {
+                punch.GetComponent<PunchScript>().calculator(); //버튼 클릭할 때마다 펀치 스크립트에서 계산 함수 실행
+            }
         }
     }
 }
