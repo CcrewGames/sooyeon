@@ -49,7 +49,7 @@ public class Story2Script : MonoBehaviour
             else if (GameObject.Find("Stage").GetComponent<Stage2>().story == 2)
             {
                 i++;
-                if (i == 3 || i == 5 || i == 6)
+                if (i == 4 || i == 6 || i == 7)
                 {
                     Story2log1();
                 }
@@ -76,8 +76,9 @@ public class Story2Script : MonoBehaviour
         nextbutton1.SetActive(true);
 
         sentences1 = new List<string>();
-        sentences1.Add("드디어 도착했군!");
-        sentences1.Add("이전보다 많은 버튼을 얻었으니 좀 더 수월하겠어.");
+        sentences1.Add("이번엔 로그일인가?");
+        sentences1.Add("그나저마 저번 마을을 겪고 점프 훈련을 하나도 안 빠졌는데! 이번엔 달리기였을 줄이야!");
+        sentences1.Add("그래도 이전보다 많은 버튼을 얻었으니 좀 더 수월하겠어.");
         sentences1.Add("가자! 앞으로!");
         size = sentences1.Count;
         i = 0;
@@ -96,10 +97,11 @@ public class Story2Script : MonoBehaviour
         nextbutton1.SetActive(true);
 
         sentences2 = new List<string>();
-        //0, 3, 5, 6
+        //0, 4, 6, 7
         sentences2.Add("마침내 대면했군요... 내 형제의 원수... 여기까지 오다니 참 안타까워요..."); //로그일
         sentences2.Add("로그십 말입니까?"); //칼
-        sentences2.Add("세상을 어지럽힌 대가였을 뿐입니다. 그리고 당신도 곧 그 대가를 치루게 될 것입니다!"); //칼
+        sentences2.Add("(형제라기엔, 로그십과 달리 상당히 뚱뚱한 것 같은데...)"); //칼
+        sentences2.Add("세상을 어지럽힌 대가였을 뿐입니다. 그리고 곧 당신도 그 대가를 치루게 될 것입니다."); //칼
         sentences2.Add("아...! 그의 피타고라스 음계는 내 1:1618 황금비 몸매에 딱 맞는 배경음이었는데... 정말 아쉬워요...!"); //로그일
         sentences2.Add("(내 말을 전혀 듣지 않는 군...)"); //칼
         sentences2.Add("당신도 제 수학적인 예술을 느껴보시겠어요...?"); //로그일

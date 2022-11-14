@@ -138,6 +138,7 @@ public class Stage1BossScript : MonoBehaviour
         if (bombmove == 1 && bom.transform.position.x <= 3.5f)
         {
             timer = true;
+            bom.GetComponent<Animator>().SetTrigger("bomb");
             bombmove = 0;
         }
         if (bombmove == 2 && bom.transform.position.x <= -3.9f)

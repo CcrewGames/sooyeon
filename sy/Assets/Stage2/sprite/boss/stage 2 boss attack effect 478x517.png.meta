@@ -1,9 +1,9 @@
 fileFormatVersion: 2
-guid: ed0e5fdd51d25c242ba9305c3ce3e523
+guid: 0ffd092485e44574aa947419ef8be5d0
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
-  serializedVersion: 12
+  serializedVersion: 11
   mipmaps:
     mipMapMode: 0
     enableMipMap: 0
@@ -63,7 +63,6 @@ TextureImporter:
   textureFormatSet: 0
   ignorePngGamma: 0
   applyGammaDecoding: 0
-  cookieLightType: 1
   platformSettings:
   - serializedVersion: 3
     buildTarget: DefaultTexturePlatform
@@ -141,148 +140,127 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: stage 2 mon(1) attack 982x313_0
+      name: stage 2 boss attack effect 478x517_0
       rect:
         serializedVersion: 2
-        x: 588
-        y: 939
-        width: 394
-        height: 313
-      alignment: 6
+        x: 0
+        y: 517
+        width: 478
+        height: 517
+      alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 79600e394ce9640429517fc7d4674afc
-      internalID: 1066748592
+      spriteID: bf9f006a5a27d05428a83511e788a95c
+      internalID: -1491111826
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: stage 2 mon(1) attack 982x313_1
+      name: stage 2 boss attack effect 478x517_1
       rect:
         serializedVersion: 2
-        x: 1584
-        y: 939
-        width: 380
-        height: 313
-      alignment: 6
+        x: 478
+        y: 517
+        width: 478
+        height: 517
+      alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 9d76d6a171cb53a428d37435d8897b25
-      internalID: -1323356347
+      spriteID: 41778935db244164092f1ec5f1704a2e
+      internalID: 37535342
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: stage 2 mon(1) attack 982x313_2
+      name: stage 2 boss attack effect 478x517_2
       rect:
         serializedVersion: 2
-        x: 590
-        y: 626
-        width: 392
-        height: 313
-      alignment: 6
+        x: 956
+        y: 517
+        width: 478
+        height: 517
+      alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: d76c1a27f35a2fc41b01cd8138320b6f
-      internalID: 414395792
+      spriteID: d8593184ddb411640990e669fa098dee
+      internalID: -1002744501
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: stage 2 mon(1) attack 982x313_3
+      name: stage 2 boss attack effect 478x517_3
       rect:
         serializedVersion: 2
-        x: 1584
-        y: 626
-        width: 380
-        height: 313
-      alignment: 6
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 43e2f1ffec6d871459360aaddbfdc430
-      internalID: -1540221514
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: stage 2 mon(1) attack 982x313_4
-      rect:
-        serializedVersion: 2
-        x: 588
-        y: 313
-        width: 394
-        height: 313
-      alignment: 6
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: c7810330836195b4d8856d4b5163cbe8
-      internalID: -2021897792
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: stage 2 mon(1) attack 982x313_5
-      rect:
-        serializedVersion: 2
-        x: 1586
-        y: 313
-        width: 378
-        height: 313
-      alignment: 6
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 8e8143d59af422e4ca1756b4efad003b
-      internalID: -1658925901
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: stage 2 mon(1) attack 982x313_6
-      rect:
-        serializedVersion: 2
-        x: 588
+        x: 0
         y: 0
-        width: 394
-        height: 313
-      alignment: 6
+        width: 478
+        height: 517
+      alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 4a58a9db3be733d4da440d118c92ba1c
-      internalID: -1961731498
+      spriteID: c19731943e262f04c912076831edac94
+      internalID: 860716864
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: stage 2 boss attack effect 478x517_4
+      rect:
+        serializedVersion: 2
+        x: 478
+        y: 0
+        width: 478
+        height: 517
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a3081145d1b780e40936609d41d1bbee
+      internalID: 1546735363
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: stage 2 boss attack effect 478x517_5
+      rect:
+        serializedVersion: 2
+        x: 956
+        y: 0
+        width: 478
+        height: 517
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8c82a19dc95d5cf4eb997fc7b8d5dbc9
+      internalID: -452830119
       vertices: []
       indices: 
       edges: []
@@ -298,13 +276,12 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      stage 2 mon(1) attack 982x313_1: -1323356347
-      stage 2 mon(1) attack 982x313_2: 414395792
-      stage 2 mon(1) attack 982x313_4: -2021897792
-      stage 2 mon(1) attack 982x313_3: -1540221514
-      stage 2 mon(1) attack 982x313_0: 1066748592
-      stage 2 mon(1) attack 982x313_5: -1658925901
-      stage 2 mon(1) attack 982x313_6: -1961731498
+      stage 2 boss attack effect 478x517_1: 37535342
+      stage 2 boss attack effect 478x517_2: -1002744501
+      stage 2 boss attack effect 478x517_5: -452830119
+      stage 2 boss attack effect 478x517_4: 1546735363
+      stage 2 boss attack effect 478x517_0: -1491111826
+      stage 2 boss attack effect 478x517_3: 860716864
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0

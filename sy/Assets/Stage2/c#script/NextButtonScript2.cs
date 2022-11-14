@@ -49,7 +49,7 @@ public class NextButtonScript2 : MonoBehaviour
         else if (move == true)
             transform.position = transform.position - transform.up * speed1 * myDeltaTime;
 
-        if (Input.GetMouseButtonDown(0)) //ÇÇ°Ý
+        if (Input.GetMouseButtonDown(0))
         {
             CastRay();
 

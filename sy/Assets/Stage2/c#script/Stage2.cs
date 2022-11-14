@@ -358,8 +358,8 @@ public class Stage2 : MonoBehaviour
         }
         else if (stage == 2)
         {
-            mon1 = Instantiate(monster, new Vector2(x1, y1), transform.rotation);
-            mon2 = Instantiate(monster2, new Vector2(x2, y2), transform.rotation);
+            mon1 = Instantiate(monster2, new Vector2(x1, y1), transform.rotation);
+            mon2 = Instantiate(monster, new Vector2(x2, y2), transform.rotation);
             mon1.SetActive(true);
             mon2.SetActive(true);
 

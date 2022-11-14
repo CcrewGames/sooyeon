@@ -44,6 +44,9 @@ public class Stage2BossScript : MonoBehaviour
     public float time1;
     public bool timer;
 
+    public GameObject e7;
+    private GameObject ef7;
+
     //폭탄
     int bombmove; //0 기본, 1 소환, 2 공격, 3 피격
     float speed3 = 4f;
@@ -83,6 +86,8 @@ public class Stage2BossScript : MonoBehaviour
 
         bombmove = 0;
 
+        ef7 = Instantiate(e7, transform.position, transform.rotation);
+
         bom = Instantiate(bomb, new Vector2(transform.position.x, -2), transform.rotation);
         num1 = Instantiate(number, new Vector2(bom.transform.position.x - dis, bom.transform.position.y), transform.rotation);
         num2 = Instantiate(number, new Vector2(bom.transform.position.x, bom.transform.position.y), transform.rotation);
@@ -111,7 +116,7 @@ public class Stage2BossScript : MonoBehaviour
             transform.position = new Vector2(transform.position.x + speed2 * Time.deltaTime, transform.position.y);
 
         if (bombmove == 1)
-            bom.transform.position = Vector3.Slerp(bom.transform.position, new Vector2(3.4f, 0), Time.deltaTime * speed3);
+            bom.transform.position = Vector3.Slerp(bom.transform.position, new Vector2(2.4f, 0), Time.deltaTime * speed3);
 
         if (bombmove == 2)
             bom.transform.position = Vector3.Lerp(bom.transform.position, new Vector2(-4f, -1), Time.deltaTime * speed4);
@@ -127,9 +132,10 @@ public class Stage2BossScript : MonoBehaviour
                 movey = 5;
         }
 
-        if (bombmove == 1 && bom.transform.position.x <= 3.5f)
+        if (bombmove == 1 && bom.transform.position.x <= 2.5f)
         {
             timer = true;
+            bom.GetComponent<Animator>().SetTrigger("bomb");
             bombmove = 0;
         }
         if (bombmove == 2 && bom.transform.position.x <= -3.9f)
@@ -177,7 +183,7 @@ public class Stage2BossScript : MonoBehaviour
         {
             CastRay();
 
-            if ((target == num1 || target == num2 || target == bom) && GameObject.Find("Punch").GetComponent<PunchScript>().punchmode == 1)
+            if ((target == num1 || target == num2 || target == bom) && GameObject.Find("Punch").GetComponent<PunchScript>().punchmode == 1 && timer == true)
             {
                 if (GameObject.Find("Punch").GetComponent<PunchScript>().result == random && time1 > 0) //난수 = 결과 일치
                 {
@@ -207,16 +213,18 @@ public class Stage2BossScript : MonoBehaviour
             GameObject.Find("Stage").GetComponent<Stage2>().BombPosition();
         }
 
-        if (time1 <= 0)
+        if (time1 <= 0.3f)
         {
-            bombmove = 2;
-            GameObject.Find("Stage").GetComponent<Stage2>().BombOff();
-            animator.SetTrigger("stage1bossattack");
+            Invoke("Attackready", 0.15f);
+            ef7.GetComponent<Animator>().SetTrigger("effect7");
             num1.SetActive(false);
             num2.SetActive(false);
+            GameObject.Find("Stage").GetComponent<Stage2>().BombOff();
             time1 = timemax;
             timer = false;
         }
+
+        ef7.transform.position = new Vector2(transform.position.x - 5f, transform.position.y);
 
         if (random > 9 && random <= 99) //십의 자리일 때
         {
@@ -294,6 +302,11 @@ public class Stage2BossScript : MonoBehaviour
         bombmove = 1;
     }
 
+    void Attackready()
+    {
+        bombmove = 2;
+        animator.SetTrigger("stage2bossattack");
+    }
     void Attack()
     {
         GameObject.Find("Player").GetComponent<PlayerScript2>().heart -= 10;

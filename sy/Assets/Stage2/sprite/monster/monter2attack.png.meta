@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: c8844210ccbe9f4438bb659bb5a926df
+guid: 352fd83f28d708d43bd3e6e7225e4e67
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -115,7 +115,70 @@ TextureImporter:
     forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
-    sprites: []
+    sprites:
+    - serializedVersion: 2
+      name: monter2attack_0
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 314
+        width: 376
+        height: 314
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 11161ae208d028749bd4c67d4643c407
+      internalID: 528786788
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: monter2attack_1
+      rect:
+        serializedVersion: 2
+        x: 376
+        y: 314
+        width: 376
+        height: 314
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8e7b1de9c663c0648a66b7b0d49c5d2e
+      internalID: 1358693249
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: monter2attack_2
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 0
+        width: 376
+        height: 314
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d963316ccf6d27447a5afc5922df0f81
+      internalID: -956867188
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     outline: []
     physicsShape: []
     bones: []
@@ -126,7 +189,10 @@ TextureImporter:
     edges: []
     weights: []
     secondaryTextures: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      monter2attack_1: 1358693249
+      monter2attack_0: 528786788
+      monter2attack_2: -956867188
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0
