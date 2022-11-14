@@ -162,13 +162,14 @@ public class Stage2BossScript : MonoBehaviour
         }
         if (heart == 1 && damaged == false)
         {
-            GameObject.Find("Story").GetComponent<Story2Script>().Story2_2On();
-            Invoke("Skill_2", 1f);
+            Invoke("story2_2", 1.5f);
+            Invoke("Skill_2", 2f);
             damaged = true;
         }
         if (heart == 0 && damaged == false)
         {
-            Invoke("Die", 2f);
+            Invoke("story3", 1.5f);
+            Invoke("Die", 3f);
             damaged = true;
         }
 
@@ -241,6 +242,15 @@ public class Stage2BossScript : MonoBehaviour
             GameObject.Find("Canvas").GetComponent<HpBossScript>().healthbar = heart;
             GameObject.Find("Canvas").GetComponent<HpBossScript>().healthbar_boss();
         }
+    }
+
+    void story2_2()
+    {
+        GameObject.Find("Story").GetComponent<Story2Script>().Story2_2On();
+    }
+    void story3()
+    {
+        GameObject.Find("Story").GetComponent<Story2Script>().Story3On();
     }
 
     private void setting1() //난수 설정
@@ -342,7 +352,6 @@ public class Stage2BossScript : MonoBehaviour
 
     void Die() //죽음 처리 함수
     {
-        GameObject.Find("Story").GetComponent<Story2Script>().Story3On();
         GameObject.Find("Stage").GetComponent<Stage2>().BossHealthbarOff();
         Destroy(gameObject);
         Destroy(bom);
