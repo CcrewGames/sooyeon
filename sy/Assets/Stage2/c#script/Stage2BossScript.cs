@@ -162,6 +162,7 @@ public class Stage2BossScript : MonoBehaviour
         }
         if (heart == 1 && damaged == false)
         {
+            GameObject.Find("Story").GetComponent<Story2Script>().Story2_2On();
             Invoke("Skill_2", 1f);
             damaged = true;
         }
@@ -183,9 +184,9 @@ public class Stage2BossScript : MonoBehaviour
         {
             CastRay();
 
-            if ((target == num1 || target == num2 || target == bom) && GameObject.Find("Punch").GetComponent<PunchScript>().punchmode == 1 && timer == true)
+            if ((target == num1 || target == num2 || target == bom) && GameObject.Find("Punch").GetComponent<PunchScript2>().punchmode == 1 && timer == true)
             {
-                if (GameObject.Find("Punch").GetComponent<PunchScript>().result == random && time1 > 0) //난수 = 결과 일치
+                if (GameObject.Find("Punch").GetComponent<PunchScript2>().result == random && time1 > 0) //난수 = 결과 일치
                 {
                     timer = false;
 
@@ -194,10 +195,8 @@ public class Stage2BossScript : MonoBehaviour
 
                     GameObject.Find("Stage").GetComponent<Stage2>().Fly1();
 
-                    GameObject.Find("Punch").GetComponent<PunchScript>().punchmode = 0;
-                    GameObject.Find("Punch").GetComponent<PunchScript>().PunchMode();
-
-                    GameObject.Find("Punch").GetComponent<PunchScript>().re();
+                    GameObject.Find("Punch").GetComponent<PunchScript2>().punchmode = 0;
+                    GameObject.Find("Punch").GetComponent<PunchScript2>().PunchMode();
 
                     GameObject.Find("Stage").GetComponent<Stage2>().BombOff();
                 }
@@ -246,7 +245,7 @@ public class Stage2BossScript : MonoBehaviour
 
     private void setting1() //난수 설정
     {
-        random = Random.Range(1, 30);
+        random = Random.Range(1, 10);
         nummaker();
     }
 
@@ -311,8 +310,8 @@ public class Stage2BossScript : MonoBehaviour
     {
         GameObject.Find("Player").GetComponent<PlayerScript2>().heart -= 10;
         GameObject.Find("Player").GetComponent<Animator>().SetTrigger("hit");
-        GameObject.Find("Punch").GetComponent<PunchScript>().re();
-        GameObject.Find("Punch").GetComponent<PunchScript>().ScrollChange2();
+        GameObject.Find("Punch").GetComponent<PunchScript2>().re();
+        GameObject.Find("Punch").GetComponent<PunchScript2>().ScrollChange2();
 
         bom.transform.position = new Vector2(transform.position.x, -2);
         bom.SetActive(false);
@@ -334,8 +333,8 @@ public class Stage2BossScript : MonoBehaviour
 
         Tremble();
         time1 = timemax;
-        GameObject.Find("Punch").GetComponent<PunchScript>().re();
-        GameObject.Find("Punch").GetComponent<PunchScript>().ScrollChange2();
+        GameObject.Find("Punch").GetComponent<PunchScript2>().re();
+        GameObject.Find("Punch").GetComponent<PunchScript2>().ScrollChange2();
         animator.SetTrigger("stage2bosshit");
         heart--;
         damaged = false;
@@ -343,6 +342,7 @@ public class Stage2BossScript : MonoBehaviour
 
     void Die() //죽음 처리 함수
     {
+        GameObject.Find("Story").GetComponent<Story2Script>().Story3On();
         GameObject.Find("Stage").GetComponent<Stage2>().BossHealthbarOff();
         Destroy(gameObject);
         Destroy(bom);

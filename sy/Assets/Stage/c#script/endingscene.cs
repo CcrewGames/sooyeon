@@ -10,11 +10,25 @@ public class endingscene : MonoBehaviour
 
     public GameObject a, b, c, d, e, f, g, h, I;
 
+    float time;
+    public int stage;
+
     //시간 불러오기 
 
     public void endingStart()
     {
-        float time = TimeCount.GetComponent<Timecount>().countdownSeconds;
+        if (stage == 1)
+        {
+            time = TimeCount.GetComponent<Timecount>().countdownSeconds;
+        }
+        else if (stage == 2)
+        {
+            time = TimeCount.GetComponent<Timecount2>().countdownSeconds;
+        }
+        else if (stage == 3)
+        {
+            //time = TimeCount.GetComponent<Timecount3>().countdownSeconds;
+        }
 
         if ( 30 >= time && time > 0){//별 1개
             endingback = Resources.Load<GameObject>("ending/endingBackground");

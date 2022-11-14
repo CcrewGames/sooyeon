@@ -160,6 +160,7 @@ public class Stage1BossScript : MonoBehaviour
         }
         if (heart == 2 && damaged == false)
         {
+            GameObject.Find("Story").GetComponent<StoryScript>().Story2_2On();
             Invoke("Skill_2", 1f);
             damaged = true;
         }
@@ -252,7 +253,7 @@ public class Stage1BossScript : MonoBehaviour
 
     private void setting1() //난수 설정
     {
-        random = Random.Range(1, 30);
+        random = Random.Range(20, 30);
         nummaker();
     }
 
@@ -344,6 +345,7 @@ public class Stage1BossScript : MonoBehaviour
 
     void Die() //죽음 처리 함수
     {
+        GameObject.Find("Story").GetComponent<StoryScript>().Story3On();
         GameObject.Find("Stage").GetComponent<Stage>().BossHealthbarOff();
         Destroy(gameObject);
         Destroy(bom);

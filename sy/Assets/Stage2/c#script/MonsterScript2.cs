@@ -136,7 +136,7 @@ public class MonsterScript2 : MonoBehaviour
 
     void setting() //난수 설정
     {
-        random = Random.Range(1, 30);
+        random = Random.Range(5, 15);
         nummaker();
     }
 
@@ -220,9 +220,9 @@ public class MonsterScript2 : MonoBehaviour
         {
             CastRay();
 
-            if ((target == this.gameObject || target == num1 || target == num2) && GameObject.Find("Punch").GetComponent<PunchScript>().punchmode == 1 && damaged == false)
+            if ((target == this.gameObject || target == num1 || target == num2) && GameObject.Find("Punch").GetComponent<PunchScript2>().punchmode == 1 && damaged == false)
             {
-                if (GameObject.Find("Punch").GetComponent<PunchScript>().result == random) //난수 = 결과 일치
+                if (GameObject.Find("Punch").GetComponent<PunchScript2>().result == random) //난수 = 결과 일치
                 {
                     GameObject.Find("Stage").GetComponent<Stage2>().xf = transform.position.x;
                     GameObject.Find("Stage").GetComponent<Stage2>().yf = transform.position.y;
@@ -230,10 +230,8 @@ public class MonsterScript2 : MonoBehaviour
 
                     GameObject.Find("Stage").GetComponent<Stage2>().Fly();
 
-                    GameObject.Find("Punch").GetComponent<PunchScript>().punchmode = 0;
-                    GameObject.Find("Punch").GetComponent<PunchScript>().PunchMode();
-
-                    GameObject.Find("Punch").GetComponent<PunchScript>().re();
+                    GameObject.Find("Punch").GetComponent<PunchScript2>().punchmode = 0;
+                    GameObject.Find("Punch").GetComponent<PunchScript2>().PunchMode();
                 }
                 else
                 {
@@ -242,11 +240,11 @@ public class MonsterScript2 : MonoBehaviour
             }
         }
 
-        if (Input.GetKeyDown(KeyCode.Space) && GameObject.Find("Punch").GetComponent<PunchScript>().punchmode == 1) //임의 피격
+        if (Input.GetKeyDown(KeyCode.Space) && GameObject.Find("Punch").GetComponent<PunchScript2>().punchmode == 1) //임의 피격
         {
             OnDamaged();
-            GameObject.Find("Punch").GetComponent<PunchScript>().re();
-            GameObject.Find("Punch").GetComponent<PunchScript>().ScrollChange2();
+            GameObject.Find("Punch").GetComponent<PunchScript2>().re();
+            GameObject.Find("Punch").GetComponent<PunchScript2>().ScrollChange2();
         }
 
         //난수와 체력바와 효과 이동

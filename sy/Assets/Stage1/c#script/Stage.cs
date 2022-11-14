@@ -61,7 +61,7 @@ public class Stage : MonoBehaviour
 
     public int monnum2;
 
-    public int story;
+    public float story;
 
     GameObject ForDestroy;
 
@@ -493,6 +493,7 @@ public class Stage : MonoBehaviour
     {
         if(ending != null)
         {
+            ending.GetComponent<endingscene>().stage = 1;
             ending.GetComponent<endingscene>().endingStart();
         }
     }

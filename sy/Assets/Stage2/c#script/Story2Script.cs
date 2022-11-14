@@ -11,7 +11,10 @@ public class Story2Script : MonoBehaviour
     public Text storytext;
 
     public List<string> sentences1;
+    public List<string> sentences1_2;
     public List<string> sentences2;
+    public List<string> sentences2_2;
+    public List<string> sentences3;
     public bool clickNextButton = false;
 
     int size, i;
@@ -36,28 +39,50 @@ public class Story2Script : MonoBehaviour
     {
         if (clickNextButton == true && GameObject.Find("Stage").GetComponent<Stage2>().story != 0)
         {
-            if(i + 1 == size)
+            i++;
+            if (i == size)
             {
                 StoryOff();
             }
             else if (GameObject.Find("Stage").GetComponent<Stage2>().story == 1)
             {
-                i++;
                 storytext.text = sentences1[i];
+                clickNextButton = false;
+            }
+            else if (GameObject.Find("Stage").GetComponent<Stage2>().story == 1.5f)
+            {
+                storytext.text = sentences1_2[i];
                 clickNextButton = false;
             }
             else if (GameObject.Find("Stage").GetComponent<Stage2>().story == 2)
             {
-                i++;
                 if (i == 4 || i == 6 || i == 7)
                 {
-                    Story2log1();
+                    Storylog1();
                 }
                 else
                 {
-                    Story2kal();
+                    Storykal();
                 }
                 storytext.text = sentences2[i];
+                clickNextButton = false;
+            }
+            else if (GameObject.Find("Stage").GetComponent<Stage2>().story == 2.5f)
+            {
+                if (i == 1)
+                {
+                    Storylog1();
+                }
+                else
+                {
+                    Storykal();
+                }
+                storytext.text = sentences2_2[i];
+                clickNextButton = false;
+            }
+            else if (GameObject.Find("Stage").GetComponent<Stage2>().story == 3)
+            {
+                storytext.text = sentences3[i];
                 clickNextButton = false;
             }
         }
@@ -77,12 +102,32 @@ public class Story2Script : MonoBehaviour
 
         sentences1 = new List<string>();
         sentences1.Add("이번엔 로그일인가?");
-        sentences1.Add("그나저마 저번 마을을 겪고 점프 훈련을 하나도 안 빠졌는데! 이번엔 달리기였을 줄이야!");
+        sentences1.Add("저번 얼음 마을 이후에는 점프 훈련을 하나도 안 빠졌는데! 이번엔 달리기였을 줄이야!!");
         sentences1.Add("그래도 이전보다 많은 버튼을 얻었으니 좀 더 수월하겠어.");
         sentences1.Add("가자! 앞으로!");
         size = sentences1.Count;
+
         i = 0;
-        storytext.text = sentences1[0];
+        storytext.text = sentences1[i];
+    }
+    public void Story1_2On()
+    {
+        GameObject.Find("Stage").GetComponent<Stage2>().PauseMode();
+        GameObject.Find("Stage").GetComponent<Stage2>().story = 1.5f;
+
+        canvas.SetActive(true);
+        background1.SetActive(true);
+        playerimage1.SetActive(true);
+        bossimage1.SetActive(false);
+        textbox1.SetActive(true);
+        nextbutton1.SetActive(true);
+
+        sentences1_2 = new List<string>();
+        sentences1_2.Add("이번엔 불로 된 괴물이구나. 예상 그대로야.");
+        size = sentences1_2.Count;
+
+        i = 0;
+        storytext.text = sentences1_2[i];
     }
 
     public void Story2On()
@@ -90,7 +135,6 @@ public class Story2Script : MonoBehaviour
         GameObject.Find("Stage").GetComponent<Stage2>().PauseMode();
         GameObject.Find("Stage").GetComponent<Stage2>().story = 2;
 
-        Story2log1();
         canvas.SetActive(true);
         background1.SetActive(true);
         textbox1.SetActive(true);
@@ -107,15 +151,58 @@ public class Story2Script : MonoBehaviour
         sentences2.Add("당신도 제 수학적인 예술을 느껴보시겠어요...?"); //로그일
         sentences2.Add("원근법을 이용한 제 매력에 푹 빠지게 만들겠어요...!"); //로그일
         size = sentences2.Count;
+
+        Storylog1();
         i = 0;
-        storytext.text = sentences2[0];
+        storytext.text = sentences2[i];
     }
-    public void Story2kal()
+    public void Story2_2On()
+    {
+        GameObject.Find("Stage").GetComponent<Stage2>().PauseMode();
+        GameObject.Find("Stage").GetComponent<Stage2>().story = 2.5f;
+
+        canvas.SetActive(true);
+        background1.SetActive(true);
+        textbox1.SetActive(true);
+        nextbutton1.SetActive(true);
+
+        sentences2 = new List<string>();
+        //1
+        sentences2_2.Add("이ㅈ..."); //칼
+        sentences2_2.Add("조용히 해!!!"); //로그일
+        sentences2_2.Add("(반말...?)"); //칼
+        size = sentences2_2.Count;
+
+        Storykal();
+        i = 0;
+        storytext.text = sentences2_2[i];
+    }
+
+    public void Story3On()
+    {
+        GameObject.Find("Stage").GetComponent<Stage2>().PauseMode();
+        GameObject.Find("Stage").GetComponent<Stage2>().story = 3;
+
+        canvas.SetActive(true);
+        background1.SetActive(true);
+        textbox1.SetActive(true);
+        nextbutton1.SetActive(true);
+
+        sentences3 = new List<string>();
+        sentences3.Add("저는 분명 말했습니다. 당신도 대가를 치르게 될 거라고."); //칼
+        size = sentences3.Count;
+
+        Storykal();
+        i = 0;
+        storytext.text = sentences3[i];
+    }
+
+    void Storykal()
     {
         playerimage1.SetActive(true);
         bossimage1.SetActive(false);
     }
-    public void Story2log1()
+    void Storylog1()
     {
         playerimage1.SetActive(false);
         bossimage1.SetActive(true);
@@ -132,5 +219,7 @@ public class Story2Script : MonoBehaviour
         bossimage1.SetActive(false);
         textbox1.SetActive(false);
         nextbutton1.SetActive(false);
+
+        clickNextButton = false;
     }
 }

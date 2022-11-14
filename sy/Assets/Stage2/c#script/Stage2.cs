@@ -61,7 +61,7 @@ public class Stage2 : MonoBehaviour
 
     public int monnum2;
 
-    public int story;
+    public float story;
 
     GameObject ForDestroy;
 
@@ -85,7 +85,7 @@ public class Stage2 : MonoBehaviour
 
         text.SetActive(false);
 
-        stage = 2;
+        stage = 0;
         stagemove = true;
         remain = 0;
 
@@ -125,10 +125,10 @@ public class Stage2 : MonoBehaviour
         if (stage == 0 && remain == 0) //1단계 준비
         {
             fortime = 0;
-            punch.GetComponent<PunchScript>().ScrollChange3();
+            punch.GetComponent<PunchScript2>().ScrollChange3();
 
-            punch.GetComponent<PunchScript>().punchmode = 0;
-            punch.GetComponent<PunchScript>().PunchMode();
+            punch.GetComponent<PunchScript2>().punchmode = 0;
+            punch.GetComponent<PunchScript2>().PunchMode();
 
             GameObject.Find("Player").GetComponent<PlayerScript2>().HealStop();
 
@@ -143,10 +143,11 @@ public class Stage2 : MonoBehaviour
         if (stage == 1 && stagemove == false) //1단계 시작
         {
             fortime = 1;
-            punch.GetComponent<PunchScript>().ScrollChange2();
+            punch.GetComponent<PunchScript2>().ScrollChange2();
+            punch.GetComponent<PunchScript2>().re();
 
-            punch.GetComponent<PunchScript>().punchmode = 1;
-            punch.GetComponent<PunchScript>().PunchMode();
+            punch.GetComponent<PunchScript2>().punchmode = 1;
+            punch.GetComponent<PunchScript2>().PunchMode();
 
             MonNum();
             mon1.GetComponent<MonsterScript2>().Layer();
@@ -166,10 +167,10 @@ public class Stage2 : MonoBehaviour
         if (stage == 1 && remain == 0) //1단계 종료
         {
             fortime = 0;
-            punch.GetComponent<PunchScript>().ScrollChange3();
+            punch.GetComponent<PunchScript2>().ScrollChange3();
 
-            punch.GetComponent<PunchScript>().punchmode = 0;
-            punch.GetComponent<PunchScript>().PunchMode();
+            punch.GetComponent<PunchScript2>().punchmode = 0;
+            punch.GetComponent<PunchScript2>().PunchMode();
 
             GameObject.Find("Player").GetComponent<PlayerScript2>().HealStop();
 
@@ -188,10 +189,11 @@ public class Stage2 : MonoBehaviour
         if (stage == 2 && stagemove == false) //2단계 시작
         {
             fortime = 1;
-            punch.GetComponent<PunchScript>().ScrollChange2();
+            punch.GetComponent<PunchScript2>().ScrollChange2();
+            punch.GetComponent<PunchScript2>().re();
 
-            punch.GetComponent<PunchScript>().punchmode = 1;
-            punch.GetComponent<PunchScript>().PunchMode();
+            punch.GetComponent<PunchScript2>().punchmode = 1;
+            punch.GetComponent<PunchScript2>().PunchMode();
 
             MonNum();
             mon1.GetComponent<MonsterScript2>().Layer();
@@ -211,10 +213,10 @@ public class Stage2 : MonoBehaviour
         if (stage == 2 && remain == 0) //2단계 종료
         {
             fortime = 0;
-            punch.GetComponent<PunchScript>().ScrollChange3();
+            punch.GetComponent<PunchScript2>().ScrollChange3();
 
-            punch.GetComponent<PunchScript>().punchmode = 0;
-            punch.GetComponent<PunchScript>().PunchMode();
+            punch.GetComponent<PunchScript2>().punchmode = 0;
+            punch.GetComponent<PunchScript2>().PunchMode();
 
             GameObject.Find("Player").GetComponent<PlayerScript2>().HealStop();
 
@@ -233,10 +235,11 @@ public class Stage2 : MonoBehaviour
         if (stage == 3 && stagemove == false) //3단계 시작
         {
             fortime = 1;
-            punch.GetComponent<PunchScript>().ScrollChange2();
+            punch.GetComponent<PunchScript2>().ScrollChange2();
+            punch.GetComponent<PunchScript2>().re();
 
-            punch.GetComponent<PunchScript>().punchmode = 1;
-            punch.GetComponent<PunchScript>().PunchMode();
+            punch.GetComponent<PunchScript2>().punchmode = 1;
+            punch.GetComponent<PunchScript2>().PunchMode();
 
             BossHealthbarOn();
 
@@ -256,10 +259,11 @@ public class Stage2 : MonoBehaviour
         if (stage == 3 && remain == 0 && bossdie == true) //클리어
         {
             fortime = 0;
-            punch.GetComponent<PunchScript>().ScrollChange3();
+            punch.GetComponent<PunchScript2>().ScrollChange3();
+            punch.GetComponent<PunchScript2>().off();
 
-            punch.GetComponent<PunchScript>().punchmode = 0;
-            punch.GetComponent<PunchScript>().PunchMode();
+            punch.GetComponent<PunchScript2>().punchmode = 0;
+            punch.GetComponent<PunchScript2>().PunchMode();
 
             GameObject.Find("Player").GetComponent<PlayerScript2>().HealStop();
 
@@ -317,7 +321,7 @@ public class Stage2 : MonoBehaviour
     {
         Time.timeScale = 0;
         pausemode = true;
-        GameObject.Find("buttonclick").GetComponent<Buttonclick>().pausemode = true;
+        GameObject.Find("buttonclick").GetComponent<Buttonclick2>().pausemode = true;
         Pause.SetActive(false);
         Resume.SetActive(true);
     }
@@ -325,7 +329,7 @@ public class Stage2 : MonoBehaviour
     {
         Time.timeScale = 1;
         pausemode = false;
-        GameObject.Find("buttonclick").GetComponent<Buttonclick>().pausemode = false;
+        GameObject.Find("buttonclick").GetComponent<Buttonclick2>().pausemode = false;
         Pause.SetActive(true);
         Resume.SetActive(false);
     }
@@ -409,6 +413,7 @@ public class Stage2 : MonoBehaviour
     {
         fly.SetActive(true);
         flymode = true;
+        punch.GetComponent<PunchScript2>().off();
 
         float r1 = Mathf.Atan2(yf - y5, xf - x5) * Mathf.Rad2Deg;
         if (r1 < -30)
@@ -438,15 +443,17 @@ public class Stage2 : MonoBehaviour
         fly.transform.Rotate(0, 0, 0);
         fly.SetActive(false);
         flymode = false;
-        punch.GetComponent<PunchScript>().punchmode = 1;
-        punch.GetComponent<PunchScript>().PunchMode();
-        punch.GetComponent<PunchScript>().ScrollChange2();
+        punch.GetComponent<PunchScript2>().punchmode = 1;
+        punch.GetComponent<PunchScript2>().PunchMode();
+        punch.GetComponent<PunchScript2>().ScrollChange2();
+        punch.GetComponent<PunchScript2>().re();
     }
 
     public void Fly1()
     {
         fly.SetActive(true);
         flymode1 = true;
+        punch.GetComponent<PunchScript2>().off();
 
         float r1 = Mathf.Atan2(yf - y5, xf - x5) * Mathf.Rad2Deg;
         if (r1 < -30)
@@ -464,9 +471,10 @@ public class Stage2 : MonoBehaviour
         fly.transform.Rotate(0, 0, 0);
         fly.SetActive(false);
         flymode1 = false;
-        punch.GetComponent<PunchScript>().punchmode = 1;
-        punch.GetComponent<PunchScript>().PunchMode();
-        punch.GetComponent<PunchScript>().ScrollChange2();
+        punch.GetComponent<PunchScript2>().punchmode = 1;
+        punch.GetComponent<PunchScript2>().PunchMode();
+        punch.GetComponent<PunchScript2>().ScrollChange2();
+        punch.GetComponent<PunchScript2>().re();
     }
 
     public void BossHealthbarOn()
@@ -493,6 +501,7 @@ public class Stage2 : MonoBehaviour
     {
         if (ending != null)
         {
+            ending.GetComponent<endingscene>().stage = 2;
             ending.GetComponent<endingscene>().endingStart();
         }
     }

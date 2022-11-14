@@ -14,20 +14,6 @@ public class NextButtonScript : MonoBehaviour
     public float myTimeScale = 1f;
     float myDeltaTime;
 
-    private GameObject target; //마우스 클릭 확인용 변수
-
-    void CastRay() //마우스 클릭 확인용 함수
-    {
-        target = null;
-        Vector2 pos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-        RaycastHit2D hit = Physics2D.Raycast(pos, Vector2.zero, 0f);
-
-        if (hit.collider != null)
-        {
-            target = hit.collider.gameObject;
-        }
-    }
-
     void Start()
     {
         move = false;
@@ -48,15 +34,5 @@ public class NextButtonScript : MonoBehaviour
             transform.position = transform.position + transform.up * speed1 * myDeltaTime;
         else if (move == true)
             transform.position = transform.position - transform.up * speed1 * myDeltaTime;
-
-        if (Input.GetMouseButtonDown(0)) //피격
-        {
-            CastRay();
-
-            if (target == this.gameObject)
-            {
-                GameObject.Find("Story").GetComponent<StoryScript>().clickNextButton = true;
-            }
-        }
     }
 }

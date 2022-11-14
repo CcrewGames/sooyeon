@@ -147,17 +147,17 @@ public class PlayerScript2 : MonoBehaviour
             if (target == this.gameObject && healmode == false) //힐모드 시작
             {
                 animator.SetBool("heal", true);
-                punch.GetComponent<PunchScript>().re();
-                punch.GetComponent<PunchScript>().ScrollChange2();
-                punch.GetComponent<PunchScript>().punchmode = 2;
-                punch.GetComponent<PunchScript>().PunchMode();
+                punch.GetComponent<PunchScript2>().re();
+                punch.GetComponent<PunchScript2>().ScrollChange2();
+                punch.GetComponent<PunchScript2>().punchmode = 2;
+                punch.GetComponent<PunchScript2>().PunchMode();
                 setting();
                 healmode = true;
             }
             else if ((target == this.gameObject || target == num1 || target == num2) && healmode == true) //힐모드 종료
             {
                 animator.SetBool("heal", false);
-                if (punch.GetComponent<PunchScript>().result == random) //난수 = 결과 일치
+                if (punch.GetComponent<PunchScript2>().result == random) //난수 = 결과 일치
                 {
                     if (heart + random < 100)
                         heart += random;
@@ -166,8 +166,8 @@ public class PlayerScript2 : MonoBehaviour
                     num1.SetActive(false);
                     num2.SetActive(false);
                     random = 0;
-                    punch.GetComponent<PunchScript>().re();
-                    punch.GetComponent<PunchScript>().ScrollChange2();
+                    punch.GetComponent<PunchScript2>().re();
+                    punch.GetComponent<PunchScript2>().ScrollChange2();
                 }
                 else //난수 = 결과 불일치
                 {
@@ -175,11 +175,11 @@ public class PlayerScript2 : MonoBehaviour
                     num1.SetActive(false);
                     num2.SetActive(false);
                     random = 0;
-                    punch.GetComponent<PunchScript>().re();
-                    punch.GetComponent<PunchScript>().ScrollChange2();
+                    punch.GetComponent<PunchScript2>().re();
+                    punch.GetComponent<PunchScript2>().ScrollChange2();
                 }
-                punch.GetComponent<PunchScript>().punchmode = 1;
-                punch.GetComponent<PunchScript>().PunchMode();
+                punch.GetComponent<PunchScript2>().punchmode = 1;
+                punch.GetComponent<PunchScript2>().PunchMode();
                 healmode = false;
             }
         }
@@ -199,7 +199,7 @@ public class PlayerScript2 : MonoBehaviour
         num1.SetActive(false);
         num2.SetActive(false);
         random = 0;
-        punch.GetComponent<PunchScript>().re();
+        punch.GetComponent<PunchScript2>().off();
     }
     public void Run() //이동 대기 함수
     {
@@ -242,10 +242,18 @@ public class PlayerScript2 : MonoBehaviour
         stage.GetComponent<Stage2>().monstermove = 1;
         stage.GetComponent<Stage2>().MonsterMove();
         Invoke("Next", 5f);
+        if (stage.GetComponent<Stage2>().stage == 0)
+        {
+            Invoke("Story1_2", 2.85f);
+        }
         if (stage.GetComponent<Stage2>().stage == 2)
         {
             Invoke("Story2", 2.85f);
         }
+    }
+    void Story1_2() //스토리1-2
+    {
+        story.GetComponent<Story2Script>().Story1_2On();
     }
     void Story2() //스토리2
     {
@@ -269,7 +277,7 @@ public class PlayerScript2 : MonoBehaviour
     }
     void setting() //난수 설정
     {
-        random = Random.Range(1, 15);
+        random = Random.Range(5, 10);
         nummaker();
     }
     void nummaker() //플레이어 머리 위 난수 생성 함수

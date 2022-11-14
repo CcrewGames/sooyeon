@@ -242,10 +242,18 @@ public class PlayerScript : MonoBehaviour
         stage.GetComponent<Stage>().monstermove = 1;
         stage.GetComponent<Stage>().MonsterMove();
         Invoke("Next", 5f);
+        if (stage.GetComponent<Stage>().stage == 0)
+        {
+            Invoke("Story1_2", 2.85f);
+        }
         if (stage.GetComponent<Stage>().stage == 2)
         {
             Invoke("Story2", 2.85f);
         }
+    }
+    void Story1_2() //스토리1-2
+    {
+        story.GetComponent<StoryScript>().Story1_2On();
     }
     void Story2() //스토리2
     {
@@ -269,7 +277,7 @@ public class PlayerScript : MonoBehaviour
     }
     void setting() //난수 설정
     {
-        random = Random.Range(1, 15);
+        random = Random.Range(5, 10);
         nummaker();
     }
     void nummaker() //플레이어 머리 위 난수 생성 함수

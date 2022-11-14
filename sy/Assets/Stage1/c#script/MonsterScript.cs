@@ -139,7 +139,7 @@ public class MonsterScript : MonoBehaviour
 
     void setting() //난수 설정
     {
-        random = Random.Range(1, 30);
+        random = Random.Range(5, 20);
         nummaker();
     }
 
