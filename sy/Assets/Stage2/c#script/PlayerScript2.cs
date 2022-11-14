@@ -37,14 +37,14 @@ public class PlayerScript2 : MonoBehaviour
     float yn = 1.3f;
     float dis = 0.25f;
 
-    //배경과 바닥
+    //배경
     public GameObject Background;
-    public GameObject Floor;
     public GameObject Background2;
-    public GameObject Floor2;
     public GameObject Background3;
-    public GameObject Floor3;
-    bool f; //배경과 바닥 움직임 변수
+    public GameObject floor;
+    public GameObject floor2;
+    public GameObject floor3;
+    bool f; //배경 움직임 변수
     float b = -27.5f;
 
     bool end; //게임 실패 변수
@@ -68,7 +68,6 @@ public class PlayerScript2 : MonoBehaviour
         num2.SetActive(false);
 
         Background.transform.position = new Vector2(0, Background.transform.position.y);
-        Floor.transform.position = new Vector2(0, Floor.transform.position.y);
         f = false;
 
         end = false;
@@ -134,11 +133,12 @@ public class PlayerScript2 : MonoBehaviour
                 Background.transform.position = new Vector2(-b, Background.transform.position.y);
         }
 
-        Floor.transform.position = new Vector2(Background.transform.position.x, Floor.transform.position.y);
         Background2.transform.position = new Vector2(Background.transform.position.x + 55, Background.transform.position.y);
-        Floor2.transform.position = new Vector2(Background.transform.position.x + 55, Floor.transform.position.y);
         Background3.transform.position = new Vector2(Background.transform.position.x - 55, Background.transform.position.y);
-        Floor3.transform.position = new Vector2(Background.transform.position.x - 55, Floor.transform.position.y);
+
+        floor.transform.position = new Vector2(Background.transform.position.x, floor.transform.position.y);
+        floor2.transform.position = new Vector2(Background2.transform.position.x, floor2.transform.position.y);
+        floor3.transform.position = new Vector2(Background3.transform.position.x, floor3.transform.position.y);
 
         if (Input.GetMouseButtonDown(0) && stage.GetComponent<Stage2>().fortime == 1 && stage.GetComponent<Stage2>().pausemode == false)
         {
@@ -186,7 +186,7 @@ public class PlayerScript2 : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.Space)) //임의 피격
         {
-            animator.SetTrigger("fight");
+            animator.SetTrigger("attack");
         }
 
         num2.transform.position = new Vector2(num1.transform.position.x - 2 * dis, num1.transform.position.y);
@@ -232,7 +232,7 @@ public class PlayerScript2 : MonoBehaviour
         move = 0;
         f = true;
         animator.SetBool("walk", false);
-        animator.SetTrigger("suprise");
+        animator.SetTrigger("surprise");
         Invoke("Re", 2f);
     }
     void Re() //원위치로 이동 함수

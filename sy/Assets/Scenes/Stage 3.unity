@@ -581,6 +581,7 @@ MonoBehaviour:
   canvas: {fileID: 426157319}
   text: {fileID: 98279072}
   monster: {fileID: 7947195092028119978, guid: 2e1501ae4ecb0c04598c77bfe32f4fde, type: 3}
+  monster2: {fileID: 0}
   monstermove: 0
   BossMonster: {fileID: 4389087437112435647, guid: ffdf5ba87916cc94682131eec54ac9c5, type: 3}
   boss: {fileID: 0}
@@ -1710,7 +1711,7 @@ GameObject:
   - component: {fileID: 634215285}
   - component: {fileID: 634215284}
   m_Layer: 0
-  m_Name: stage 1 floor(2)
+  m_Name: stage 3 floor(2)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1781,7 +1782,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 19
+  m_RootOrder: 20
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &683975232
 GameObject:
@@ -1794,7 +1795,7 @@ GameObject:
   - component: {fileID: 683975234}
   - component: {fileID: 683975233}
   m_Layer: 0
-  m_Name: stage 1(3)
+  m_Name: stage 3(3)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1865,7 +1866,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 20
+  m_RootOrder: 18
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &722660899
 GameObject:
@@ -2544,7 +2545,7 @@ GameObject:
   - component: {fileID: 1032191954}
   - component: {fileID: 1032191953}
   m_Layer: 0
-  m_Name: stage 1 floor(3)
+  m_Name: stage 3 floor(3)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3779,7 +3780,7 @@ GameObject:
   - component: {fileID: 1653471921}
   - component: {fileID: 1653471920}
   m_Layer: 0
-  m_Name: stage 1 floor
+  m_Name: stage 3 floor
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3826,7 +3827,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: -9
-  m_Sprite: {fileID: 21300000, guid: 4fc94d0a3b46a2b4f8331a2fad1b0ce0, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 9e826bdd3f6ca7b4c998a3b30737b9ca, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -3850,7 +3851,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 17
+  m_RootOrder: 19
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1671904511
 GameObject:
@@ -4005,11 +4006,11 @@ MonoBehaviour:
   punch: {fileID: 882607787}
   number: {fileID: 2687332880628242228, guid: 91a19c992c5993b4ca507316c1c18da7, type: 3}
   Background: {fileID: 1696378221}
-  Floor: {fileID: 1653471919}
   Background2: {fileID: 1956454297}
-  Floor2: {fileID: 634215283}
   Background3: {fileID: 683975232}
-  Floor3: {fileID: 1032191952}
+  floor: {fileID: 0}
+  floor2: {fileID: 0}
+  floor3: {fileID: 0}
 --- !u!1 &1672483045
 GameObject:
   m_ObjectHideFlags: 0
@@ -4272,7 +4273,7 @@ GameObject:
   - component: {fileID: 1696378223}
   - component: {fileID: 1696378222}
   m_Layer: 0
-  m_Name: stage 1
+  m_Name: stage 3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4319,7 +4320,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: -10
-  m_Sprite: {fileID: 21300000, guid: 049a2031f5a52f04b8d733b1a2e03e95, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 9bf025735969d344fbbeceb29b81a521, type: 3}
   m_Color: {r: 0.990566, g: 0.990566, b: 0.990566, a: 0.78431374}
   m_FlipX: 0
   m_FlipY: 0
@@ -5017,7 +5018,7 @@ GameObject:
   - component: {fileID: 1956454299}
   - component: {fileID: 1956454298}
   m_Layer: 0
-  m_Name: stage 1(2)
+  m_Name: stage 3(2)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -5088,7 +5089,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 18
+  m_RootOrder: 17
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1982255138
 GameObject:

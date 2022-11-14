@@ -252,7 +252,7 @@ public class MonsterScript2 : MonoBehaviour
         //난수와 체력바와 효과 이동
         if (heart != 0)
         {
-            ef.transform.position = new Vector2(transform.position.x - 4f, transform.position.y + 0.7f);
+            ef.transform.position = new Vector2(transform.position.x - 4f, transform.position.y + 0.3f);
 
             if (random > 9 && random <= 99) //십의 자리일 때
             {
@@ -407,7 +407,7 @@ public class MonsterScript2 : MonoBehaviour
     void realAttack() //공격 함수
     {
         GameObject.Find("Player").GetComponent<PlayerScript2>().heart -= 1;
-        GameObject.Find("Player").GetComponent<Animator>().SetTrigger("hurt2");
+        GameObject.Find("Player").GetComponent<Animator>().SetTrigger("hit");
     }
 
     void reAttack() //공격 재개 함수

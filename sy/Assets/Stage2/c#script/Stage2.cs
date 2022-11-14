@@ -20,6 +20,7 @@ public class Stage2 : MonoBehaviour
     public GameObject text;
 
     public GameObject monster;
+    public GameObject monster2;
     public int monstermove;
     GameObject mon1;
     GameObject mon2;
@@ -84,7 +85,7 @@ public class Stage2 : MonoBehaviour
 
         text.SetActive(false);
 
-        stage = 0;
+        stage = 2;
         stagemove = true;
         remain = 0;
 
@@ -337,7 +338,7 @@ public class Stage2 : MonoBehaviour
 
     void MonsterSpawn()
     {
-        if (stage < 2)
+        if (stage == 0)
         {
             mon1 = Instantiate(monster, new Vector2(x1, y1), transform.rotation);
             mon2 = Instantiate(monster, new Vector2(x2, y2), transform.rotation);
@@ -346,10 +347,19 @@ public class Stage2 : MonoBehaviour
             mon2.SetActive(true);
             mon3.SetActive(true);
         }
-        else
+        else if (stage == 1)
+        {
+            mon1 = Instantiate(monster2, new Vector2(x1, y1), transform.rotation);
+            mon2 = Instantiate(monster2, new Vector2(x2, y2), transform.rotation);
+            mon3 = Instantiate(monster2, new Vector2(x3, y3), transform.rotation);
+            mon1.SetActive(true);
+            mon2.SetActive(true);
+            mon3.SetActive(true);
+        }
+        else if (stage == 2)
         {
             mon1 = Instantiate(monster, new Vector2(x1, y1), transform.rotation);
-            mon2 = Instantiate(monster, new Vector2(x2, y2), transform.rotation);
+            mon2 = Instantiate(monster2, new Vector2(x2, y2), transform.rotation);
             mon1.SetActive(true);
             mon2.SetActive(true);
 

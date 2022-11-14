@@ -416,7 +416,7 @@ public class MonsterScript : MonoBehaviour
     void realAttack() //공격 함수
     {
         GameObject.Find("Player").GetComponent<PlayerScript>().heart -= 1;
-        GameObject.Find("Player").GetComponent<Animator>().SetTrigger("hurt2");
+        GameObject.Find("Player").GetComponent<Animator>().SetTrigger("hit");
     }
 
     void reAttack() //공격 재개 함수

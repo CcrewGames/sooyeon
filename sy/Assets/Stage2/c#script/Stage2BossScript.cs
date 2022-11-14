@@ -10,6 +10,7 @@ public class Stage2BossScript : MonoBehaviour
     private bool move;
     private int movey; //몬스터 이동 변수2
     private bool tremble; //몬스터 ㅂㄷㅂㄷ 변수
+    public Animator animator;
 
     //몬스터 이동 관련
     float speed;
@@ -62,6 +63,8 @@ public class Stage2BossScript : MonoBehaviour
 
     void Start() //스폰
     {
+        animator = GetComponent<Animator>();
+
         xm = 7f;
         move = false;
         speed = 2f;
@@ -208,6 +211,7 @@ public class Stage2BossScript : MonoBehaviour
         {
             bombmove = 2;
             GameObject.Find("Stage").GetComponent<Stage2>().BombOff();
+            animator.SetTrigger("stage1bossattack");
             num1.SetActive(false);
             num2.SetActive(false);
             time1 = timemax;
@@ -293,7 +297,7 @@ public class Stage2BossScript : MonoBehaviour
     void Attack()
     {
         GameObject.Find("Player").GetComponent<PlayerScript2>().heart -= 10;
-        GameObject.Find("Player").GetComponent<Animator>().SetTrigger("hurt2");
+        GameObject.Find("Player").GetComponent<Animator>().SetTrigger("hit");
         GameObject.Find("Punch").GetComponent<PunchScript>().re();
         GameObject.Find("Punch").GetComponent<PunchScript>().ScrollChange2();
 
@@ -319,6 +323,7 @@ public class Stage2BossScript : MonoBehaviour
         time1 = timemax;
         GameObject.Find("Punch").GetComponent<PunchScript>().re();
         GameObject.Find("Punch").GetComponent<PunchScript>().ScrollChange2();
+        animator.SetTrigger("stage2bosshit");
         heart--;
         damaged = false;
     }

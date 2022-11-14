@@ -310,7 +310,7 @@ public class Stage1BossScript : MonoBehaviour
     void Attack()
     {
         GameObject.Find("Player").GetComponent<PlayerScript>().heart -= 10;
-        GameObject.Find("Player").GetComponent<Animator>().SetTrigger("hurt2");
+        GameObject.Find("Player").GetComponent<Animator>().SetTrigger("hit");
         GameObject.Find("Punch").GetComponent<PunchScript>().re();
         GameObject.Find("Punch").GetComponent<PunchScript>().ScrollChange2();
 
