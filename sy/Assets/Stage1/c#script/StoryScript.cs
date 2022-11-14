@@ -76,11 +76,12 @@ public class StoryScript : MonoBehaviour
         nextbutton1.SetActive(true);
 
         sentences1 = new List<string>();
-        sentences1.Add("(으... 추워.)");
-        sentences1.Add("여기가 말로만 듣던 얼음나라구나.");
-        sentences1.Add("생각했던 것보다 훨씬 춥네.");
-        sentences1.Add("이런 곳에 끔찍한 악당들이 숨어있단 말이야?");
+        sentences1.Add("드디어 도착했군.");
+        sentences1.Add("정말 이런 추운 곳에 악당들이 숨어있단 말이야?");
         sentences1.Add("내가 전부 혼쭐을 내줘야 겠어!");
+        //sentences1.Add("(으... 추워.)");
+        //sentences1.Add("여기가 말로만 듣던 얼음나라구나.");
+        //sentences1.Add("생각했던 것보다 훨씬 춥네.");
         size = sentences1.Count;
         i = 0;
         storytext.text = sentences1[0];

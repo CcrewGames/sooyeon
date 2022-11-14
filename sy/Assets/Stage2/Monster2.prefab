@@ -28,8 +28,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7947195092028119978}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 4, z: 4}
-  m_LocalScale: {x: 0.6, y: 0.6, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 0.7, y: 0.7, z: 0}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -84,7 +84,7 @@ SpriteRenderer:
   m_Size: {x: 4.82, y: 4.75}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 1
+  m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
 --- !u!61 &6424458174422467194
@@ -147,6 +147,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   heart: 0
   xm: 0
+  e: {fileID: 603408265860037281, guid: 337490e79d843d440a6b90499084457c, type: 3}
   random: 0
   number: {fileID: 2687332880628242228, guid: 91a19c992c5993b4ca507316c1c18da7, type: 3}
   circle: {fileID: 520527873553499112, guid: 0c3c023e52808a043947fdebbf224860, type: 3}

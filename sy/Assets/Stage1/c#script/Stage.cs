@@ -84,7 +84,7 @@ public class Stage : MonoBehaviour
 
         text.SetActive(false);
 
-        stage = 0;
+        stage = 2;
         stagemove = true;
         remain = 0;
 

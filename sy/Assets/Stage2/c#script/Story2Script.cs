@@ -49,7 +49,7 @@ public class Story2Script : MonoBehaviour
             else if (GameObject.Find("Stage").GetComponent<Stage2>().story == 2)
             {
                 i++;
-                if (i == 3 || i == 4 || i == 6 || i == 7)
+                if (i == 3 || i == 5 || i == 6)
                 {
                     Story2log1();
                 }
@@ -76,11 +76,9 @@ public class Story2Script : MonoBehaviour
         nextbutton1.SetActive(true);
 
         sentences1 = new List<string>();
-        sentences1.Add("(으... 추워.)");
-        sentences1.Add("여기가 말로만 듣던 얼음나라구나.");
-        sentences1.Add("생각했던 것보다 훨씬 춥네.");
-        sentences1.Add("이런 곳에 끔찍한 악당들이 숨어있단 말이야?");
-        sentences1.Add("내가 전부 혼쭐을 내줘야 겠어!");
+        sentences1.Add("드디어 도착했군!");
+        sentences1.Add("이전보다 많은 버튼을 얻었으니 좀 더 수월하겠어.");
+        sentences1.Add("가자! 앞으로!");
         size = sentences1.Count;
         i = 0;
         storytext.text = sentences1[0];
@@ -98,15 +96,14 @@ public class Story2Script : MonoBehaviour
         nextbutton1.SetActive(true);
 
         sentences2 = new List<string>();
-        //0, 3, 4, 6, 7
-        sentences2.Add("이런! 벌써 여기까지 와 버리다니! 우리 기사들을 다 처리해버린 것인가?!"); //로그십
-        sentences2.Add("그렇습니다! 대체 평화롭던 덧셈뺄셈의 얼음마을을 왜 공격한 겁니까?"); //칼
-        sentences2.Add("당신들 때문에 주민들이 고통받고 있습니다."); //칼
-        sentences2.Add("우린 이 마을에 혁명을 일으킨 거라네!"); //로그십
-        sentences2.Add("모두들 미적미적대는 꼴은 정말 봐줄 수 없어... 자넨 내 적분의 신념을 이해할 수 있겠나?"); //로그십
-        sentences2.Add("(제정신이 아니군...)"); //칼
-        sentences2.Add("자넨 우리의 위대한 긍지를 이해할 수 없어!"); //로그십
-        sentences2.Add("1:2, 3:2 정수 비의 이상적 화음 공격 맛을 보게나!"); //로그십
+        //0, 3, 5, 6
+        sentences2.Add("마침내 대면했군요... 내 형제의 원수... 여기까지 오다니 참 안타까워요..."); //로그일
+        sentences2.Add("로그십 말입니까?"); //칼
+        sentences2.Add("세상을 어지럽힌 대가였을 뿐입니다. 그리고 당신도 곧 그 대가를 치루게 될 것입니다!"); //칼
+        sentences2.Add("아...! 그의 피타고라스 음계는 내 1:1618 황금비 몸매에 딱 맞는 배경음이었는데... 정말 아쉬워요...!"); //로그일
+        sentences2.Add("(내 말을 전혀 듣지 않는 군...)"); //칼
+        sentences2.Add("당신도 제 수학적인 예술을 느껴보시겠어요...?"); //로그일
+        sentences2.Add("원근법을 이용한 제 매력에 푹 빠지게 만들겠어요...!"); //로그일
         size = sentences2.Count;
         i = 0;
         storytext.text = sentences2[0];

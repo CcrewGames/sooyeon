@@ -586,6 +586,9 @@ MonoBehaviour:
   boss: {fileID: 0}
   BH: {fileID: 1904033710}
   BHBB: {fileID: 129699684}
+  bombtimer: {fileID: 0}
+  xb: 0
+  yb: 0
   punch: {fileID: 882607787}
   ending: {fileID: 111329480}
   AttackBar: {fileID: 7960908169966461538, guid: 2cd5463223ac2554c91cb09189bb6ddd, type: 3}
@@ -676,7 +679,7 @@ SpriteRenderer:
   m_Size: {x: 9.31, y: 9.15}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 1
+  m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
 --- !u!4 &311382295
@@ -1387,7 +1390,7 @@ SpriteRenderer:
   m_Size: {x: 10.47, y: 10.18}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 1
+  m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
 --- !u!4 &541063597
@@ -2191,7 +2194,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   punch: {fileID: 882607787}
-  stage: {fileID: 285300737}
   numberbar: {fileID: 831124083}
   btn1: {fileID: 1397696627}
   btn2: {fileID: 430673792}
@@ -2221,6 +2223,7 @@ MonoBehaviour:
   sign3: {fileID: 500679405}
   sign4: {fileID: 484866488}
   re: {fileID: 2018059657}
+  pausemode: 0
 --- !u!4 &856650645
 Transform:
   m_ObjectHideFlags: 0
@@ -4696,14 +4699,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.8207547, g: 0.8207547, b: 0.8207547, a: 1}
+  m_Color: {r: 0.5471698, g: 0.39953718, b: 0.39953718, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 543fd88482b89f14cbcc70dd23fb407e, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 777c15b18b74a2447a3869d69cb40bcd, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1

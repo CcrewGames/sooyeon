@@ -34,7 +34,7 @@ public class Stage2 : MonoBehaviour
     public GameObject BossMonster;
     public GameObject boss;
     float x4 = 14f;
-    float y4 = 0.02f;
+    float y4 = -0.1f;
     public GameObject BH;
     public GameObject BHBB;
     public Image bombtimer;

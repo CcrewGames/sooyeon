@@ -300,13 +300,6 @@ public class MonsterScript : MonoBehaviour
             hpbar1.GetComponent<LayerScript>().monnum = 1;
             hpbar2.GetComponent<LayerScript>().monnum = 1;
             hpbar3.GetComponent<LayerScript>().monnum = 1;
-            ef1.GetComponent<LayerScript>().eLayer();
-            ef2.GetComponent<LayerScript>().eLayer();
-            num1.GetComponent<LayerScript>().Layer();
-            num2.GetComponent<LayerScript>().Layer();
-            hpbar1.GetComponent<LayerScript>().Layer();
-            hpbar2.GetComponent<LayerScript>().Layer();
-            hpbar3.GetComponent<LayerScript>().Layer();
         }
         else if(monnum == 2)
         {
@@ -318,13 +311,6 @@ public class MonsterScript : MonoBehaviour
             hpbar1.GetComponent<LayerScript>().monnum = 2;
             hpbar2.GetComponent<LayerScript>().monnum = 2;
             hpbar3.GetComponent<LayerScript>().monnum = 2;
-            ef1.GetComponent<LayerScript>().eLayer();
-            ef2.GetComponent<LayerScript>().eLayer();
-            num1.GetComponent<LayerScript>().Layer();
-            num2.GetComponent<LayerScript>().Layer();
-            hpbar1.GetComponent<LayerScript>().Layer();
-            hpbar2.GetComponent<LayerScript>().Layer();
-            hpbar3.GetComponent<LayerScript>().Layer();
         }
         else if(monnum == 3)
         {
@@ -336,14 +322,14 @@ public class MonsterScript : MonoBehaviour
             hpbar1.GetComponent<LayerScript>().monnum = 3;
             hpbar2.GetComponent<LayerScript>().monnum = 3;
             hpbar3.GetComponent<LayerScript>().monnum = 3;
-            ef1.GetComponent<LayerScript>().eLayer();
-            ef2.GetComponent<LayerScript>().eLayer();
-            num1.GetComponent<LayerScript>().Layer();
-            num2.GetComponent<LayerScript>().Layer();
-            hpbar1.GetComponent<LayerScript>().Layer();
-            hpbar2.GetComponent<LayerScript>().Layer();
-            hpbar3.GetComponent<LayerScript>().Layer();
         }
+        ef1.GetComponent<LayerScript>().eLayer();
+        ef2.GetComponent<LayerScript>().eLayer();
+        num1.GetComponent<LayerScript>().Layer();
+        num2.GetComponent<LayerScript>().Layer();
+        hpbar1.GetComponent<LayerScript>().Layer();
+        hpbar2.GetComponent<LayerScript>().Layer();
+        hpbar3.GetComponent<LayerScript>().Layer();
     }
 
     void HeartMaker()
@@ -389,23 +375,25 @@ public class MonsterScript : MonoBehaviour
         animator.SetInteger("hit", heart); //애니
         if (heart != 0)
         {
+            CancelInvoke("Stop");
             dis4 = transform.position.x + 4;
             move = false;
             movey = 5;
             damaged = true;
 
-            Invoke("Stop", 3f);
+            Invoke("Stop", 2f);
             HeartMaker();
             setting();
         }
         else
         {
+            CancelInvoke("Stop");
             dis4 = transform.position.x + 2;
             move = false;
             movey = 6;
             damaged = true;
 
-            Invoke("Inactive", 5f);
+            Invoke("Inactive", 3f);
         }
     }
 
@@ -419,7 +407,6 @@ public class MonsterScript : MonoBehaviour
 
     void Attack() //공격 함수
     {
-        animator.SetTrigger("attack");
         ef1.GetComponent<Animator>().SetTrigger("effect1");
         ef2.GetComponent<Animator>().SetTrigger("effect2");
 

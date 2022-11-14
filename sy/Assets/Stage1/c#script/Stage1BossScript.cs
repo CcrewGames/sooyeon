@@ -10,6 +10,7 @@ public class Stage1BossScript : MonoBehaviour
     private bool move;
     private int movey; //몬스터 이동 변수2
     private bool tremble; //몬스터 ㅂㄷㅂㄷ 변수
+    public Animator animator;
 
     //몬스터 이동 관련
     float speed;
@@ -43,6 +44,11 @@ public class Stage1BossScript : MonoBehaviour
     public float time1;
     bool timer;
 
+    public GameObject e3;
+    public GameObject e4;
+    private GameObject ef3;
+    private GameObject ef4;
+
     //폭탄
     int bombmove; //0 기본, 1 소환, 2 공격, 3 피격
     float speed3 = 4f;
@@ -62,6 +68,8 @@ public class Stage1BossScript : MonoBehaviour
 
     void Start() //스폰
     {
+        animator = GetComponent<Animator>();
+
         xm = 7f;
         move = false;
         speed = 2f;
@@ -79,6 +87,9 @@ public class Stage1BossScript : MonoBehaviour
         timer = false;
 
         bombmove = 0;
+
+        ef3 = Instantiate(e3, transform.position, transform.rotation);
+        ef4 = Instantiate(e4, transform.position, transform.rotation);
 
         bom = Instantiate(bomb, new Vector2(transform.position.x, -2), transform.rotation);
         num1 = Instantiate(number, new Vector2(bom.transform.position.x - dis, bom.transform.position.y), transform.rotation);
@@ -131,7 +142,8 @@ public class Stage1BossScript : MonoBehaviour
         }
         if (bombmove == 2 && bom.transform.position.x <= -3.9f)
         {
-            Attack();
+            bom.GetComponent<Animator>().SetTrigger("bombdestroy");
+            Invoke("Attack", 0.47f);
             bombmove = 0;
         }
         
@@ -198,7 +210,7 @@ public class Stage1BossScript : MonoBehaviour
         {
             time1 -= Time.deltaTime;
             GameObject.Find("Stage").GetComponent<Stage>().BombTimer();
-            GameObject.Find("Stage").GetComponent<Stage>().xb = bom.transform.position.x + 0.17f;
+            GameObject.Find("Stage").GetComponent<Stage>().xb = bom.transform.position.x;
             GameObject.Find("Stage").GetComponent<Stage>().yb = bom.transform.position.y;
             GameObject.Find("Stage").GetComponent<Stage>().BombPosition();
         }
@@ -207,17 +219,25 @@ public class Stage1BossScript : MonoBehaviour
         {
             bombmove = 2;
             GameObject.Find("Stage").GetComponent<Stage>().BombOff();
+            animator.SetTrigger("stage1bossattack");
+            ef3.GetComponent<Animator>().SetTrigger("effect3");
+            ef4.GetComponent<Animator>().SetTrigger("effect4");
+            num1.SetActive(false);
+            num2.SetActive(false);
             time1 = timemax;
             timer = false;
         }
 
+        ef3.transform.position = new Vector2(transform.position.x - 4f, transform.position.y);
+        ef4.transform.position = new Vector2(transform.position.x - 4f, transform.position.y);
+
         if (random > 9 && random <= 99) //십의 자리일 때
         {
-            num1.transform.position = new Vector2(bom.transform.position.x + dis + 0.17f, bom.transform.position.y);
+            num1.transform.position = new Vector2(bom.transform.position.x + dis, bom.transform.position.y);
         }
         else if (random > 0 && random <= 9) //일의 자리일 때
         {
-            num1.transform.position = new Vector2(bom.transform.position.x + 0.17f, bom.transform.position.y);
+            num1.transform.position = new Vector2(bom.transform.position.x, bom.transform.position.y);
         }
 
         num2.transform.position = new Vector2(num1.transform.position.x - 2 * dis, num1.transform.position.y);
@@ -295,8 +315,6 @@ public class Stage1BossScript : MonoBehaviour
         GameObject.Find("Punch").GetComponent<PunchScript>().ScrollChange2();
 
         bom.transform.position = new Vector2(transform.position.x, -2);
-        num1.SetActive(false);
-        num2.SetActive(false);
         bom.SetActive(false);
 
         Invoke("Skill_2", 1f);
@@ -304,15 +322,21 @@ public class Stage1BossScript : MonoBehaviour
 
     public void OnDamaged()
     {
-        bom.transform.position = new Vector2(transform.position.x, -2);
         num1.SetActive(false);
         num2.SetActive(false);
+        bom.GetComponent<Animator>().SetTrigger("bombdestroy");
+        Invoke("realOnDamaged", 0.46f);
+    }
+    void realOnDamaged()
+    {
+        bom.transform.position = new Vector2(transform.position.x, -2);
         bom.SetActive(false);
 
         Tremble();
         time1 = timemax;
         GameObject.Find("Punch").GetComponent<PunchScript>().re();
         GameObject.Find("Punch").GetComponent<PunchScript>().ScrollChange2();
+        animator.SetTrigger("stage1bosshit");
         heart--;
         damaged = false;
     }
