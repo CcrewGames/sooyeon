@@ -85,7 +85,7 @@ public class Stage : MonoBehaviour
 
         text.SetActive(false);
 
-        stage = 2;
+        stage = 1;
         stagemove = true;
         remain = 0;
 
@@ -104,6 +104,27 @@ public class Stage : MonoBehaviour
         BombOff();
 
         BossHealthbarOff();
+    }
+
+    void FixedUpdate()
+    {
+        if (flymode == true)
+        {
+            fly.transform.position = Vector2.Lerp(fly.transform.position, new Vector2(xf, yf), Time.deltaTime * speed);
+        }
+        if (fly.transform.position.x >= xf - 1f && flymode == true)
+        {
+            Flyoff();
+        }
+
+        if (flymode1 == true)
+        {
+            fly.transform.position = Vector2.Lerp(fly.transform.position, new Vector2(xf, yf), Time.deltaTime * speed);
+        }
+        if (fly.transform.position.x >= xf - 0.8f && flymode1 == true)
+        {
+            Flyoff1();
+        }
     }
 
     void Update()
@@ -268,7 +289,7 @@ public class Stage : MonoBehaviour
             Invoke("textoff", 2f);
 
             GameObject.Find("Player").GetComponent<PlayerScript>().Run_();
-            Invoke("StageMove", 4f);
+            Invoke("StageMove", 8f);
 
             remain = 3; //얘는 남은 몬스터 수 확인용이 아니라 한 번만 실행되도록 하기 위함
         }
@@ -278,24 +299,6 @@ public class Stage : MonoBehaviour
             StageEnding();
 
             stagemove = true;
-        }
-
-        if (flymode == true)
-        {
-            fly.transform.position = Vector2.Lerp(fly.transform.position, new Vector2(xf, yf), Time.deltaTime * speed);
-        }
-        if (fly.transform.position.x >= xf - 1f && flymode == true)
-        {
-            Flyoff();
-        }
-
-        if (flymode1 == true)
-        {
-            fly.transform.position = Vector2.Lerp(fly.transform.position, new Vector2(xf, yf), Time.deltaTime * speed);
-        }
-        if (fly.transform.position.x >= xf - 0.8f && flymode1 == true)
-        {
-            Flyoff1();
         }
     }
 
@@ -349,9 +352,9 @@ public class Stage : MonoBehaviour
         }
         else if (stage == 1)
         {
-            mon1 = Instantiate(monster, new Vector2(x1, y1), transform.rotation);
-            mon2 = Instantiate(monster, new Vector2(x2, y2), transform.rotation);
-            mon3 = Instantiate(monster, new Vector2(x3, y3), transform.rotation);
+            mon1 = Instantiate(monster2, new Vector2(x1, y1), transform.rotation);
+            mon2 = Instantiate(monster2, new Vector2(x2, y2), transform.rotation);
+            mon3 = Instantiate(monster2, new Vector2(x3, y3), transform.rotation);
             mon1.SetActive(true);
             mon2.SetActive(true);
             mon3.SetActive(true);
@@ -359,7 +362,7 @@ public class Stage : MonoBehaviour
         else if (stage == 2)
         {
             mon1 = Instantiate(monster, new Vector2(x1, y1), transform.rotation);
-            mon2 = Instantiate(monster, new Vector2(x2, y2), transform.rotation);
+            mon2 = Instantiate(monster2, new Vector2(x2, y2), transform.rotation);
             mon1.SetActive(true);
             mon2.SetActive(true);
 

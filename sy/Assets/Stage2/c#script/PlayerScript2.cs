@@ -49,6 +49,16 @@ public class PlayerScript2 : MonoBehaviour
 
     bool end; //게임 실패 변수
 
+    public bool button;
+    public bool buttonmove;
+    public float xb;
+    public float yb;
+    float speedb = 6f;
+    public GameObject b1;
+    public GameObject b2;
+    public GameObject b3;
+    public GameObject b4;
+
     void Start() //게임 시작 초기화
     {
         animator = GetComponent<Animator>();
@@ -75,10 +85,70 @@ public class PlayerScript2 : MonoBehaviour
 
     void FixedUpdate()
     {
+        num2.transform.position = new Vector2(num1.transform.position.x - 2 * dis, num1.transform.position.y);
+
         if (movey == 1) //ㅂㄷㅂㄷ
             transform.position = new Vector2(transform.position.x - speed1 * Time.deltaTime, transform.position.y);
         else if (movey == 2) //ㅂㄷㅂㄷ
             transform.position = new Vector2(transform.position.x + speed1 * Time.deltaTime, transform.position.y);
+
+        if (move == 1 && transform.position.x < xm)
+        {
+            transform.position = Vector2.MoveTowards(transform.position, new Vector2(xm, transform.position.y), Time.deltaTime * speed);
+        }
+
+        if (move == 2 && transform.position.x > -7 + xm)
+        {
+            transform.position = Vector2.MoveTowards(transform.position, new Vector2(-7 + xm, transform.position.y), Time.deltaTime * (speed + 2));
+
+            if (Background.transform.position.x > b)
+                Background.transform.position = Vector2.MoveTowards(Background.transform.position, new Vector2(b, Background.transform.position.y), Time.deltaTime * (speed + 2));
+            else if (Background.transform.position.x <= b)
+                Background.transform.position = new Vector2(-b, Background.transform.position.y);
+        }
+
+        if (transform.position.x >= xm && f == false)
+        {
+            if (Background.transform.position.x > b)
+                Background.transform.position = Vector2.MoveTowards(Background.transform.position, new Vector2(b, Background.transform.position.y), Time.deltaTime * (speed + 2));
+            else if (Background.transform.position.x <= b)
+                Background.transform.position = new Vector2(-b, Background.transform.position.y);
+        }
+
+        Background2.transform.position = new Vector2(Background.transform.position.x + 54.85f, Background.transform.position.y);
+        Background3.transform.position = new Vector2(Background.transform.position.x - 54.85f, Background.transform.position.y);
+
+        floor.transform.position = new Vector2(Background.transform.position.x, floor.transform.position.y);
+        floor2.transform.position = new Vector2(Background2.transform.position.x, floor2.transform.position.y);
+        floor3.transform.position = new Vector2(Background3.transform.position.x, floor3.transform.position.y);
+
+        if (button == true)
+        {
+            b1.transform.position = Vector3.Lerp(b1.transform.position, new Vector2(xb - 2f, -2.2f), Time.deltaTime * speedb);
+            b2.transform.position = Vector3.Lerp(b2.transform.position, new Vector2(xb - 1f, -2.2f), Time.deltaTime * speedb);
+            b3.transform.position = Vector3.Lerp(b3.transform.position, new Vector2(xb + 0.5f, -2.2f), Time.deltaTime * speedb);
+            b4.transform.position = Vector3.Lerp(b4.transform.position, new Vector2(xb + 2f, -2.2f), Time.deltaTime * speedb);
+        }
+
+        //엔딩 이동
+        if (move == 3 && transform.position.x <= -0.01f + xm)
+        {
+            transform.position = Vector2.MoveTowards(transform.position, new Vector2(xm, transform.position.y), Time.deltaTime * (speed + 2));
+        }
+        if (buttonmove == true)
+        {
+            b1.transform.position = Vector2.MoveTowards(b1.transform.position, new Vector2(-2, b1.transform.position.y), Time.deltaTime * (speed + 2));
+            if (Background.transform.position.x > b)
+                Background.transform.position = Vector2.MoveTowards(Background.transform.position, new Vector2(b, Background.transform.position.y), Time.deltaTime * (speed + 2));
+            else if (Background.transform.position.x <= b)
+                Background.transform.position = new Vector2(-b, Background.transform.position.y);
+        }
+        if (button == false)
+        {
+            b2.transform.position = new Vector2(b1.transform.position.x + 1f, b1.transform.position.y);
+            b3.transform.position = new Vector2(b1.transform.position.x + 2.5f, b1.transform.position.y);
+            b4.transform.position = new Vector2(b1.transform.position.x + 4, b1.transform.position.y);
+        }
     }
 
     void Update()
@@ -97,48 +167,25 @@ public class PlayerScript2 : MonoBehaviour
             GameObject.Find("ending").GetComponent<endingscene>().Playerpowerend();
         }
 
-        if (move == 1 && transform.position.x < xm)
+        //엔딩
+        if (move == 3 && transform.position.x >= -0.01f + xm)
         {
-            transform.position = Vector2.MoveTowards(transform.position, new Vector2(xm, transform.position.y), Time.deltaTime * speed);
+            buttonmove = true;
         }
-
-        if (move == 2 && transform.position.x > -7 + xm)
-        {
-            transform.position = Vector2.MoveTowards(transform.position, new Vector2(-7 + xm, transform.position.y), Time.deltaTime * (speed + 2));
-
-            if (Background.transform.position.x > b)
-                Background.transform.position = Vector2.MoveTowards(Background.transform.position, new Vector2(b, Background.transform.position.y), Time.deltaTime * (speed + 2));
-            else if (Background.transform.position.x <= b)
-                Background.transform.position = new Vector2(-b, Background.transform.position.y);
-        }
-
-        if (move == 3 && transform.position.x <= -0.01f + xm)
-        {
-            transform.position = Vector2.MoveTowards(transform.position, new Vector2(xm, transform.position.y), Time.deltaTime * (speed + 2));
-        }
-        if (move == 3 && transform.position.x >= -1.2f + xm)
+        if (buttonmove == true && b1.transform.position.x <= -2 + 1f)
         {
             animator.SetBool("walk", false);
         }
-        if (move == 3 && transform.position.x >= -0.01f + xm)
+        if (buttonmove == true && b1.transform.position.x <= -2 + 0.01f)
         {
+            buttonmove = false;
             Find1();
         }
-
-        if (transform.position.x >= xm && f == false)
+        if (button == true && b1.transform.position.y <= -2.2f + 0.001f)
         {
-            if (Background.transform.position.x > b)
-                Background.transform.position = Vector2.MoveTowards(Background.transform.position, new Vector2(b, Background.transform.position.y), Time.deltaTime * (speed + 2));
-            else if (Background.transform.position.x <= b)
-                Background.transform.position = new Vector2(-b, Background.transform.position.y);
+            GameObject.Find("Stage").GetComponent<Stage2>().bossdie = true;
+            button = false;
         }
-
-        Background2.transform.position = new Vector2(Background.transform.position.x + 55, Background.transform.position.y);
-        Background3.transform.position = new Vector2(Background.transform.position.x - 55, Background.transform.position.y);
-
-        floor.transform.position = new Vector2(Background.transform.position.x, floor.transform.position.y);
-        floor2.transform.position = new Vector2(Background2.transform.position.x, floor2.transform.position.y);
-        floor3.transform.position = new Vector2(Background3.transform.position.x, floor3.transform.position.y);
 
         if (Input.GetMouseButtonDown(0) && stage.GetComponent<Stage2>().fortime == 1 && stage.GetComponent<Stage2>().pausemode == false)
         {
@@ -188,8 +235,6 @@ public class PlayerScript2 : MonoBehaviour
         {
             animator.SetTrigger("attack");
         }
-
-        num2.transform.position = new Vector2(num1.transform.position.x - 2 * dis, num1.transform.position.y);
     }
 
     //스테이지 이동
@@ -341,6 +386,19 @@ public class PlayerScript2 : MonoBehaviour
     void Find1() //끝~ 함수
     {
         move = 0;
+    }
+
+    public void bm()
+    {
+        b1.transform.position = new Vector2(xb, yb);
+        b2.transform.position = new Vector2(xb, yb);
+        b3.transform.position = new Vector2(xb, yb);
+        b4.transform.position = new Vector2(xb, yb);
+        b1.SetActive(true);
+        b2.SetActive(true);
+        b3.SetActive(true);
+        b4.SetActive(true);
+        button = true;
     }
 }
 

@@ -7,14 +7,34 @@ public class Story3Script : MonoBehaviour
 {
     public GameObject background, playerimage, bossimage, textbox, nextbutton, canvas;
     GameObject background1, playerimage1, bossimage1, textbox1, nextbutton1;
-    
+
     public Text storytext;
 
     public List<string> sentences1;
     public List<string> sentences2;
+    public List<string> sentences2_2;
+    public List<string> sentences3;
+    public List<string> sentences3_2;
+    public List<string> sentences4;
+    public List<string> sentences4_2;
+    public List<string> sentences5;
     public bool clickNextButton = false;
 
     int size, i;
+
+    private GameObject target; //마우스 클릭 확인용 변수
+
+    void CastRay() //마우스 클릭 확인용 함수
+    {
+        target = null;
+        Vector2 pos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        RaycastHit2D hit = Physics2D.Raycast(pos, Vector2.zero, 0f);
+
+        if (hit.collider != null)
+        {
+            target = hit.collider.gameObject;
+        }
+    }
 
     void Start()
     {
@@ -34,30 +54,91 @@ public class Story3Script : MonoBehaviour
 
     void Update()
     {
-        if (clickNextButton == true && GameObject.Find("Stage").GetComponent<Stage>().story != 0)
+        if (clickNextButton == true && GameObject.Find("Stage").GetComponent<Stage3>().story != 0)
         {
-            if(i + 1 == size)
+            i++;
+            if (i == size)
             {
                 StoryOff();
             }
-            else if (GameObject.Find("Stage").GetComponent<Stage>().story == 1)
+            else if (GameObject.Find("Stage").GetComponent<Stage3>().story == 1)
             {
-                i++;
-                storytext.text = sentences1[i];
-                clickNextButton = false;
-            }
-            else if (GameObject.Find("Stage").GetComponent<Stage>().story == 2)
-            {
-                i++;
-                if (i == 0 || i == 3 || i == 4 || i == 6 || i == 7)
+                if (i == 1 || i == 2 || i == 4 || i == 7 || i == 8)
                 {
-                    Story2log10();
+                    Storycul();
                 }
                 else
                 {
-                    Story2kal();
+                    Storykal();
+                }
+                storytext.text = sentences1[i];
+                clickNextButton = false;
+            }
+            else if (GameObject.Find("Stage").GetComponent<Stage3>().story == 2)
+            {
+                if (i == 1 || i == 3 || i == 5 || i == 7 || i == 9)
+                {
+                    Storycul();
+                }
+                else
+                {
+                    Storykal();
                 }
                 storytext.text = sentences2[i];
+                clickNextButton = false;
+            }
+            else if (GameObject.Find("Stage").GetComponent<Stage3>().story == 2.5)
+            {
+                if (i == 1 || i == 3)
+                {
+                    Storycul();
+                }
+                else
+                {
+                    Storykal();
+                }
+                storytext.text = sentences2_2[i];
+                clickNextButton = false;
+            }
+            else if (GameObject.Find("Stage").GetComponent<Stage3>().story == 3)
+            {
+                if (i == 1)
+                {
+                    Storycul();
+                }
+                else
+                {
+                    Storykal();
+                }
+                storytext.text = sentences3[i];
+                clickNextButton = false;
+            }
+            else if (GameObject.Find("Stage").GetComponent<Stage3>().story == 3.5)
+            {
+                storytext.text = sentences3_2[i];
+                clickNextButton = false;
+            }
+            else if (GameObject.Find("Stage").GetComponent<Stage3>().story == 4)
+            {
+                storytext.text = sentences4[i];
+                clickNextButton = false;
+            }
+            else if (GameObject.Find("Stage").GetComponent<Stage3>().story == 4.5)
+            {
+                if (i == 1 || i == 2 || i == 3)
+                {
+                    Storycul();
+                }
+                else
+                {
+                    Storykal();
+                }
+                storytext.text = sentences4_2[i];
+                clickNextButton = false;
+            }
+            else if (GameObject.Find("Stage").GetComponent<Stage3>().story == 5)
+            {
+                storytext.text = sentences5[i];
                 clickNextButton = false;
             }
         }
@@ -65,31 +146,37 @@ public class Story3Script : MonoBehaviour
 
     public void Story1On()
     {
-        GameObject.Find("Stage").GetComponent<Stage>().PauseMode();
-        GameObject.Find("Stage").GetComponent<Stage>().story = 1;
+        GameObject.Find("Stage").GetComponent<Stage3>().PauseMode();
+        GameObject.Find("Stage").GetComponent<Stage3>().story = 1;
 
         canvas.SetActive(true);
         background1.SetActive(true);
-        playerimage1.SetActive(true);
-        bossimage1.SetActive(false);
         textbox1.SetActive(true);
         nextbutton1.SetActive(true);
 
         sentences1 = new List<string>();
-        sentences1.Add("(으... 추워.)");
-        sentences1.Add("여기가 말로만 듣던 얼음나라구나.");
-        sentences1.Add("생각했던 것보다 훨씬 춥네.");
-        sentences1.Add("이런 곳에 끔찍한 악당들이 숨어있단 말이야?");
-        sentences1.Add("내가 전부 혼쭐을 내줘야 겠어!");
+        //1, 2, 4, 7, 8
+        sentences1.Add("오랜만이야, 큘."); //칼
+        sentences1.Add("그래 정말 오랜만이다. 넌 역시 하나도 변한 게 없어."); //큘
+        sentences1.Add("그때나 지금이나 아득바득 나를 방해하는구나."); //큘
+        sentences1.Add("쫄따구들이 늘었던데."); //칼
+        sentences1.Add("다 내 신념에 반한 자들이지. 같잖은 정의나 추구하는 너희 왕국의 기사들하곤 차원이 달라. 우린 훨씬 큰 목표! 훨씬 큰 세상을 다스릴 생각이지!"); //큘
+        sentences1.Add("네 왕국이기도 했어. 그러니 이제 그만 멈춰 큘. 당장 케르원기를 돌려줘"); //칼
+        sentences1.Add("더 이상 네가 만들어낸 괴물들로 세상을 괴롭히지 마!!!"); //칼
+        sentences1.Add("아니! 적어도 나에겐 이들이 진짜 기사고 너희 계산기사단들이 나를 괴롭히는 괴물들이야! 내 검술 실력은 누구보다 출중했어. 떨어질 리가 없었다!"); //큘
+        sentences1.Add("기필코 이번엔 너를 무너뜨려주마!"); //큘
+        sentences1.Add("어쩔 수 없지. 그때나 지금이나, 네 마음대로 되는 건 없을 거야!"); //칼
         size = sentences1.Count;
+
+        Storykal();
         i = 0;
-        storytext.text = sentences1[0];
+        storytext.text = sentences1[i];
     }
 
     public void Story2On()
     {
-        GameObject.Find("Stage").GetComponent<Stage>().PauseMode();
-        GameObject.Find("Stage").GetComponent<Stage>().story = 2;
+        GameObject.Find("Stage").GetComponent<Stage3>().PauseMode();
+        GameObject.Find("Stage").GetComponent<Stage3>().story = 2;
 
         canvas.SetActive(true);
         background1.SetActive(true);
@@ -97,25 +184,156 @@ public class Story3Script : MonoBehaviour
         nextbutton1.SetActive(true);
 
         sentences2 = new List<string>();
-        //0, 3, 4, 6, 7
-        sentences2.Add("이런! 벌써 여기까지 와 버리다니! 우리 기사들을 다 처리해버린 것인가?!"); //로그십
-        sentences2.Add("그렇습니다! 대체 평화롭던 덧셈뺄셈의 얼음마을을 왜 공격한 겁니까?"); //칼
-        sentences2.Add("당신들 때문에 주민들이 고통받고 있습니다."); //칼
-        sentences2.Add("우린 이 마을에 혁명을 일으킨 거라네!"); //로그십
-        sentences2.Add("모두들 미적미적대는 꼴은 정말 봐줄 수 없어... 자넨 내 적분의 신념을 이해할 수 있겠나?"); //로그십
-        sentences2.Add("(제정신이 아니군...)"); //칼
-        sentences2.Add("자넨 우리의 위대한 긍지를 이해할 수 없어!"); //로그십
-        sentences2.Add("1:2, 3:2 정수 비의 이상적 화음 공격 맛을 보게나!"); //로그십
+        //1, 3, 5, 7, 9
+        sentences2.Add("이런 자잘한 괴물들론 넌 날 절대 무너뜨릴 수 없어."); //칼
+        sentences2.Add("과연 그럴까? 네 그 하늘로 치솟은 콧대를 꺾기 위헤 이번엔 끔찍한 수로 몰려오도록 해야 겠군!"); //큘
+        sentences2.Add("큘, 우리 내기 하나 하는 거 어때?"); //칼
+        sentences2.Add("무슨 내기?"); //큘
+        sentences2.Add("넌 지금도 네가 이 왕국의 기사단장이었어야 했다고 생각하잖아."); //칼
+        sentences2.Add("당연하지. 넌 그냥 어쩌다 내 자리를 갖게 된 것 뿐이야!"); //큘
+        sentences2.Add("그럼 그때처럼 겨루자. 우리 중 누가 주어진 숫자를 더 빨리 만들어내는지."); //칼
+        sentences2.Add("칼. 넌 내가 아직도 그런 허접한 공격이나 할 줄 아는 거야?!"); //큘
+        sentences2.Add("왜? 자신없어? 네가 나보다 정말 강하다면 네 가장 약한 수로도 날 이겨야지!"); //칼
+        sentences2.Add("그래, 너를 내 손으로 죽여주마. 그때 보여주지 못한 내 진짜 실력을 보여주지!"); //큘
         size = sentences2.Count;
+
+        Storykal();
         i = 0;
-        storytext.text = sentences2[0];
+        storytext.text = sentences2[i];
     }
-    public void Story2kal()
+    public void Story2_2On()
+    {
+        GameObject.Find("Stage").GetComponent<Stage3>().PauseMode();
+        GameObject.Find("Stage").GetComponent<Stage3>().story = 2.5;
+
+        canvas.SetActive(true);
+        background1.SetActive(true);
+        textbox1.SetActive(true);
+        nextbutton1.SetActive(true);
+
+        sentences2_2 = new List<string>();
+        //0, 1, 3
+        sentences2_2.Add("큭..."); //큘
+        sentences2_2.Add("그때나 지금이나... 너만 없었으면..."); //큘
+        sentences2_2.Add("아니!!! 넌 그때도 지금도 내가 없어도!!! 네 그 악한 마음이 남아있는 한, 네가 원하는 대로 할 수 없을 거야!!!"); //칼
+        sentences2_2.Add("헛소리 하지 마!"); //큘
+        size = sentences2_2.Count;
+
+        Storycul();
+        i = 0;
+        storytext.text = sentences2_2[i];
+    }
+
+    public void Story3On()
+    {
+        GameObject.Find("Stage").GetComponent<Stage3>().PauseMode();
+        GameObject.Find("Stage").GetComponent<Stage3>().story = 3;
+
+        canvas.SetActive(true);
+        background1.SetActive(true);
+        textbox1.SetActive(true);
+        nextbutton1.SetActive(true);
+
+        sentences3 = new List<string>();
+        //1
+        sentences3.Add("그건...!"); //칼
+        sentences3.Add("넌 이것이 가진 힘을 정확히 몰라! 너를 기필코 부숴주마!"); //큘
+        sentences3.Add("(케르원기에서 이상한 빛이나...)"); //큘
+        size = sentences3.Count;
+
+        Storykal();
+        i = 0;
+        storytext.text = sentences3[i];
+    }
+    public void Story3_2On()
+    {
+        GameObject.Find("Stage").GetComponent<Stage3>().PauseMode();
+        GameObject.Find("Stage").GetComponent<Stage3>().story = 3.5;
+
+        playerimage1.SetActive(true);
+        bossimage1.SetActive(true);
+        canvas.SetActive(true);
+        background1.SetActive(true);
+        textbox1.SetActive(true);
+        nextbutton1.SetActive(true);
+
+        sentences3_2 = new List<string>();
+        sentences3_2.Add("!!!"); //칼, 큘 동시에
+        size = sentences3_2.Count;
+
+        i = 0;
+        storytext.text = sentences3_2[i];
+    }
+
+    public void Story4On()
+    {
+        GameObject.Find("Stage").GetComponent<Stage3>().PauseMode();
+        GameObject.Find("Stage").GetComponent<Stage3>().story = 4;
+
+        canvas.SetActive(true);
+        background1.SetActive(true);
+        textbox1.SetActive(true);
+        nextbutton1.SetActive(true);
+
+        sentences4 = new List<string>();
+        sentences4.Add("(켈룩켈룩)"); //칼
+        sentences4.Add("(몸에 힘이 들어가지 않는다.)"); //칼
+        sentences4.Add("큘, 그건 네가 통제하기엔 너무 무거운 물건이야..."); //칼
+        size = sentences4.Count;
+
+        Storykal();
+        i = 0;
+        storytext.text = sentences4[i];
+    }
+    public void Story4_2On()
+    {
+        GameObject.Find("Stage").GetComponent<Stage3>().PauseMode();
+        GameObject.Find("Stage").GetComponent<Stage3>().story = 4.5;
+
+        canvas.SetActive(true);
+        background1.SetActive(true);
+        textbox1.SetActive(true);
+        nextbutton1.SetActive(true);
+
+        sentences4_2 = new List<string>();
+        //1, 2, 3
+        sentences4_2.Add("어디 가는 거야! 당장 케르원기를 내놔!"); //칼
+        sentences4_2.Add("이번엔 물러나지만, 그때처럼 좌절하지 않고 언젠가 기필코 널 밟아버릴 거야."); //큘
+        sentences4_2.Add("내가 지나가는 자리마다 무너져가는 세상을 보며 너도 내가 느껴왔던 기분을 느끼게 될 거야."); //큘
+        sentences4_2.Add("또 보자, 칼."); //큘
+        sentences4_2.Add("안돼! 당장 멈춰!!!"); //칼
+        size = sentences4_2.Count;
+
+        Storykal();
+        i = 0;
+        storytext.text = sentences4_2[i];
+    }
+
+    public void Story5On()
+    {
+        GameObject.Find("Stage").GetComponent<Stage3>().PauseMode();
+        GameObject.Find("Stage").GetComponent<Stage3>().story = 5;
+
+        canvas.SetActive(true);
+        background1.SetActive(true);
+        textbox1.SetActive(true);
+        nextbutton1.SetActive(true);
+
+        sentences5 = new List<string>();
+        sentences5.Add("..."); //칼
+        size = sentences5.Count;
+
+        Storykal();
+        i = 0;
+        storytext.text = sentences5[i];
+    }
+
+    void Storykal()
     {
         playerimage1.SetActive(true);
         bossimage1.SetActive(false);
     }
-    public void Story2log10()
+    void Storycul()
     {
         playerimage1.SetActive(false);
         bossimage1.SetActive(true);
@@ -123,8 +341,8 @@ public class Story3Script : MonoBehaviour
 
     public void StoryOff()
     {
-        GameObject.Find("Stage").GetComponent<Stage>().ResumeMode();
-        GameObject.Find("Stage").GetComponent<Stage>().story = 0;
+        GameObject.Find("Stage").GetComponent<Stage3>().ResumeMode();
+        GameObject.Find("Stage").GetComponent<Stage3>().story = 0;
 
         canvas.SetActive(false);
         background1.SetActive(false);
@@ -132,5 +350,7 @@ public class Story3Script : MonoBehaviour
         bossimage1.SetActive(false);
         textbox1.SetActive(false);
         nextbutton1.SetActive(false);
+
+        clickNextButton = false;
     }
 }

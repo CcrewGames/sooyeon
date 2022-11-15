@@ -106,6 +106,27 @@ public class Stage2 : MonoBehaviour
         BossHealthbarOff();
     }
 
+    void FixedUpdate()
+    {
+        if (flymode == true)
+        {
+            fly.transform.position = Vector2.Lerp(fly.transform.position, new Vector2(xf, yf), Time.deltaTime * speed);
+        }
+        if (fly.transform.position.x >= xf - 1f && flymode == true)
+        {
+            Flyoff();
+        }
+
+        if (flymode1 == true)
+        {
+            fly.transform.position = Vector2.Lerp(fly.transform.position, new Vector2(xf, yf), Time.deltaTime * speed);
+        }
+        if (fly.transform.position.x >= xf - 0.8f && flymode1 == true)
+        {
+            Flyoff1();
+        }
+    }
+
     void Update()
     {
         if (Input.GetMouseButtonDown(0) && story == 0)
@@ -272,7 +293,7 @@ public class Stage2 : MonoBehaviour
             Invoke("textoff", 2f);
 
             GameObject.Find("Player").GetComponent<PlayerScript2>().Run_();
-            Invoke("StageMove", 4f);
+            Invoke("StageMove", 8f);
 
             remain = 3; //얘는 남은 몬스터 수 확인용이 아니라 한 번만 실행되도록 하기 위함
         }
@@ -411,6 +432,7 @@ public class Stage2 : MonoBehaviour
 
     public void Fly()
     {
+        Debug.Log("fly");
         fly.SetActive(true);
         flymode = true;
         punch.GetComponent<PunchScript2>().off();
@@ -425,6 +447,7 @@ public class Stage2 : MonoBehaviour
 
     public void Flyoff()
     {
+        Debug.Log("flyoff");
         if (monnum2 == 1)
         {
             mon1.GetComponent<MonsterScript2>().OnDamaged();
@@ -451,6 +474,7 @@ public class Stage2 : MonoBehaviour
 
     public void Fly1()
     {
+        Debug.Log("fly1");
         fly.SetActive(true);
         flymode1 = true;
         punch.GetComponent<PunchScript2>().off();
@@ -465,6 +489,7 @@ public class Stage2 : MonoBehaviour
 
     public void Flyoff1()
     {
+        Debug.Log("flyoff1");
         boss.GetComponent<Stage2BossScript>().OnDamaged();
 
         fly.transform.position = new Vector2(x5, y5);

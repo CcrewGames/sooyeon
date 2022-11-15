@@ -192,6 +192,26 @@ public class MonsterScript2 : MonoBehaviour
 
         if (movey == 6) //막타
             transform.position = Vector2.MoveTowards(transform.position, new Vector2(dis4, transform.position.y), Time.deltaTime * speed3);
+
+        //난수와 체력바와 효과 이동
+        if (heart != 0)
+        {
+            ef.transform.position = new Vector2(transform.position.x - 4f, transform.position.y + 0.1f);
+
+            if (random > 9 && random <= 99) //십의 자리일 때
+            {
+                num1.transform.position = new Vector2(transform.position.x + dis, transform.position.y + dis3);
+            }
+            else if (random > 0 && random <= 9) //일의 자리일 때
+            {
+                num1.transform.position = new Vector2(transform.position.x, transform.position.y + dis3);
+            }
+            num2.transform.position = new Vector3(num1.transform.position.x - 2 * dis, num1.transform.position.y, -1);
+
+            hpbar1.transform.position = new Vector2(transform.position.x - dis1, transform.position.y + dis2);
+            hpbar2.transform.position = new Vector2(transform.position.x, transform.position.y + dis2);
+            hpbar3.transform.position = new Vector2(transform.position.x + dis1, transform.position.y + dis2);
+        }
     }
 
     public void Update()
@@ -247,26 +267,6 @@ public class MonsterScript2 : MonoBehaviour
             GameObject.Find("Punch").GetComponent<PunchScript2>().ScrollChange2();
         }
 
-        //난수와 체력바와 효과 이동
-        if (heart != 0)
-        {
-            ef.transform.position = new Vector2(transform.position.x - 4f, transform.position.y + 0.1f);
-
-            if (random > 9 && random <= 99) //십의 자리일 때
-            {
-                num1.transform.position = new Vector2(transform.position.x + dis, transform.position.y + dis3);
-            }
-            else if (random > 0 && random <= 9) //일의 자리일 때
-            {
-                num1.transform.position = new Vector2(transform.position.x, transform.position.y + dis3);
-            }
-            num2.transform.position = new Vector3(num1.transform.position.x - 2 * dis, num1.transform.position.y, -1);
-
-            hpbar1.transform.position = new Vector2(transform.position.x - dis1, transform.position.y + dis2);
-            hpbar2.transform.position = new Vector2(transform.position.x, transform.position.y + dis2);
-            hpbar3.transform.position = new Vector2(transform.position.x + dis1, transform.position.y + dis2);
-        }
-
         if (heart == 0) //UI 삭제
         {
             Destroy(ef);
@@ -313,7 +313,7 @@ public class MonsterScript2 : MonoBehaviour
             hpbar2.GetComponent<LayerScript>().monnum = 3;
             hpbar3.GetComponent<LayerScript>().monnum = 3;
         }
-        ef.GetComponent<LayerScript>().eLayer();
+        ef.GetComponent<LayerScript>().Layer();
         num1.GetComponent<LayerScript>().Layer();
         num2.GetComponent<LayerScript>().Layer();
         hpbar1.GetComponent<LayerScript>().Layer();

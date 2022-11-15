@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 2090734982608199010}
   - component: {fileID: 7433055320614042285}
   m_Layer: 0
-  m_Name: stage 2 boss
+  m_Name: Stage 2 Boss
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

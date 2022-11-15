@@ -123,6 +123,20 @@ public class Stage1BossScript : MonoBehaviour
 
         if (bombmove == 2)
             bom.transform.position = Vector3.Lerp(bom.transform.position, new Vector2(-4f, -1), Time.deltaTime * speed4);
+
+        ef3.transform.position = new Vector2(transform.position.x - 4f, transform.position.y);
+        ef4.transform.position = new Vector2(transform.position.x - 4f, transform.position.y);
+
+        if (random > 9 && random <= 99) //십의 자리일 때
+        {
+            num1.transform.position = new Vector2(bom.transform.position.x + dis, bom.transform.position.y);
+        }
+        else if (random > 0 && random <= 9) //일의 자리일 때
+        {
+            num1.transform.position = new Vector2(bom.transform.position.x, bom.transform.position.y);
+        }
+
+        num2.transform.position = new Vector2(num1.transform.position.x - 2 * dis, num1.transform.position.y);
     }
 
     public void Update()
@@ -230,20 +244,6 @@ public class Stage1BossScript : MonoBehaviour
             time1 = timemax;
             timer = false;
         }
-
-        ef3.transform.position = new Vector2(transform.position.x - 4f, transform.position.y);
-        ef4.transform.position = new Vector2(transform.position.x - 4f, transform.position.y);
-
-        if (random > 9 && random <= 99) //십의 자리일 때
-        {
-            num1.transform.position = new Vector2(bom.transform.position.x + dis, bom.transform.position.y);
-        }
-        else if (random > 0 && random <= 9) //일의 자리일 때
-        {
-            num1.transform.position = new Vector2(bom.transform.position.x, bom.transform.position.y);
-        }
-
-        num2.transform.position = new Vector2(num1.transform.position.x - 2 * dis, num1.transform.position.y);
 
         if(heart >= 0 && GameObject.Find("Stage").GetComponent<Stage>().fortime == 1)
         {
@@ -356,11 +356,14 @@ public class Stage1BossScript : MonoBehaviour
     void Die() //죽음 처리 함수
     {
         GameObject.Find("Stage").GetComponent<Stage>().BossHealthbarOff();
+        GameObject.Find("Stage").GetComponent<Stage>().remain -= 1;
         Destroy(gameObject);
         Destroy(bom);
         Destroy(num1);
         Destroy(num2);
-        GameObject.Find("Stage").GetComponent<Stage>().remain -= 1;
-        GameObject.Find("Stage").GetComponent<Stage>().bossdie = true;
+
+        GameObject.Find("Player").GetComponent<PlayerScript>().xb = transform.position.x;
+        GameObject.Find("Player").GetComponent<PlayerScript>().yb = transform.position.y;
+        GameObject.Find("Player").GetComponent<PlayerScript>().bm();
     }
 }
