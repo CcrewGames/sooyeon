@@ -7,22 +7,23 @@ using TMPro;
 
 public class Timecount3 : MonoBehaviour
 {
-    public float countdownSeconds = 210;
+    public float countdownSeconds;
     private TextMeshProUGUI timeText;
 
     private bool timeend;
 
-    public GameObject stage;
+    public GameObject numbun;
 
     private void Start()
     {
+        countdownSeconds = 60;
         timeText = GetComponent<TextMeshProUGUI>();
         timeend = true;
     }
 
     void Update()
     {
-        if(stage.GetComponent<Stage3>().fortime == 1)
+        if(numbun.GetComponent<NumberBundleScript>().fortime == 1)
             countdownSeconds -= Time.deltaTime;
 
         var span = new TimeSpan(0, 0, (int)countdownSeconds);
@@ -30,23 +31,13 @@ public class Timecount3 : MonoBehaviour
         if (timeend == true){
             if (countdownSeconds <= 0) //시간 초과 fail
             {
-                Invoke("Stagetimeout", 1f);
-                Invoke("End", 5f);
+                //Invoke("End", 1f);
                 timeend = false;
             }
         }
     }
-    void Stagetimeout()
-    {
-        var ending = GameObject.Find("ending").GetComponent<endingscene>();
-        if(ending != null)
-        {
-            ending.Stagetimeout();
-        }
-    }
-
     void End()
     {
-        //다른 씬으로 넘어가도록 해야 됨
+        //졌으면 Fail, 이겼으면 스토리로 넘어가기
     }
 }

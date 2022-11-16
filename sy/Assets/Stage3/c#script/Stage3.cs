@@ -6,6 +6,12 @@ using UnityEngine.UI;
 
 public class Stage3 : MonoBehaviour
 {
+    public GameObject canvas;
+    public GameObject ending;
+    public GameObject HpPlayer;
+    public GameObject HpPlayerBB;
+    public GameObject punch;
+
     public GameObject Pause;
     public GameObject Resume;
     public bool pausemode;
@@ -15,9 +21,6 @@ public class Stage3 : MonoBehaviour
     public int fortime; //시간 흐르게 하기 위한 변수
 
     public int remain; //단계별 남은 몬스터 수 확인용 변수
-
-    public GameObject canvas;
-    //public GameObject text;
 
     public GameObject monster;
     public GameObject monster2;
@@ -37,14 +40,6 @@ public class Stage3 : MonoBehaviour
     float y3 = -0.6f;
     float y4 = -1.2f;
 
-    public GameObject Cul;
-    public GameObject CH;
-    public GameObject CHBB;
-
-    public GameObject punch;
-
-    public GameObject ending;
-
     //칼 날라가기~
     public GameObject AttackBar1;
     GameObject fly;
@@ -55,6 +50,9 @@ public class Stage3 : MonoBehaviour
     float speed = 7.5f;
     bool flymode;
 
+    //큘
+    public GameObject Cul;
+
     public int monnum2;
 
     public float story;
@@ -62,7 +60,6 @@ public class Stage3 : MonoBehaviour
     GameObject ForDestroy;
 
     private GameObject target; //마우스 클릭 확인용 변수
-
     void CastRay() //마우스 클릭 확인용 함수
     {
         target = null;
@@ -139,6 +136,7 @@ public class Stage3 : MonoBehaviour
 
             remain = 4;
         }
+
         if (stage == 1 && stagemove == false) //1단계 시작
         {
             fortime = 1;
@@ -153,7 +151,8 @@ public class Stage3 : MonoBehaviour
             mon3.GetComponent<MonsterScript2>().Layer();
             mon4.GetComponent<MonsterScript2>().Layer();
 
-            Invoke("CulSkill1", 1f);
+            GameObject.Find("Story").GetComponent<Story3Script>().Story1_2On();
+            Invoke("CulSkill1", 0.5f);
 
             stagemove = true;
         }
@@ -181,6 +180,8 @@ public class Stage3 : MonoBehaviour
 
             punch.GetComponent<PunchScript>().punchmode = 1;
             punch.GetComponent<PunchScript>().PunchMode();
+            HpPlayer.SetActive(false);
+            HpPlayerBB.SetActive(false);
 
             GameObject.Find("Story").GetComponent<Story3Script>().Story2On();
             Cul.GetComponent<CulScript>().AttackBarOn();
@@ -188,7 +189,7 @@ public class Stage3 : MonoBehaviour
             stagemove = true;
         }
 
-        if (stage == 2 && remain == 0) //클리어
+        if (stage == 2 && remain == 0) //클리어, 거의 스토리 위주
         {
             fortime = 0;
             punch.GetComponent<PunchScript>().ScrollChange3();
@@ -274,7 +275,6 @@ public class Stage3 : MonoBehaviour
         }
         fly.transform.rotation = Quaternion.Euler(0, 0, r1);
     }
-
     public void Flyoff()
     {
         if (monnum2 == 1)

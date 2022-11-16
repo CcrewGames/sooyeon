@@ -5,12 +5,13 @@ using UnityEngine.UI;
 
 public class Stage1BossScript : MonoBehaviour
 {
+    public Animator animator;
+
     public int heart; //몬스터 체력
 
     private bool move;
     private int movey; //몬스터 이동 변수2
     private bool tremble; //몬스터 ㅂㄷㅂㄷ 변수
-    public Animator animator;
 
     //몬스터 이동 관련
     float speed;
@@ -22,10 +23,6 @@ public class Stage1BossScript : MonoBehaviour
     float x0;
     float x1;
 
-    public bool skill1;
-    public bool skill2;
-    bool damaged;
-
     public int random;
 
     //난수 표시 관련
@@ -34,7 +31,9 @@ public class Stage1BossScript : MonoBehaviour
     private GameObject num2; //십의 자리
     float dis = 0.3f;
 
-    private GameObject target; //마우스 클릭 확인용 변수
+    public bool skill1;
+    public bool skill2;
+    bool damaged;
 
     public GameObject bomb;
     public GameObject bom;
@@ -54,6 +53,7 @@ public class Stage1BossScript : MonoBehaviour
     float speed3 = 4f;
     float speed4 = 7f;
 
+    private GameObject target; //마우스 클릭 확인용 변수
     void CastRay() //마우스 클릭 확인용 함수
     {
         target = null;
@@ -70,23 +70,21 @@ public class Stage1BossScript : MonoBehaviour
     {
         animator = GetComponent<Animator>();
 
+        heart = 5;
+
         xm = 7f;
         move = false;
         speed = 2f;
         movey = 1;
         tremble = false;
 
-        time1 = timemax;
-
-        heart = 5;
-
         skill1 = true;
         skill2 = false;
         damaged = true;
 
-        timer = false;
-
         bombmove = 0;
+        timer = false;
+        time1 = timemax;
 
         ef3 = Instantiate(e3, transform.position, transform.rotation);
         ef4 = Instantiate(e4, transform.position, transform.rotation);
@@ -95,9 +93,9 @@ public class Stage1BossScript : MonoBehaviour
         num1 = Instantiate(number, new Vector2(bom.transform.position.x - dis, bom.transform.position.y), transform.rotation);
         num2 = Instantiate(number, new Vector2(bom.transform.position.x, bom.transform.position.y), transform.rotation);
 
+        bom.SetActive(false);
         num1.SetActive(false);
         num2.SetActive(false);
-        bom.SetActive(false);
     }
 
     public void Run() //리스폰
@@ -118,15 +116,6 @@ public class Stage1BossScript : MonoBehaviour
         else if (movey == 5) //ㅂㄷㅂㄷ
             transform.position = new Vector2(transform.position.x + speed2 * Time.deltaTime, transform.position.y);
 
-        if(bombmove == 1)
-            bom.transform.position = Vector3.Slerp(bom.transform.position, new Vector2(3.4f, 0), Time.deltaTime * speed3);
-
-        if (bombmove == 2)
-            bom.transform.position = Vector3.Lerp(bom.transform.position, new Vector2(-4f, -1), Time.deltaTime * speed4);
-
-        ef3.transform.position = new Vector2(transform.position.x - 4f, transform.position.y);
-        ef4.transform.position = new Vector2(transform.position.x - 4f, transform.position.y);
-
         if (random > 9 && random <= 99) //십의 자리일 때
         {
             num1.transform.position = new Vector2(bom.transform.position.x + dis, bom.transform.position.y);
@@ -135,31 +124,51 @@ public class Stage1BossScript : MonoBehaviour
         {
             num1.transform.position = new Vector2(bom.transform.position.x, bom.transform.position.y);
         }
-
         num2.transform.position = new Vector2(num1.transform.position.x - 2 * dis, num1.transform.position.y);
+
+        ef3.transform.position = new Vector2(transform.position.x - 4f, transform.position.y);
+        ef4.transform.position = new Vector2(transform.position.x - 4f, transform.position.y);
+
+        if (bombmove == 1)
+            bom.transform.position = Vector3.Slerp(bom.transform.position, new Vector2(3.4f, 0), Time.deltaTime * speed3);
+
+        if (bombmove == 2)
+            bom.transform.position = Vector3.Lerp(bom.transform.position, new Vector2(-4f, -1), Time.deltaTime * speed4);
     }
 
     public void Update()
     {
+        if (Input.GetMouseButtonDown(0) && GameObject.Find("Stage").GetComponent<Stage>().pausemode == false)
+        {
+            CastRay();
+
+            if ((target == num1 || target == num2 || target == bom) && GameObject.Find("Punch").GetComponent<PunchScript>().punchmode == 1)
+            {
+                if (GameObject.Find("Punch").GetComponent<PunchScript>().result == random && time1 > 0) //난수 = 결과 일치
+                {
+                    timer = false;
+
+                    GameObject.Find("Stage").GetComponent<Stage>().xf = bom.transform.position.x;
+                    GameObject.Find("Stage").GetComponent<Stage>().yf = bom.transform.position.y;
+
+                    GameObject.Find("Stage").GetComponent<Stage>().Fly1();
+
+                    GameObject.Find("Punch").GetComponent<PunchScript>().punchmode = 0;
+                    GameObject.Find("Punch").GetComponent<PunchScript>().PunchMode();
+
+                    GameObject.Find("Punch").GetComponent<PunchScript>().re();
+
+                    GameObject.Find("Stage").GetComponent<Stage>().BombOff();
+                }
+            }
+        }
+        
         if (tremble == true)
         {
             if (transform.position.x >= x1)
                 movey = 4;
             else if (transform.position.x <= x0)
                 movey = 5;
-        }
-
-        if (bombmove == 1 && bom.transform.position.x <= 3.5f)
-        {
-            timer = true;
-            bom.GetComponent<Animator>().SetTrigger("bomb");
-            bombmove = 0;
-        }
-        if (bombmove == 2 && bom.transform.position.x <= -3.9f)
-        {
-            bom.GetComponent<Animator>().SetTrigger("bombdestroy");
-            Invoke("Attack", 0.47f);
-            bombmove = 0;
         }
         
         if (heart == 4 && damaged == false)
@@ -198,29 +207,18 @@ public class Stage1BossScript : MonoBehaviour
             skill2 = true;
         }
 
-        if (Input.GetMouseButtonDown(0) && GameObject.Find("Stage").GetComponent<Stage>().pausemode == false)
+        if (bombmove == 1 && bom.transform.position.x <= 3.5f)
         {
-            CastRay();
-
-            if ((target == num1 || target == num2 || target == bom) && GameObject.Find("Punch").GetComponent<PunchScript>().punchmode == 1)
-            {
-                if (GameObject.Find("Punch").GetComponent<PunchScript>().result == random && time1 > 0) //난수 = 결과 일치
-                {
-                    timer = false;
-
-                    GameObject.Find("Stage").GetComponent<Stage>().xf = bom.transform.position.x;
-                    GameObject.Find("Stage").GetComponent<Stage>().yf = bom.transform.position.y;
-
-                    GameObject.Find("Stage").GetComponent<Stage>().Fly1();
-
-                    GameObject.Find("Punch").GetComponent<PunchScript>().punchmode = 0;
-                    GameObject.Find("Punch").GetComponent<PunchScript>().PunchMode();
-
-                    GameObject.Find("Punch").GetComponent<PunchScript>().re();
-
-                    GameObject.Find("Stage").GetComponent<Stage>().BombOff();
-                }
-            }
+            timer = true;
+            setting();
+            bom.GetComponent<Animator>().SetTrigger("bomb");
+            bombmove = 0;
+        }
+        if (bombmove == 2 && bom.transform.position.x <= -3.9f)
+        {
+            bom.GetComponent<Animator>().SetTrigger("bombdestroy");
+            Invoke("Attack", 0.47f);
+            bombmove = 0;
         }
 
         if (timer == true)
@@ -252,16 +250,7 @@ public class Stage1BossScript : MonoBehaviour
         }
     }
 
-    void story2_2()
-    {
-        GameObject.Find("Story").GetComponent<StoryScript>().Story2_2On();
-    }
-    void story3()
-    {
-        GameObject.Find("Story").GetComponent<StoryScript>().Story3On();
-    }
-
-    private void setting1() //난수 설정
+    private void setting() //난수 설정
     {
         random = Random.Range(20, 30);
         nummaker();
@@ -300,10 +289,10 @@ public class Stage1BossScript : MonoBehaviour
         tremble = true;
         Invoke("Stop", 0.35f);
     }
-
     void Stop()
     {
         movey = 1;
+        transform.position = new Vector2(x0, transform.position.y);
         tremble = false;
     }
 
@@ -311,11 +300,9 @@ public class Stage1BossScript : MonoBehaviour
     {
         GameObject.Find("Stage").GetComponent<Stage>().Boss1Skill();
     }
-
     void Skill_2()
     {
         bom.SetActive(true);
-        setting1();
         bombmove = 1;
     }
 
@@ -351,6 +338,15 @@ public class Stage1BossScript : MonoBehaviour
         animator.SetTrigger("stage1bosshit");
         heart--;
         damaged = false;
+    }
+
+    void story2_2()
+    {
+        GameObject.Find("Story").GetComponent<StoryScript>().Story2_2On();
+    }
+    void story3()
+    {
+        GameObject.Find("Story").GetComponent<StoryScript>().Story3On();
     }
 
     void Die() //죽음 처리 함수

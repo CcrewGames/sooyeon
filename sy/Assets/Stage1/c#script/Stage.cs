@@ -6,6 +6,11 @@ using UnityEngine.UI;
 
 public class Stage : MonoBehaviour
 {
+    public GameObject canvas;
+    public GameObject ending;
+    public GameObject text;
+    public GameObject punch;
+
     public GameObject Pause;
     public GameObject Resume;
     public bool pausemode;
@@ -15,9 +20,6 @@ public class Stage : MonoBehaviour
     public int fortime; //시간 흐르게 하기 위한 변수
 
     public int remain; //단계별 남은 몬스터 수 확인용 변수
-
-    public GameObject canvas;
-    public GameObject text;
 
     public GameObject monster;
     public GameObject monster2;
@@ -42,10 +44,6 @@ public class Stage : MonoBehaviour
     public float xb;
     public float yb;
 
-    public GameObject punch;
-
-    public GameObject ending;
-
     //칼 날라가기~
     public GameObject AttackBar;
     GameObject fly;
@@ -57,16 +55,15 @@ public class Stage : MonoBehaviour
     bool flymode;
     bool flymode1;
 
-    public bool bossdie;
-
     public int monnum2;
 
     public float story;
 
+    public bool bossdie;
+
     GameObject ForDestroy;
 
     private GameObject target; //마우스 클릭 확인용 변수
-
     void CastRay() //마우스 클릭 확인용 함수
     {
         target = null;
@@ -85,7 +82,7 @@ public class Stage : MonoBehaviour
 
         text.SetActive(false);
 
-        stage = 0;
+        stage = 2;
         stagemove = true;
         remain = 0;
 
@@ -288,7 +285,7 @@ public class Stage : MonoBehaviour
             text.SetActive(true);
             Invoke("textoff", 2f);
 
-            GameObject.Find("Player").GetComponent<PlayerScript>().Run_();
+            GameObject.Find("Player").GetComponent<PlayerScript>().eRun();
             Invoke("StageMove", 8f);
 
             remain = 3; //얘는 남은 몬스터 수 확인용이 아니라 한 번만 실행되도록 하기 위함
@@ -300,20 +297,6 @@ public class Stage : MonoBehaviour
 
             stagemove = true;
         }
-    }
-
-    public void BombTimer()
-    {
-        bombtimer.fillAmount = boss.GetComponent<Stage1BossScript>().time1 / boss.GetComponent<Stage1BossScript>().timemax;
-    }
-    public void BombPosition()
-    {
-        bombtimer.transform.position = new Vector2(xb, yb);
-    }
-    public void BombOff()
-    {
-        bombtimer.transform.position = new Vector2(500, 0);
-        bombtimer.fillAmount = 1;
     }
 
     public void PauseMode()
@@ -331,6 +314,11 @@ public class Stage : MonoBehaviour
         GameObject.Find("buttonclick").GetComponent<Buttonclick>().pausemode = false;
         Pause.SetActive(true);
         Resume.SetActive(false);
+    }
+
+    void textoff()
+    {
+        text.SetActive(false);
     }
 
     void StageMove() //단계 사이 이동 시간 확보용 함수
@@ -378,6 +366,21 @@ public class Stage : MonoBehaviour
         }
     }
 
+    void MonNum()
+    {
+        if (stage < 3)
+        {
+            mon1.GetComponent<MonsterScript>().monnum = 1;
+            mon2.GetComponent<MonsterScript>().monnum = 2;
+            mon3.GetComponent<MonsterScript>().monnum = 3;
+        }
+        else
+        {
+            mon1.GetComponent<MonsterScript>().monnum = 1;
+            mon2.GetComponent<MonsterScript>().monnum = 2;
+        }
+    }
+
     public void MonsterMove() //단계 사이 이동 시간 확보용 함수
     {
         if (stage < 2 && monstermove == 1)
@@ -401,21 +404,6 @@ public class Stage : MonoBehaviour
         }
     }
 
-    void MonNum()
-    {
-        if (stage < 3)
-        {
-            mon1.GetComponent<MonsterScript>().monnum = 1;
-            mon2.GetComponent<MonsterScript>().monnum = 2;
-            mon3.GetComponent<MonsterScript>().monnum = 3;
-        }
-        else
-        {
-            mon1.GetComponent<MonsterScript>().monnum = 1;
-            mon2.GetComponent<MonsterScript>().monnum = 2;
-        }
-    }
-
     public void Fly()
     {
         fly.SetActive(true);
@@ -428,7 +416,6 @@ public class Stage : MonoBehaviour
         }
         fly.transform.rotation = Quaternion.Euler(0, 0, r1);
     }
-
     public void Flyoff()
     {
         if(monnum2 == 1)
@@ -466,7 +453,6 @@ public class Stage : MonoBehaviour
         }
         fly.transform.rotation = Quaternion.Euler(0, 0, r1);
     }
-
     public void Flyoff1()
     {
         boss.GetComponent<Stage1BossScript>().OnDamaged();
@@ -500,6 +486,20 @@ public class Stage : MonoBehaviour
         boss.GetComponent<Stage1BossScript>().skill1 = false;
     }
 
+    public void BombTimer()
+    {
+        bombtimer.fillAmount = boss.GetComponent<Stage1BossScript>().time1 / boss.GetComponent<Stage1BossScript>().timemax;
+    }
+    public void BombPosition()
+    {
+        bombtimer.transform.position = new Vector2(xb, yb);
+    }
+    public void BombOff()
+    {
+        bombtimer.transform.position = new Vector2(500, 0);
+        bombtimer.fillAmount = 1;
+    }
+
     public void StageEnding()
     {
         if(ending != null)
@@ -507,10 +507,5 @@ public class Stage : MonoBehaviour
             ending.GetComponent<endingscene>().stage = 1;
             ending.GetComponent<endingscene>().endingStart();
         }
-    }
-
-    void textoff()
-    {
-        text.SetActive(false);
     }
 }

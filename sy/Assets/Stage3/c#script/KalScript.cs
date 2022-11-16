@@ -4,12 +4,12 @@ using UnityEngine;
 
 public class KalScript : MonoBehaviour
 {
-    public GameObject stage;
-    public GameObject story;
-
     public Animator animator;
 
-    private GameObject target; //마우스 클릭 확인용 변수
+    public GameObject Cul;
+    public GameObject stage;
+    public GameObject story;
+    public GameObject punch;
 
     public int heart; //플레이어 체력
 
@@ -25,10 +25,8 @@ public class KalScript : MonoBehaviour
     float x1;
     float speed1 = 3f;
 
-    public GameObject punch;
     bool healmode; //힐모드 제어용 변수
     int random; //힐모드 난수
-
     //난수 표시 관련
     public GameObject number;
     private GameObject num1; //일의 자리
@@ -47,9 +45,20 @@ public class KalScript : MonoBehaviour
     bool f; //배경 움직임 변수
     float b = -27.5f;
 
-    public GameObject Cul;
-
     bool end; //게임 실패 변수
+
+    private GameObject target; //마우스 클릭 확인용 변수
+    void CastRay() //마우스 클릭 확인용 함수
+    {
+        target = null;
+        Vector2 pos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        RaycastHit2D hit = Physics2D.Raycast(pos, Vector2.zero, 0f);
+
+        if (hit.collider != null)
+        {
+            target = hit.collider.gameObject;
+        }
+    }
 
     void Start() //게임 시작 초기화
     {
@@ -58,7 +67,6 @@ public class KalScript : MonoBehaviour
         heart = 100;
 
         move = 0;
-
         tremble = false;
         movey = 0;
 
@@ -77,8 +85,6 @@ public class KalScript : MonoBehaviour
 
     void FixedUpdate()
     {
-        num2.transform.position = new Vector2(num1.transform.position.x - 2 * dis, num1.transform.position.y);
-
         if (movey == 1) //ㅂㄷㅂㄷ
             transform.position = new Vector2(transform.position.x - speed1 * Time.deltaTime, transform.position.y);
         else if (movey == 2) //ㅂㄷㅂㄷ
@@ -88,6 +94,8 @@ public class KalScript : MonoBehaviour
         {
             transform.position = Vector2.MoveTowards(transform.position, new Vector2(xm, transform.position.y), Time.deltaTime * speed);
         }
+
+        num2.transform.position = new Vector2(num1.transform.position.x - 2 * dis, num1.transform.position.y);
 
         if (move == 2 && transform.position.x > -7 + xm)
         {
@@ -107,8 +115,8 @@ public class KalScript : MonoBehaviour
                 Background.transform.position = new Vector2(-b, Background.transform.position.y);
         }
 
-        Background2.transform.position = new Vector2(Background.transform.position.x + 54.85f, Background.transform.position.y);
-        Background3.transform.position = new Vector2(Background.transform.position.x - 54.85f, Background.transform.position.y);
+        Background2.transform.position = new Vector2(Background.transform.position.x + 55f, Background.transform.position.y);
+        Background3.transform.position = new Vector2(Background.transform.position.x - 55f, Background.transform.position.y);
 
         floor.transform.position = new Vector2(Background.transform.position.x, floor.transform.position.y);
         floor2.transform.position = new Vector2(Background2.transform.position.x, floor2.transform.position.y);
@@ -117,20 +125,6 @@ public class KalScript : MonoBehaviour
 
     void Update()
     {
-        if (tremble == true)
-        {
-            if (transform.position.x >= x1)
-                movey = 1;
-            else if (transform.position.x <= x0)
-                movey = 2;
-        }
-
-        if (heart <= 0 && end == false) //실패
-        {
-            end = true;
-            GameObject.Find("ending").GetComponent<endingscene>().Playerpowerend();
-        }
-
         if (Input.GetMouseButtonDown(0) && stage.GetComponent<Stage3>().fortime == 1 && stage.GetComponent<Stage3>().pausemode == false && stage.GetComponent<Stage3>().stage < 2)
         {
             CastRay();
@@ -162,7 +156,8 @@ public class KalScript : MonoBehaviour
                 }
                 else //난수 = 결과 불일치
                 {
-                    Tremble();
+                    if (tremble == false)
+                        Tremble();
                     num1.SetActive(false);
                     num2.SetActive(false);
                     random = 0;
@@ -179,79 +174,25 @@ public class KalScript : MonoBehaviour
         {
             animator.SetTrigger("attack");
         }
-    }
 
-    //스테이지 이동
-    public void HealStop()
-    {
-        animator.SetBool("heal", false);
-        num1.SetActive(false);
-        num2.SetActive(false);
-        random = 0;
-        punch.GetComponent<PunchScript>().re();
-    }
-    public void Run() //이동 대기 함수
-    {
-        Invoke("rRun", 1f);
-    }
-    void rRun() //이동 대기 함수
-    {
-        animator.SetBool("walk", true);
-        Invoke("Run1", 0.6f);
-    }
-    void Run1() //중간으로 이동 함수
-    {
-        move = 1;
-        Invoke("Find", 5f);
-    }
-    void Find() //몬스터 마주침! 함수
-    {
-        move = 0;
-        f = true;
-        animator.SetBool("walk", false);
-        animator.SetTrigger("surprise");
-        Invoke("Re", 2f);
-    }
-    void Re() //원위치로 이동 함수
-    {
-        move = 2;
-        Cul.GetComponent<CulScript>().move1();
-        f = false;
-        Invoke("Next", 5f);
-        if (stage.GetComponent<Stage3>().stage == 0)
+        if (tremble == true)
         {
-            Invoke("Story1", 2.85f);
+            if (transform.position.x >= x1)
+                movey = 1;
+            else if (transform.position.x <= x0)
+                movey = 2;
+        }
+
+        if (heart <= 0 && end == false) //실패
+        {
+            end = true;
+            GameObject.Find("ending").GetComponent<endingscene>().Playerpowerend();
         }
     }
-    void Story1() //스토리1
-    {
-        story.GetComponent<Story3Script>().Story1On();
-    }
 
-    public void Next() //이동 변수 초기화 함수
-    {
-        move = 0;
-    }
-
-    void CastRay() //마우스 클릭 확인용 함수
-    {
-        target = null;
-        Vector2 pos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-        RaycastHit2D hit = Physics2D.Raycast(pos, Vector2.zero, 0f);
-
-        if (hit.collider != null)
-        {
-            target = hit.collider.gameObject;
-        }
-    }
     void setting() //난수 설정
     {
         random = Random.Range(5, 10);
-        nummaker();
-    }
-    public void settingcul() //난수 설정
-    {
-        random = Random.Range(20, 40);
         nummaker();
     }
     void nummaker() //플레이어 머리 위 난수 생성 함수
@@ -280,6 +221,7 @@ public class KalScript : MonoBehaviour
             num2.SetActive(false);
         }
     }
+
     void Tremble() //덜덜 함수
     {
         CancelInvoke("Stop");
@@ -294,7 +236,64 @@ public class KalScript : MonoBehaviour
     void Stop() //덜덜 멈추는 함수
     {
         movey = 0;
+        transform.position = new Vector2(x0, transform.position.y);
         tremble = false;
+    }
+
+    public void HealStop()
+    {
+        animator.SetBool("heal", false);
+        num1.SetActive(false);
+        num2.SetActive(false);
+        random = 0;
+        punch.GetComponent<PunchScript>().re();
+    }
+
+    //스테이지 이동
+    public void Run() //이동 대기 함수
+    {
+        Invoke("Run_", 1f);
+    }
+    void Run_() //애니메이션 미리
+    {
+        animator.SetBool("walk", true);
+        Invoke("RunM", 0.6f);
+    }
+    void RunM() //중간으로 이동 함수
+    {
+        move = 1;
+        Invoke("Find", 5f);
+    }
+    void Find() //몬스터 마주침! 함수
+    {
+        move = 0;
+        f = true;
+        animator.SetBool("walk", false);
+        if (stage.GetComponent<Stage3>().stage < 2)
+        {
+            animator.SetTrigger("surprise");
+        }
+        Invoke("Re", 2f);
+    }
+    void Re() //원위치로 이동 함수
+    {
+        Cul.GetComponent<CulScript>().move1();
+        move = 2;
+        f = false;
+        Invoke("Next", 5f);
+        if (stage.GetComponent<Stage3>().stage == 0)
+        {
+            Invoke("Story1", 2.85f);
+        }
+    }
+    public void Next() //이동 변수 초기화 함수
+    {
+        move = 0;
+    }
+
+    void Story1() //스토리1
+    {
+        story.GetComponent<Story3Script>().Story1On();
     }
 }
 

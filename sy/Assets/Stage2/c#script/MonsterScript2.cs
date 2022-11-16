@@ -4,16 +4,17 @@ using UnityEngine;
 
 public class MonsterScript2 : MonoBehaviour
 {
+    public Animator animator; //애니
+
     public int heart; //몬스터 체력
 
     private bool move; //몬스터 이동 변수1
     private int movey; //몬스터 이동 변수2
-    private bool tremble; //몬스터 ㅂㄷㅂㄷ 변수
     bool attack; //몬스터 공격 변수
     bool damaged; //몬스터 피격 변수
 
     //몬스터 이동 관련
-    float speed = 0.8f;
+    float speed;
     public float xm;
 
     //몬스터 둥둥 관련
@@ -22,6 +23,7 @@ public class MonsterScript2 : MonoBehaviour
     float y1;
 
     //몬스터 ㅂㄷㅂㄷ 관련
+    private bool tremble; //몬스터 ㅂㄷㅂㄷ 변수
     float speed2 = 3f;
     float time;
     float x0;
@@ -53,18 +55,10 @@ public class MonsterScript2 : MonoBehaviour
 
     float dis4; //밀려나기
 
-    private GameObject target; //마우스 클릭 확인용 변수
-
-    public Animator animator; //애니
-
     public int monnum;
     public int stage;
 
-    void Awake() //start()보다 먼저 호출
-    {
-        animator = GetComponent<Animator>(); //애니
-    }
-
+    private GameObject target; //마우스 클릭 확인용 변수
     void CastRay() //마우스 클릭 확인용 함수
     {
         target = null;
@@ -75,6 +69,11 @@ public class MonsterScript2 : MonoBehaviour
         {
             target = hit.collider.gameObject;
         }
+    }
+
+    void Awake() //start()보다 먼저 호출
+    {
+        animator = GetComponent<Animator>(); //애니
     }
 
     void Start() //스폰
@@ -118,7 +117,7 @@ public class MonsterScript2 : MonoBehaviour
 
     public void respawn2() //플레이어에게
     {
-        speed = 0.5f;
+        speed = 0.65f;
         xm = -3.5f;
         move = false;
         move = true;
@@ -135,35 +134,45 @@ public class MonsterScript2 : MonoBehaviour
         HeartMaker();
     }
 
-    void setting() //난수 설정
+    public void Layer()
     {
-        random = Random.Range(5, 15);
-        nummaker();
-    }
-
-    void nummaker() //몬스터 머리 위 난수 생성 함수
-    {
-        Sprite[] sprites = Resources.LoadAll<Sprite>("number");
-        if (random > 9 && random <= 99) //십의 자리일 때
+        SpriteRenderer spriteM = GetComponent<SpriteRenderer>();
+        if (monnum == 1 || monnum == 4)
         {
-            int b = random / 10;
-            int a = random % 10;
-            SpriteRenderer spriteA = num1.GetComponent<SpriteRenderer>();
-            spriteA.sprite = sprites[a];
-            SpriteRenderer spriteB = num2.GetComponent<SpriteRenderer>();
-            spriteB.sprite = sprites[b];
-
-            num1.SetActive(true);
-            num2.SetActive(true);
+            spriteM.sortingOrder = -7;
+            ef.GetComponent<LayerScript>().monnum = 1;
+            num1.GetComponent<LayerScript>().monnum = 1;
+            num2.GetComponent<LayerScript>().monnum = 1;
+            hpbar1.GetComponent<LayerScript>().monnum = 1;
+            hpbar2.GetComponent<LayerScript>().monnum = 1;
+            hpbar3.GetComponent<LayerScript>().monnum = 1;
         }
-        else if (random > 0 && random <= 9) //일의 자리일 때
+        else if (monnum == 2 || monnum == 5)
         {
-            SpriteRenderer spriteA = num1.GetComponent<SpriteRenderer>();
-            spriteA.sprite = sprites[random];
-
-            num1.SetActive(true);
-            num2.SetActive(false);
+            spriteM.sortingOrder = -3;
+            ef.GetComponent<LayerScript>().monnum = 2;
+            num1.GetComponent<LayerScript>().monnum = 2;
+            num2.GetComponent<LayerScript>().monnum = 2;
+            hpbar1.GetComponent<LayerScript>().monnum = 2;
+            hpbar2.GetComponent<LayerScript>().monnum = 2;
+            hpbar3.GetComponent<LayerScript>().monnum = 2;
         }
+        else if (monnum == 3)
+        {
+            spriteM.sortingOrder = -5;
+            ef.GetComponent<LayerScript>().monnum = 2;
+            num1.GetComponent<LayerScript>().monnum = 3;
+            num2.GetComponent<LayerScript>().monnum = 3;
+            hpbar1.GetComponent<LayerScript>().monnum = 3;
+            hpbar2.GetComponent<LayerScript>().monnum = 3;
+            hpbar3.GetComponent<LayerScript>().monnum = 3;
+        }
+        ef.GetComponent<LayerScript>().Layer();
+        num1.GetComponent<LayerScript>().Layer();
+        num2.GetComponent<LayerScript>().Layer();
+        hpbar1.GetComponent<LayerScript>().Layer();
+        hpbar2.GetComponent<LayerScript>().Layer();
+        hpbar3.GetComponent<LayerScript>().Layer();
     }
 
     void FixedUpdate()
@@ -256,7 +265,8 @@ public class MonsterScript2 : MonoBehaviour
                 }
                 else
                 {
-                    Tremble();
+                    if (tremble == false)
+                        Tremble();
                 }
             }
         }
@@ -281,12 +291,13 @@ public class MonsterScript2 : MonoBehaviour
                 }
                 else
                 {
-                    Tremble();
+                    if (tremble == false)
+                        Tremble();
                 }
             }
         }
 
-        if (Input.GetKeyDown(KeyCode.Space) && stage == 2) //임의 피격
+        if (Input.GetKeyDown(KeyCode.Space) && stage == 2 && heart != 0) //임의 피격
         {
             if (GameObject.Find("Punch").GetComponent<PunchScript2>().punchmode == 1)
             {
@@ -295,7 +306,7 @@ public class MonsterScript2 : MonoBehaviour
                 GameObject.Find("Punch").GetComponent<PunchScript2>().ScrollChange2();
             }
         }
-        if (Input.GetKeyDown(KeyCode.Space) && stage == 3) //임의 피격
+        if (Input.GetKeyDown(KeyCode.Space) && stage == 3 && heart != 0) //임의 피격
         {
             if (GameObject.Find("Punch").GetComponent<PunchScript>().punchmode == 1)
             {
@@ -318,45 +329,35 @@ public class MonsterScript2 : MonoBehaviour
         }
     }
 
-    public void Layer()
+    void setting() //난수 설정
     {
-        SpriteRenderer spriteM = GetComponent<SpriteRenderer>();
-        if (monnum == 1 || monnum == 4)
+        random = Random.Range(5, 15);
+        nummaker();
+    }
+
+    void nummaker() //몬스터 머리 위 난수 생성 함수
+    {
+        Sprite[] sprites = Resources.LoadAll<Sprite>("number");
+        if (random > 9 && random <= 99) //십의 자리일 때
         {
-            spriteM.sortingOrder = -7;
-            ef.GetComponent<LayerScript>().monnum = 1;
-            num1.GetComponent<LayerScript>().monnum = 1;
-            num2.GetComponent<LayerScript>().monnum = 1;
-            hpbar1.GetComponent<LayerScript>().monnum = 1;
-            hpbar2.GetComponent<LayerScript>().monnum = 1;
-            hpbar3.GetComponent<LayerScript>().monnum = 1;
+            int b = random / 10;
+            int a = random % 10;
+            SpriteRenderer spriteA = num1.GetComponent<SpriteRenderer>();
+            spriteA.sprite = sprites[a];
+            SpriteRenderer spriteB = num2.GetComponent<SpriteRenderer>();
+            spriteB.sprite = sprites[b];
+
+            num1.SetActive(true);
+            num2.SetActive(true);
         }
-        else if (monnum == 2 || monnum == 5)
+        else if (random > 0 && random <= 9) //일의 자리일 때
         {
-            spriteM.sortingOrder = -3;
-            ef.GetComponent<LayerScript>().monnum = 2;
-            num1.GetComponent<LayerScript>().monnum = 2;
-            num2.GetComponent<LayerScript>().monnum = 2;
-            hpbar1.GetComponent<LayerScript>().monnum = 2;
-            hpbar2.GetComponent<LayerScript>().monnum = 2;
-            hpbar3.GetComponent<LayerScript>().monnum = 2;
+            SpriteRenderer spriteA = num1.GetComponent<SpriteRenderer>();
+            spriteA.sprite = sprites[random];
+
+            num1.SetActive(true);
+            num2.SetActive(false);
         }
-        else if (monnum == 3)
-        {
-            spriteM.sortingOrder = -5;
-            ef.GetComponent<LayerScript>().monnum = 2;
-            num1.GetComponent<LayerScript>().monnum = 3;
-            num2.GetComponent<LayerScript>().monnum = 3;
-            hpbar1.GetComponent<LayerScript>().monnum = 3;
-            hpbar2.GetComponent<LayerScript>().monnum = 3;
-            hpbar3.GetComponent<LayerScript>().monnum = 3;
-        }
-        ef.GetComponent<LayerScript>().Layer();
-        num1.GetComponent<LayerScript>().Layer();
-        num2.GetComponent<LayerScript>().Layer();
-        hpbar1.GetComponent<LayerScript>().Layer();
-        hpbar2.GetComponent<LayerScript>().Layer();
-        hpbar3.GetComponent<LayerScript>().Layer();
     }
 
     void HeartMaker()
@@ -426,6 +427,10 @@ public class MonsterScript2 : MonoBehaviour
 
     void Stop()
     {
+        if(tremble == true)
+        {
+            transform.position = new Vector2(x0, transform.position.y);
+        }
         move = true;
         movey = 1;
         tremble = false;

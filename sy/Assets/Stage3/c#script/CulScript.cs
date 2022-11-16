@@ -4,11 +4,12 @@ using UnityEngine;
 
 public class CulScript : MonoBehaviour
 {
+    public Animator animator;
+
+    public GameObject AttackBar;
     public GameObject stage;
     public GameObject story;
-    public GameObject AttackBar;
-
-    public Animator animator;
+    public GameObject punch;
 
     private GameObject target; //마우스 클릭 확인용 변수
 
@@ -29,8 +30,6 @@ public class CulScript : MonoBehaviour
     float y1;
     float speed2 = 0.4f;
 
-    public GameObject punch;
-
     //난수 표시 관련
     int random;
     public GameObject number;
@@ -40,50 +39,6 @@ public class CulScript : MonoBehaviour
     float dis1 = 2.5f; //숫자 머리 위 간격
 
     public int monnum;
-    public bool fight;
-
-    void CastRay() //마우스 클릭 확인용 함수
-    {
-        target = null;
-        Vector2 pos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-        RaycastHit2D hit = Physics2D.Raycast(pos, Vector2.zero, 0f);
-
-        if (hit.collider != null)
-        {
-            target = hit.collider.gameObject;
-        }
-    }
-
-    void setting() //난수 설정
-    {
-        random = Random.Range(30, 40);
-        nummaker();
-    }
-
-    void nummaker() //플레이어 머리 위 난수 생성 함수
-    {
-        Sprite[] sprites = Resources.LoadAll<Sprite>("number");
-        if (random > 9 && random <= 99) //난수가 십의 자리일 때
-        {
-            int b = random / 10;
-            int a = random % 10;
-            SpriteRenderer spriteA = num1.GetComponent<SpriteRenderer>();
-            spriteA.sprite = sprites[a];
-            SpriteRenderer spriteB = num2.GetComponent<SpriteRenderer>();
-            spriteB.sprite = sprites[b];
-
-            num1.SetActive(true);
-            num2.SetActive(true);
-        }
-        else if (random > 0 && random <= 9) //난수가 일의 자리일 때
-        {
-            SpriteRenderer spriteA = num1.GetComponent<SpriteRenderer>();
-            spriteA.sprite = sprites[random];
-
-            num1.SetActive(true);
-            num2.SetActive(false);
-        }
-    }
 
     void Start() //게임 시작 초기화
     {
@@ -106,8 +61,6 @@ public class CulScript : MonoBehaviour
         num2 = Instantiate(number, new Vector2(transform.position.x, transform.position.y), transform.rotation);
         num1.SetActive(false);
         num2.SetActive(false);
-
-        fight = false;
     }
 
     void FixedUpdate()
@@ -154,62 +107,50 @@ public class CulScript : MonoBehaviour
             movey = 3;
         else if (transform.position.y <= y0)
             movey = 4;
+    }
 
-        if (Input.GetMouseButtonDown(0) && stage.GetComponent<Stage3>().fortime == 1 && stage.GetComponent<Stage3>().pausemode == false && fight == true)
+    void setting() //난수 설정
+    {
+        random = Random.Range(30, 40);
+        nummaker();
+    }
+
+    void nummaker() //플레이어 머리 위 난수 생성 함수
+    {
+        Sprite[] sprites = Resources.LoadAll<Sprite>("number");
+        if (random > 9 && random <= 99) //난수가 십의 자리일 때
         {
-            CastRay();
+            int b = random / 10;
+            int a = random % 10;
+            SpriteRenderer spriteA = num1.GetComponent<SpriteRenderer>();
+            spriteA.sprite = sprites[a];
+            SpriteRenderer spriteB = num2.GetComponent<SpriteRenderer>();
+            spriteB.sprite = sprites[b];
 
-            if ((target == this.gameObject || target == num1 || target == num2) && GameObject.Find("Punch").GetComponent<PunchScript>().punchmode == 1)
-            {
-                if (GameObject.Find("Punch").GetComponent<PunchScript>().result == random) //난수 = 결과 일치
-                {
-                    GameObject.Find("Stage").GetComponent<Stage3>().xf = transform.position.x;
-                    GameObject.Find("Stage").GetComponent<Stage3>().yf = transform.position.y;
-                    GameObject.Find("Stage").GetComponent<Stage3>().monnum2 = monnum;
+            num1.SetActive(true);
+            num2.SetActive(true);
+        }
+        else if (random > 0 && random <= 9) //난수가 일의 자리일 때
+        {
+            SpriteRenderer spriteA = num1.GetComponent<SpriteRenderer>();
+            spriteA.sprite = sprites[random];
 
-                    GameObject.Find("Stage").GetComponent<Stage3>().Fly();
-
-                    GameObject.Find("Punch").GetComponent<PunchScript>().punchmode = 0;
-                    GameObject.Find("Punch").GetComponent<PunchScript>().PunchMode();
-
-                    GameObject.Find("Punch").GetComponent<PunchScript>().re();
-                }
-                else
-                {
-                    Tremble();
-                }
-            }
+            num1.SetActive(true);
+            num2.SetActive(false);
         }
     }
 
-    public void OnDamaged() //피격 함수
+    public void AttackBarOn()
     {
-        heart--;
-        if (heart != 0)
-        {
-            setting();
-        }
-        else
-        {
-            
-        }
+        Invoke("AttackBarOn_", 0.5f);
     }
-
-    void Tremble() //덜덜 함수
+    public void AttackBarOn_()
     {
-        CancelInvoke("Stop");
-        x0 = transform.position.x;
-        x1 = x0 + 0.1f;
-
-        movey = 1;
-        tremble = true;
-
-        Invoke("Stop", 0.35f);
+        AttackBar.SetActive(true);
     }
-    void Stop() //덜덜 멈추는 함수
+    public void AttackBarOff()
     {
-        movey = 3;
-        tremble = false;
+        AttackBar.SetActive(true);
     }
 
     public void move1()
@@ -220,31 +161,10 @@ public class CulScript : MonoBehaviour
     public void move2()
     {
         Invoke("move2_", 1.5f);
-        if(GameObject.Find("Stage").GetComponent<Stage3>().stage == 1)
-        {
-            Invoke("story1_2", 0.7f);
-        }
     }
     void move2_()
     {
         move = 2;
-    }
-    public void story1_2()
-    {
-        story.GetComponent<Story3Script>().Story1_2On();
-    }
-
-    public void AttackBarOn()
-    {
-        Invoke("AttackBarOn_", 0.3f);
-    }
-    public void AttackBarOn_()
-    {
-        AttackBar.SetActive(true);
-    }
-    public void AttackBarOff()
-    {
-        AttackBar.SetActive(true);
     }
 }
 

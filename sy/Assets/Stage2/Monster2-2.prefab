@@ -76,7 +76,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: -4
-  m_Sprite: {fileID: 1935977602, guid: c8844210ccbe9f4438bb659bb5a926df, type: 3}
+  m_Sprite: {fileID: -1544301892, guid: 0afb1f1d781ed5949ab849975a43b77d, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -104,7 +104,7 @@ BoxCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 3.67, y: 2.85}
+    oldSize: {x: 3.67, y: 2.87}
     newSize: {x: 3.92, y: 2.88}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
@@ -145,11 +145,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9a21d9aeb9095c74fb879a2ee52e9edf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  animator: {fileID: 0}
   heart: 0
   xm: 0
   e: {fileID: 603408265860037281, guid: d4f8c31793724c84c98d23a5a2446515, type: 3}
   random: 0
   number: {fileID: 2687332880628242228, guid: 91a19c992c5993b4ca507316c1c18da7, type: 3}
   circle: {fileID: 520527873553499112, guid: 0c3c023e52808a043947fdebbf224860, type: 3}
-  animator: {fileID: 0}
   monnum: 0
+  stage: 0

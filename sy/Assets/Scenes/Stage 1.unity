@@ -740,6 +740,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5ba396057c194914dadf1cb8d09039a8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  canvas: {fileID: 426157319}
+  ending: {fileID: 111329480}
+  text: {fileID: 98279072}
+  punch: {fileID: 882607787}
   Pause: {fileID: 541063595}
   Resume: {fileID: 311382293}
   pausemode: 0
@@ -747,8 +751,6 @@ MonoBehaviour:
   stagemove: 0
   fortime: 0
   remain: 3
-  canvas: {fileID: 426157319}
-  text: {fileID: 98279072}
   monster: {fileID: 7947195092028119978, guid: 2e1501ae4ecb0c04598c77bfe32f4fde, type: 3}
   monster2: {fileID: 7947195092028119978, guid: 32c3a80f3d06e0243a075ef328b009ad, type: 3}
   monstermove: 0
@@ -759,14 +761,12 @@ MonoBehaviour:
   bombtimer: {fileID: 1698068835}
   xb: 0
   yb: 0
-  punch: {fileID: 882607787}
-  ending: {fileID: 111329480}
   AttackBar: {fileID: 7960908169966461538, guid: 2cd5463223ac2554c91cb09189bb6ddd, type: 3}
   xf: 0
   yf: 0
-  bossdie: 0
   monnum2: 0
   story: 0
+  bossdie: 0
 --- !u!4 &285300739
 Transform:
   m_ObjectHideFlags: 0
@@ -2776,7 +2776,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 0.5}
   m_AnchorMax: {x: 1, y: 0.5}
-  m_AnchoredPosition: {x: -1.2629008, y: -0.00000014901}
+  m_AnchoredPosition: {x: -1.35, y: -0.00000014901}
   m_SizeDelta: {x: 1.5, y: 1.4514434}
   m_Pivot: {x: -0.00000010430813, y: 0.49999994}
 --- !u!114 &1208469245
@@ -4168,12 +4168,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: efa69858d2c070b4c94d5a6811a2f62b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  animator: {fileID: 0}
   stage: {fileID: 285300737}
   story: {fileID: 1680645331}
-  animator: {fileID: 0}
+  punch: {fileID: 882607787}
   heart: 0
   move: 0
-  punch: {fileID: 882607787}
   number: {fileID: 2687332880628242228, guid: 46a4c4ed2f2fb31498c5200a5b9f13d8, type: 3}
   Background: {fileID: 1696378221}
   Background2: {fileID: 1956454297}
@@ -5223,7 +5223,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 0.5}
   m_AnchorMax: {x: 1, y: 0.5}
-  m_AnchoredPosition: {x: -1.2629008, y: -0.00000014901}
+  m_AnchoredPosition: {x: -1.35, y: -0.00000014901}
   m_SizeDelta: {x: 1.5, y: 1.4514434}
   m_Pivot: {x: -0.00000010430813, y: 0.49999994}
 --- !u!114 &1952990076
