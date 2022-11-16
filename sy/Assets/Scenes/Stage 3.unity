@@ -609,6 +609,7 @@ MonoBehaviour:
   yf: 0
   Cul: {fileID: 526925128}
   monnum2: 0
+  numnum: 0
   story: 0
 --- !u!1 &311382293
 GameObject:
@@ -2734,7 +2735,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   countdownSeconds: 210
-  stage: {fileID: 285300737}
+  numbun: {fileID: 1911447964}
 --- !u!1 &1364579584
 GameObject:
   m_ObjectHideFlags: 0
@@ -4631,6 +4632,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5144838956826f64da23e5b02bd8121b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  timebox: {fileID: 722660899}
+  timecount: {fileID: 1234916620}
+  attacknumber: {fileID: 7701203410697639511, guid: c80da5099ae688b459e8ebfe1184f3a0, type: 3}
+  bundle: {fileID: 0}
+  fortime: 0
+  anum1: 0
+  anum2: 0
+  anum3: 0
+  anum4: 0
+  anum5: 0
+  anum6: 0
+  nummove: 0
 --- !u!1 &1952990074
 GameObject:
   m_ObjectHideFlags: 0

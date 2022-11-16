@@ -31,6 +31,7 @@ public class Timecount3 : MonoBehaviour
         if (timeend == true){
             if (countdownSeconds <= 0) //시간 초과 fail
             {
+                GameObject.Find("NumberBundle").GetComponent<NumberBundleScript>().numbunOff();
                 //Invoke("End", 1f);
                 timeend = false;
             }

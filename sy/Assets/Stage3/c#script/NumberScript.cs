@@ -7,15 +7,43 @@ public class NumberScript : MonoBehaviour
     public GameObject num1;
     public GameObject num2;
 
+    public int number;
     public int result;
-    
-    void Start()
+
+    public bool tremble;
+    bool move;
+    float speed1 = 4f;
+    float x0;
+    float x1;
+
+    void FixedUpdate()
     {
-        num1.SetActive(false);
-        num2.SetActive(false);
+        if (tremble == true)
+        {
+            if (move == false) //仆之仆之
+            {
+                num1.transform.position = new Vector2(num1.transform.position.x - speed1 * Time.deltaTime, num1.transform.position.y);
+            }
+            else if (move == true) //仆之仆之
+            {
+                num1.transform.position = new Vector2(num1.transform.position.x + speed1 * Time.deltaTime, num1.transform.position.y);
+            }
+        }
+        num2.transform.position = new Vector2(num1.transform.position.x - 0.5f, num1.transform.position.y);
     }
 
-    void nummaker()
+    void Update()
+    {
+        if (tremble == true)
+        {
+            if (num1.transform.position.x >= x1)
+                move = false;
+            else if (num1.transform.position.x <= x0)
+                move = true;
+        }
+    }
+
+    public void nummaker()
     {
         Sprite[] sprites = Resources.LoadAll<Sprite>("number");
         int b = result / 10;
@@ -24,8 +52,22 @@ public class NumberScript : MonoBehaviour
         spriteA.sprite = sprites[a];
         SpriteRenderer spriteB = num2.GetComponent<SpriteRenderer>();
         spriteB.sprite = sprites[b];
+    }
 
-        num1.SetActive(true);
-        num2.SetActive(true);
+    public void Tremble() //測測 л熱
+    {
+        CancelInvoke("Stop");
+        move = true;
+        x0 = num1.transform.position.x;
+        x1 = x0 + 0.05f;
+        tremble = true;
+
+        Invoke("Stop", 0.3f);
+    }
+    void Stop()
+    {
+        num1.transform.position = new Vector2(x0, num1.transform.position.y);
+        move = false;
+        tremble = false;
     }
 }

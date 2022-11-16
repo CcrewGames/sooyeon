@@ -54,6 +54,7 @@ public class Stage3 : MonoBehaviour
     public GameObject Cul;
 
     public int monnum2;
+    public int numnum;
 
     public float story;
 
@@ -76,7 +77,7 @@ public class Stage3 : MonoBehaviour
     {
         ResumeMode();
 
-        stage = 0;
+        stage = 1;
         stagemove = true;
         remain = 0;
 
@@ -185,6 +186,7 @@ public class Stage3 : MonoBehaviour
 
             GameObject.Find("Story").GetComponent<Story3Script>().Story2On();
             Cul.GetComponent<CulScript>().AttackBarOn();
+            Invoke("CulSkill2", 1f);
 
             stagemove = true;
         }
@@ -293,6 +295,33 @@ public class Stage3 : MonoBehaviour
         {
             mon4.GetComponent<MonsterScript2>().OnDamaged();
         }
+        else if (monnum2 == 6)
+        {
+            if(numnum == 1)
+            {
+                GameObject.Find("NumberBundle").GetComponent<NumberBundleScript>().num1setting();
+            }
+            else if (numnum == 2)
+            {
+                GameObject.Find("NumberBundle").GetComponent<NumberBundleScript>().num2setting();
+            }
+            else if (numnum == 3)
+            {
+                GameObject.Find("NumberBundle").GetComponent<NumberBundleScript>().num3setting();
+            }
+            else if (numnum == 4)
+            {
+                GameObject.Find("NumberBundle").GetComponent<NumberBundleScript>().num4setting();
+            }
+            else if (numnum == 5)
+            {
+                GameObject.Find("NumberBundle").GetComponent<NumberBundleScript>().num5setting();
+            }
+            else if (numnum == 6)
+            {
+                GameObject.Find("NumberBundle").GetComponent<NumberBundleScript>().num6setting();
+            }
+        }
         monnum2 = 0;
 
         fly.transform.position = new Vector2(xk, yk);
@@ -316,6 +345,10 @@ public class Stage3 : MonoBehaviour
         mon3.GetComponent<MonsterScript2>().respawn2();
         mon4.GetComponent<MonsterScript2>().respawn2();
         Cul.GetComponent<CulScript>().move2();
+    }
+    public void CulSkill2()
+    {
+        GameObject.Find("NumberBundle").GetComponent<NumberBundleScript>().numbunOn();
     }
 
     public void StageEnding()
