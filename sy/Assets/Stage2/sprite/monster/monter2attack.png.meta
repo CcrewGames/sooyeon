@@ -131,8 +131,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 11161ae208d028749bd4c67d4643c407
-      internalID: 528786788
+      spriteID: c5469204c37b03045a7ebe84a15d34e5
+      internalID: 2087613419
       vertices: []
       indices: 
       edges: []
@@ -152,8 +152,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 8e7b1de9c663c0648a66b7b0d49c5d2e
-      internalID: 1358693249
+      spriteID: 5e5eae29febb1bd42a0ce2936fd795b5
+      internalID: -127094990
       vertices: []
       indices: 
       edges: []
@@ -173,8 +173,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: d963316ccf6d27447a5afc5922df0f81
-      internalID: -956867188
+      spriteID: 5d503f88ef6cb5544985328e5491d537
+      internalID: -668826034
       vertices: []
       indices: 
       edges: []
@@ -190,9 +190,9 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      monter2attack_1: 1358693249
-      monter2attack_0: 528786788
-      monter2attack_2: -956867188
+      monter2attack_1: -127094990
+      monter2attack_0: 2087613419
+      monter2attack_2: -668826034
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0

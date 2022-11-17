@@ -39,7 +39,6 @@ public class Stage : MonoBehaviour
     float x4 = 14f;
     float y4 = 0.02f;
     public GameObject BH;
-    public GameObject BHBB;
     public Image bombtimer;
     public float xb;
     public float yb;
@@ -82,7 +81,7 @@ public class Stage : MonoBehaviour
 
         text.SetActive(false);
 
-        stage = 2;
+        stage = 0;
         stagemove = true;
         remain = 0;
 
@@ -406,6 +405,7 @@ public class Stage : MonoBehaviour
 
     public void Fly()
     {
+        GameObject.Find("Player").GetComponent<Animator>().SetTrigger("attack");
         fly.SetActive(true);
         flymode = true;
 
@@ -443,6 +443,7 @@ public class Stage : MonoBehaviour
 
     public void Fly1()
     {
+        GameObject.Find("Player").GetComponent<Animator>().SetTrigger("attack");
         fly.SetActive(true);
         flymode1 = true;
 
@@ -469,12 +470,10 @@ public class Stage : MonoBehaviour
     public void BossHealthbarOn()
     {
         BH.SetActive(true);
-        BHBB.SetActive(true);
     }
     public void BossHealthbarOff()
     {
         BH.SetActive(false);
-        BHBB.SetActive(false);
     }
 
     public void Boss1Skill()

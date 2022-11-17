@@ -3,7 +3,7 @@ guid: 7073e1f031395d14b9675c55d348fe12
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
-  serializedVersion: 12
+  serializedVersion: 11
   mipmaps:
     mipMapMode: 0
     enableMipMap: 0
@@ -63,7 +63,6 @@ TextureImporter:
   textureFormatSet: 0
   ignorePngGamma: 0
   applyGammaDecoding: 0
-  cookieLightType: 0
   platformSettings:
   - serializedVersion: 3
     buildTarget: DefaultTexturePlatform
@@ -131,8 +130,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 78a00ea308cd85749bd4eba83e779f64
-      internalID: 174796301
+      spriteID: 2a7d7acbdcd67f349859b76b3cb3ad0b
+      internalID: 759927641
       vertices: []
       indices: 
       edges: []
@@ -152,8 +151,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 5cb7f743859b5ca40bef221ae8bfffb7
-      internalID: 1533930175
+      spriteID: 8ddc925f66de8944aa9b338458ea4037
+      internalID: 1066868281
       vertices: []
       indices: 
       edges: []
@@ -169,8 +168,8 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      monster2hit_1: 1533930175
-      monster2hit_0: 174796301
+      monster2hit_1: 1066868281
+      monster2hit_0: 759927641
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0

@@ -99,16 +99,16 @@ public class PlayerScript2 : MonoBehaviour
         else if (movey == 2) //¤²¤§¤²¤§
             transform.position = new Vector2(transform.position.x + speed1 * Time.deltaTime, transform.position.y);
 
-        if (move == 1 && transform.position.x < xm)
+        if (move == 1 && transform.position.x < 0)
         {
-            transform.position = Vector2.MoveTowards(transform.position, new Vector2(xm, transform.position.y), Time.deltaTime * speed);
+            transform.position = Vector2.MoveTowards(transform.position, new Vector2(0, transform.position.y), Time.deltaTime * speed);
         }
 
         num2.transform.position = new Vector2(num1.transform.position.x - 2 * dis, num1.transform.position.y);
 
-        if (move == 2 && transform.position.x > -7 + xm)
+        if (move == 2 && transform.position.x > -7)
         {
-            transform.position = Vector2.MoveTowards(transform.position, new Vector2(-7 + xm, transform.position.y), Time.deltaTime * (speed + 2));
+            transform.position = Vector2.MoveTowards(transform.position, new Vector2(-7, transform.position.y), Time.deltaTime * (speed + 2));
 
             if (Background.transform.position.x > b)
                 Background.transform.position = Vector2.MoveTowards(Background.transform.position, new Vector2(b, Background.transform.position.y), Time.deltaTime * (speed + 2));
@@ -116,7 +116,7 @@ public class PlayerScript2 : MonoBehaviour
                 Background.transform.position = new Vector2(-b, Background.transform.position.y);
         }
 
-        if (transform.position.x >= xm && f == false)
+        if (transform.position.x >= 0 && f == false)
         {
             if (Background.transform.position.x > b)
                 Background.transform.position = Vector2.MoveTowards(Background.transform.position, new Vector2(b, Background.transform.position.y), Time.deltaTime * (speed + 2));

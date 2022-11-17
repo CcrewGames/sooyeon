@@ -76,12 +76,12 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: -8
-  m_Sprite: {fileID: 21300000, guid: 8b69527f926a8384da439ac6903173bf, type: 3}
+  m_Sprite: {fileID: -1024798139, guid: 97cc7d6667ce8aa4785120038260f927, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 5, y: 7.78}
+  m_Size: {x: 4.03, y: 7.11}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
@@ -104,8 +104,8 @@ BoxCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 5, y: 7.78}
-    newSize: {x: 5, y: 7.78}
+    oldSize: {x: 4.03, y: 7.11}
+    newSize: {x: 4.03, y: 7.11}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
     adaptiveTiling: 0
@@ -125,13 +125,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e1ac1d047e83a1b45938b0ec1316f07a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  heart: 0
   animator: {fileID: 0}
+  heart: 0
   xm: 0
-  skill1: 0
-  skill2: 0
   random: 0
   number: {fileID: 2687332880628242228, guid: a91cfe33b9aeb534aba367dcc9dcc763, type: 3}
+  skill1: 0
+  skill2: 0
   bomb: {fileID: 3503006311458543851, guid: f4f6654fe73c2d543955d912717b2784, type: 3}
   bom: {fileID: 0}
   bombtimer: {fileID: 0}

@@ -16,8 +16,23 @@ public class NumberScript : MonoBehaviour
     float x0;
     float x1;
 
+    bool movey;
+    float speed2 = 0.08f;
+    public float y0;
+    public float y1;
+
+    void Start()
+    {
+        movey = true;
+    }
+
     void FixedUpdate()
     {
+        if (movey == false)
+            num1.transform.position = num1.transform.position + transform.up * speed2 * Time.deltaTime;
+        else if (movey == true)
+            num1.transform.position = num1.transform.position - transform.up * speed2 * Time.deltaTime;
+
         if (tremble == true)
         {
             if (move == false) //¤²¤§¤²¤§
@@ -34,6 +49,11 @@ public class NumberScript : MonoBehaviour
 
     void Update()
     {
+        if (num1.transform.position.y <= y1)
+            movey = false;
+        else if (num1.transform.position.y >= y0)
+            movey = true;
+
         if (tremble == true)
         {
             if (num1.transform.position.x >= x1)

@@ -442,7 +442,7 @@ public class MonsterScript : MonoBehaviour
         ef1.GetComponent<Animator>().SetTrigger("effect1");
         ef2.GetComponent<Animator>().SetTrigger("effect2");
 
-        Invoke("realAttack", 0.65f);
+        Invoke("realAttack", 0.4f);
         Invoke("reAttack", 2.5f);
     }
     void realAttack() //공격 함수

@@ -8,8 +8,8 @@ public class Stage3 : MonoBehaviour
 {
     public GameObject canvas;
     public GameObject ending;
+    public GameObject FightBar;
     public GameObject HpPlayer;
-    public GameObject HpPlayerBB;
     public GameObject punch;
 
     public GameObject Pause;
@@ -75,9 +75,11 @@ public class Stage3 : MonoBehaviour
 
     public void Start() //게임 시작 초기화
     {
+        FightBar.SetActive(false);
+
         ResumeMode();
 
-        stage = 1;
+        stage = 0;
         stagemove = true;
         remain = 0;
 
@@ -166,6 +168,8 @@ public class Stage3 : MonoBehaviour
             punch.GetComponent<PunchScript>().punchmode = 0;
             punch.GetComponent<PunchScript>().PunchMode();
 
+            HpPlayer.SetActive(false);
+
             GameObject.Find("Player").GetComponent<KalScript>().HealStop();
             GameObject.Find("Player").GetComponent<KalScript>().Run();
 
@@ -178,11 +182,6 @@ public class Stage3 : MonoBehaviour
         {
             fortime = 1;
             punch.GetComponent<PunchScript>().ScrollChange2();
-
-            punch.GetComponent<PunchScript>().punchmode = 1;
-            punch.GetComponent<PunchScript>().PunchMode();
-            HpPlayer.SetActive(false);
-            HpPlayerBB.SetActive(false);
 
             GameObject.Find("Story").GetComponent<Story3Script>().Story2On();
             Cul.GetComponent<CulScript>().AttackBarOn();
@@ -267,6 +266,7 @@ public class Stage3 : MonoBehaviour
 
     public void Fly()
     {
+        GameObject.Find("Player").GetComponent<Animator>().SetTrigger("attack");
         fly.SetActive(true);
         flymode = true;
 
@@ -317,10 +317,6 @@ public class Stage3 : MonoBehaviour
             {
                 GameObject.Find("NumberBundle").GetComponent<NumberBundleScript>().num5setting();
             }
-            else if (numnum == 6)
-            {
-                GameObject.Find("NumberBundle").GetComponent<NumberBundleScript>().num6setting();
-            }
         }
         monnum2 = 0;
 
@@ -349,14 +345,26 @@ public class Stage3 : MonoBehaviour
     public void CulSkill2()
     {
         GameObject.Find("NumberBundle").GetComponent<NumberBundleScript>().numbunOn();
+        FightBar.SetActive(true);
+    }
+
+    public void Win()
+    {
+        FightBar.SetActive(false);
+        GameObject.Find("NumberBundle").GetComponent<NumberBundleScript>().numbunOff();
+    }
+
+    public void Lose()
+    {
+        FightBar.SetActive(false);
+        GameObject.Find("NumberBundle").GetComponent<NumberBundleScript>().numbunOff();
     }
 
     public void StageEnding()
     {
         if (ending != null)
         {
-            ending.GetComponent<endingscene>().stage = 3;
-            ending.GetComponent<endingscene>().endingStart();
+            ending.GetComponent<endingscene3>().endingStart();
         }
     }
 }

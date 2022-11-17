@@ -25,10 +25,6 @@ public class endingscene : MonoBehaviour
         {
             time = TimeCount.GetComponent<Timecount2>().countdownSeconds;
         }
-        else if (stage == 3)
-        {
-            time = TimeCount.GetComponent<Timecount3>().countdownSeconds;
-        }
 
         if ( 30 >= time && time > 0){//별 1개
             endingback = Resources.Load<GameObject>("ending/endingBackground");

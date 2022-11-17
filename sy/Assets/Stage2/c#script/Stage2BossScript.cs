@@ -126,7 +126,7 @@ public class Stage2BossScript : MonoBehaviour
         ef7.transform.position = new Vector2(transform.position.x - 5f, transform.position.y);
 
         if (bombmove == 1)
-            bom.transform.position = Vector3.Slerp(bom.transform.position, new Vector2(2.4f, 0), Time.deltaTime * speed3);
+            bom.transform.position = Vector3.Slerp(bom.transform.position, new Vector2(3.4f, 0), Time.deltaTime * speed3);
 
         if (bombmove == 2)
             bom.transform.position = Vector3.Lerp(bom.transform.position, new Vector2(-4f, -1), Time.deltaTime * speed4);
@@ -201,7 +201,7 @@ public class Stage2BossScript : MonoBehaviour
             skill2 = true;
         }
 
-        if (bombmove == 1 && bom.transform.position.x <= 2.5f)
+        if (bombmove == 1 && bom.transform.position.x <= 3.5f)
         {
             timer = true;
             setting();
@@ -226,8 +226,9 @@ public class Stage2BossScript : MonoBehaviour
 
         if (time1 <= 0.3f)
         {
-            Invoke("Attackready", 0.15f);
+            animator.SetTrigger("stage2bossattack");
             ef7.GetComponent<Animator>().SetTrigger("effect7");
+            Invoke("Attackready", 0.15f);
             num1.SetActive(false);
             num2.SetActive(false);
             GameObject.Find("Stage").GetComponent<Stage2>().BombOff();
@@ -301,7 +302,6 @@ public class Stage2BossScript : MonoBehaviour
     void Attackready()
     {
         bombmove = 2;
-        animator.SetTrigger("stage2bossattack");
     }
     void Attack()
     {

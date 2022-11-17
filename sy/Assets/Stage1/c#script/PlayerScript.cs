@@ -14,7 +14,6 @@ public class PlayerScript : MonoBehaviour
 
     //플레이어 이동 관련
     public int move; //플레이어 이동 변수
-    float xm = -1.6f;
     float speed = 3f;
 
     //플레이어 ㅂㄷㅂㄷ 관련
@@ -106,16 +105,16 @@ public class PlayerScript : MonoBehaviour
         else if (movey == 2) //ㅂㄷㅂㄷ
             transform.position = new Vector2(transform.position.x + speed1 * Time.deltaTime, transform.position.y);
 
-        if (move == 1 && transform.position.x < xm)
+        if (move == 1 && transform.position.x < 0)
         {
-            transform.position = Vector2.MoveTowards(transform.position, new Vector2(xm, transform.position.y), Time.deltaTime * speed);
+            transform.position = Vector2.MoveTowards(transform.position, new Vector2(0, transform.position.y), Time.deltaTime * speed);
         }
 
         num2.transform.position = new Vector2(num1.transform.position.x - 2 * dis, num1.transform.position.y);
 
-        if (move == 2 && transform.position.x > -7 + xm)
+        if (move == 2 && transform.position.x > -7)
         {
-            transform.position = Vector2.MoveTowards(transform.position, new Vector2(-7 + xm, transform.position.y), Time.deltaTime * (speed + 2));
+            transform.position = Vector2.MoveTowards(transform.position, new Vector2(-7, transform.position.y), Time.deltaTime * (speed + 2));
 
             if (Background.transform.position.x > b)
                 Background.transform.position = Vector2.MoveTowards(Background.transform.position, new Vector2(b, Background.transform.position.y), Time.deltaTime * (speed + 2));
@@ -123,7 +122,7 @@ public class PlayerScript : MonoBehaviour
                 Background.transform.position = new Vector2(-b, Background.transform.position.y);
         }
 
-        if (transform.position.x >= xm && f == false)
+        if (transform.position.x >= 0 && f == false)
         {
             if (Background.transform.position.x > b)
                 Background.transform.position = Vector2.MoveTowards(Background.transform.position, new Vector2(b, Background.transform.position.y), Time.deltaTime * (speed + 2));
@@ -139,9 +138,9 @@ public class PlayerScript : MonoBehaviour
         floor3.transform.position = new Vector2(Background3.transform.position.x, floor3.transform.position.y);
 
         //엔딩 이동
-        if (move == 3 && transform.position.x <= -0.01f + xm)
+        if (move == 3 && transform.position.x <= -0.01f)
         {
-            transform.position = Vector2.MoveTowards(transform.position, new Vector2(xm, transform.position.y), Time.deltaTime * (speed + 2));
+            transform.position = Vector2.MoveTowards(transform.position, new Vector2(0, transform.position.y), Time.deltaTime * (speed + 2));
         }
         if (buttonmove == true)
         {
@@ -234,7 +233,7 @@ public class PlayerScript : MonoBehaviour
         }
 
         //엔딩
-        if (move == 3 && transform.position.x >= -0.01f + xm)
+        if (move == 3 && transform.position.x >= -0.01f)
         {
             buttonmove = true;
         }

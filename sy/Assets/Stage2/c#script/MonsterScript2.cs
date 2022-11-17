@@ -440,14 +440,10 @@ public class MonsterScript2 : MonoBehaviour
     void Attack() //공격 함수
     {
         animator.SetTrigger("attack");
-
-        Invoke("Ani", 0.2f);
-        Invoke("realAttack", 0.55f);
-        Invoke("reAttack", 2.5f);
-    }
-    void Ani() //공격 함수
-    {
         ef.GetComponent<Animator>().SetTrigger("effect");
+
+        Invoke("realAttack", 0.4f);
+        Invoke("reAttack", 2.5f);
     }
     void realAttack() //공격 함수
     {

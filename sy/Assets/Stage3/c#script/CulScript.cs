@@ -7,6 +7,7 @@ public class CulScript : MonoBehaviour
     public Animator animator;
 
     public GameObject AttackBar;
+    public GameObject KalAttackBar;
     public GameObject stage;
     public GameObject story;
     public GameObject punch;
@@ -38,6 +39,23 @@ public class CulScript : MonoBehaviour
     float dis = 0.25f;
     float dis1 = 2.5f; //숫자 머리 위 간격
 
+    //칼 날라가기~
+    public GameObject AttackBar1;
+    public GameObject flynum;
+    private GameObject fnum1; //일의 자리
+    private GameObject fnum2; //십의 자리
+    GameObject fly;
+    float xk = 6.5f;
+    float yk = 2.8f;
+    int anum;
+    float xn = 6f;
+    float yn = 2.8f;
+    public float xf;
+    public float yf;
+    float speed3 = 7.5f;
+    bool flymode;
+    int numnum;
+
     public int monnum;
 
     void Start() //게임 시작 초기화
@@ -61,6 +79,14 @@ public class CulScript : MonoBehaviour
         num2 = Instantiate(number, new Vector2(transform.position.x, transform.position.y), transform.rotation);
         num1.SetActive(false);
         num2.SetActive(false);
+
+        fly = Instantiate(AttackBar1, new Vector2(xk, yk), transform.rotation);
+        fly.SetActive(false);
+        flymode = false;
+        fnum1 = Instantiate(flynum, new Vector2(xn, yn), transform.rotation);
+        fnum2 = Instantiate(flynum, new Vector2(xn - 0.4f, yn), transform.rotation);
+        fnum1.SetActive(false);
+        fnum2.SetActive(false);
     }
 
     void FixedUpdate()
@@ -91,6 +117,15 @@ public class CulScript : MonoBehaviour
             transform.position = transform.position - transform.up * speed2 * Time.deltaTime;
         else if (movey == 4)
             transform.position = transform.position + transform.up * speed2 * Time.deltaTime;
+
+        if (flymode == true)
+        {
+            fly.transform.position = Vector2.Lerp(fly.transform.position, new Vector2(xf, yf), Time.deltaTime * speed3);
+        }
+        if (fly.transform.position.x <= xf + 1.5f && flymode == true)
+        {
+            Flyoff();
+        }
     }
 
     void Update()
@@ -107,6 +142,11 @@ public class CulScript : MonoBehaviour
             movey = 3;
         else if (transform.position.y <= y0)
             movey = 4;
+
+        if (Input.GetKeyDown(KeyCode.D)) //임의 피격
+        {
+            CulPlus();
+        }
     }
 
     void setting() //난수 설정
@@ -140,6 +180,98 @@ public class CulScript : MonoBehaviour
         }
     }
 
+    public void CulPlus()
+    {
+        numnum = Random.Range(1, 6);
+        if (numnum == 1)
+        {
+            anum = GameObject.Find("NumberBundle").GetComponent<NumberBundleScript>().anum1;
+            xf = GameObject.Find("NumberBundle").GetComponent<NumberBundleScript>().x1;
+            yf = GameObject.Find("NumberBundle").GetComponent<NumberBundleScript>().y1;
+        }
+        else if (numnum == 2)
+        {
+            anum = GameObject.Find("NumberBundle").GetComponent<NumberBundleScript>().anum2;
+            xf = GameObject.Find("NumberBundle").GetComponent<NumberBundleScript>().x2;
+            yf = GameObject.Find("NumberBundle").GetComponent<NumberBundleScript>().y2;
+        }
+        else if (numnum == 3)
+        {
+            anum = GameObject.Find("NumberBundle").GetComponent<NumberBundleScript>().anum3;
+            xf = GameObject.Find("NumberBundle").GetComponent<NumberBundleScript>().x3;
+            yf = GameObject.Find("NumberBundle").GetComponent<NumberBundleScript>().y3;
+        }
+        else if (numnum == 4)
+        {
+            anum = GameObject.Find("NumberBundle").GetComponent<NumberBundleScript>().anum4;
+            xf = GameObject.Find("NumberBundle").GetComponent<NumberBundleScript>().x4;
+            yf = GameObject.Find("NumberBundle").GetComponent<NumberBundleScript>().y4;
+        }
+        else if (numnum == 5)
+        {
+            anum = GameObject.Find("NumberBundle").GetComponent<NumberBundleScript>().anum5;
+            xf = GameObject.Find("NumberBundle").GetComponent<NumberBundleScript>().x5;
+            yf = GameObject.Find("NumberBundle").GetComponent<NumberBundleScript>().y5;
+        }
+        GameObject.Find("NumberBundle").GetComponent<NumberBundleScript>().who = 2;
+        flynummaker();
+        Invoke("Fly", 1f);
+    }
+
+    void flynummaker() //플레이어 머리 위 난수 생성 함수
+    {
+        Sprite[] sprites = Resources.LoadAll<Sprite>("number");
+        int b = anum / 10;
+        int a = anum % 10;
+        SpriteRenderer spriteC = fnum1.GetComponent<SpriteRenderer>();
+        spriteC.sprite = sprites[a];
+        SpriteRenderer spriteD = fnum2.GetComponent<SpriteRenderer>();
+        spriteD.sprite = sprites[b];
+
+        fnum1.SetActive(true);
+        fnum2.SetActive(true);
+    }
+
+    public void Fly()
+    {
+        animator.SetTrigger("attack");
+        fly.SetActive(true);
+        fnum1.SetActive(false);
+        fnum2.SetActive(false);
+        flymode = true;
+
+        float r1 = Mathf.Atan2(yf - yk, xf - xk) * Mathf.Rad2Deg + 180;
+        fly.transform.rotation = Quaternion.Euler(0, 0, r1);
+    }
+    public void Flyoff()
+    {
+        if (numnum == 1)
+        {
+            GameObject.Find("NumberBundle").GetComponent<NumberBundleScript>().num1setting();
+        }
+        else if (numnum == 2)
+        {
+            GameObject.Find("NumberBundle").GetComponent<NumberBundleScript>().num2setting();
+        }
+        else if (numnum == 3)
+        {
+            GameObject.Find("NumberBundle").GetComponent<NumberBundleScript>().num3setting();
+        }
+        else if (numnum == 4)
+        {
+            GameObject.Find("NumberBundle").GetComponent<NumberBundleScript>().num4setting();
+        }
+        else if (numnum == 5)
+        {
+            GameObject.Find("NumberBundle").GetComponent<NumberBundleScript>().num5setting();
+        }
+
+        fly.transform.position = new Vector2(xk, yk);
+        fly.transform.Rotate(0, 0, 0);
+        fly.SetActive(false);
+        flymode = false;
+    }
+
     public void AttackBarOn()
     {
         Invoke("AttackBarOn_", 0.5f);
@@ -147,10 +279,12 @@ public class CulScript : MonoBehaviour
     public void AttackBarOn_()
     {
         AttackBar.SetActive(true);
+        KalAttackBar.SetActive(true);
     }
     public void AttackBarOff()
     {
-        AttackBar.SetActive(true);
+        AttackBar.SetActive(false);
+        KalAttackBar.SetActive(false);
     }
 
     public void move1()
