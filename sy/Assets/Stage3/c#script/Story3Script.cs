@@ -15,6 +15,8 @@ public class Story3Script : MonoBehaviour
     public List<string> sentences2;
     public List<string> sentences2_2;
     public List<string> sentences3;
+    public List<string> sentences3_1;
+    public List<string> sentences3_15;
     public List<string> sentences3_2;
     public List<string> sentences4;
     public List<string> sentences4_2;
@@ -117,6 +119,16 @@ public class Story3Script : MonoBehaviour
                     Storykal();
                 }
                 storytext.text = sentences3[i];
+                clickNextButton = false;
+            }
+            else if (GameObject.Find("Stage").GetComponent<Stage3>().story == 3.1)
+            {
+                storytext.text = sentences3_1[i];
+                clickNextButton = false;
+            }
+            else if (GameObject.Find("Stage").GetComponent<Stage3>().story == 3.15)
+            {
+                storytext.text = sentences3_15[i];
                 clickNextButton = false;
             }
             else if (GameObject.Find("Stage").GetComponent<Stage3>().story == 3.5)
@@ -265,12 +277,47 @@ public class Story3Script : MonoBehaviour
         sentences3.Add("그건...!"); //칼
         sentences3.Add("넌 이 케르원기가 가진 힘을 아무것도 몰라!"); //큘
         sentences3.Add("이걸로 내가 어떤 일을 할 수 있는지 제대로 알게 해 줘야겠군!"); //큘
-        sentences3.Add("(케르원기에서 이상한 빛이...?)"); //큘
         size = sentences3.Count;
 
         Storykal();
         i = 0;
         storytext.text = sentences3[i];
+    }
+    public void Story3_1On()
+    {
+        GameObject.Find("Stage").GetComponent<Stage3>().PauseMode();
+        GameObject.Find("Stage").GetComponent<Stage3>().story = 3.1f;
+
+        canvas.SetActive(true);
+        background1.SetActive(true);
+        textbox1.SetActive(true);
+        nextbutton1.SetActive(true);
+
+        sentences3_1 = new List<string>();
+        sentences3_1.Add("(케르원기에서 이상한 빛이...?)"); //칼
+        size = sentences3_1.Count;
+
+        Storykal();
+        i = 0;
+        storytext.text = sentences3_1[i];
+    }
+    public void Story3_15On()
+    {
+        GameObject.Find("Stage").GetComponent<Stage3>().PauseMode();
+        GameObject.Find("Stage").GetComponent<Stage3>().story = 3.15f;
+
+        canvas.SetActive(true);
+        background1.SetActive(true);
+        textbox1.SetActive(true);
+        nextbutton1.SetActive(true);
+
+        sentences3_15 = new List<string>();
+        sentences3_15.Add("가라!"); //큘
+        size = sentences3_15.Count;
+
+        Storycul();
+        i = 0;
+        storytext.text = sentences3_15[i];
     }
     public void Story3_2On()
     {

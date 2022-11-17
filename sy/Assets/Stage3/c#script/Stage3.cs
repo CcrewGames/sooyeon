@@ -79,7 +79,7 @@ public class Stage3 : MonoBehaviour
 
         ResumeMode();
 
-        stage = 1;
+        stage = 0;
         stagemove = true;
         remain = 0;
 
@@ -189,22 +189,7 @@ public class Stage3 : MonoBehaviour
 
             stagemove = true;
         }
-
-        if (stage == 2 && remain == 0) //클리어, 거의 스토리 위주
-        {
-            fortime = 0;
-            punch.GetComponent<PunchScript>().ScrollChange3();
-
-            punch.GetComponent<PunchScript>().punchmode = 0;
-            punch.GetComponent<PunchScript>().PunchMode();
-
-            GameObject.Find("Player").GetComponent<PlayerScript>().HealStop();
-            
-            Invoke("StageMove", 5f);
-
-            remain = 3; //얘는 남은 몬스터 수 확인용이 아니라 한 번만 실행되도록 하기 위함
-        }
-
+        
         if (stage == 3 && stagemove == false) //클리어
         {
             StageEnding();
@@ -261,7 +246,6 @@ public class Stage3 : MonoBehaviour
         mon2.GetComponent<MonsterScript>().monnum = 2;
         mon3.GetComponent<MonsterScript2>().monnum = 4;
         mon4.GetComponent<MonsterScript2>().monnum = 5;
-        Cul.GetComponent<CulScript>().monnum = 6;
     }
 
     public void Fly()
@@ -351,6 +335,8 @@ public class Stage3 : MonoBehaviour
 
     public void Win()
     {
+        punch.GetComponent<PunchScript>().punchmode = 0;
+        punch.GetComponent<PunchScript>().PunchMode();
         FightBar.SetActive(false);
         GameObject.Find("NumberBundle").GetComponent<NumberBundleScript>().numbunOff();
         Invoke("Story2_2", 3f);
@@ -358,6 +344,8 @@ public class Stage3 : MonoBehaviour
 
     public void Lose()
     {
+        punch.GetComponent<PunchScript>().punchmode = 0;
+        punch.GetComponent<PunchScript>().PunchMode();
         FightBar.SetActive(false);
         GameObject.Find("NumberBundle").GetComponent<NumberBundleScript>().numbunOff();
     }
@@ -365,6 +353,11 @@ public class Stage3 : MonoBehaviour
     public void Story2_2()
     {
         GameObject.Find("Story").GetComponent<Story3Script>().Story2_2On();
+        Invoke("NextStory", 1f);
+    }
+    public void NextStory()
+    {
+        Cul.GetComponent<CulScript>().KiloProtoOn();
     }
 
     public void StageEnding()

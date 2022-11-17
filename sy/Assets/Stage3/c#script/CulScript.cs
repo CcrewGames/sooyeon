@@ -58,7 +58,11 @@ public class CulScript : MonoBehaviour
     bool timer;
     float time;
 
-    public int monnum;
+    public GameObject KiloProto;
+    float xP0 = 20;
+    float yP0 = 0;
+    float xP = 3;
+    float yP = 0;
 
     void Start() //게임 시작 초기화
     {
@@ -91,6 +95,9 @@ public class CulScript : MonoBehaviour
         fnum2.SetActive(false);
 
         timer = false;
+
+        KiloProto.transform.position = new Vector2(xP0, yP0);
+        KiloProto.SetActive(false);
     }
 
     void FixedUpdate()
@@ -204,7 +211,7 @@ public class CulScript : MonoBehaviour
 
     public void Timer()
     {
-        time = Random.Range(6, 10);
+        time = Random.Range(4, 6);
         timer = true;
     }
 
@@ -300,6 +307,18 @@ public class CulScript : MonoBehaviour
         flymode = false;
     }
 
+    public void KiloProtoOn()
+    {
+        KiloProto.transform.position = new Vector2(xP, yP);
+        KiloProto.SetActive(true);
+        Invoke("Surprise", 0.5f);
+        Invoke("Story3", 2f);
+    }
+    void Surprise()
+    {
+        GameObject.Find("Player").GetComponent<Animator>().SetTrigger("surprise");
+    }
+
     public void AttackBarOn()
     {
         Invoke("AttackBarOn_", 0.5f);
@@ -327,6 +346,29 @@ public class CulScript : MonoBehaviour
     void move2_()
     {
         move = 2;
+    }
+
+    void Story3()
+    {
+        GameObject.Find("Story").GetComponent<Story3Script>().Story3On();
+        KiloProto.GetComponent<KiloProtoScript>().twingkle();
+        Invoke("Story3_1", 2f);
+    }
+    void Story3_1()
+    {
+        GameObject.Find("Story").GetComponent<Story3Script>().Story3_1On();
+        Invoke("Story3_15", 2f);
+    }
+    void Story3_15()
+    {
+        GameObject.Find("Story").GetComponent<Story3Script>().Story3_15On();
+        animator.SetTrigger("attack");
+        Invoke("Story3_2", 0.5f);
+    }
+    void Story3_2()
+    {
+        GameObject.Find("Story").GetComponent<Story3Script>().Story3_2On();
+        KiloProto.GetComponent<KiloProtoScript>().Boom();
     }
 }
 

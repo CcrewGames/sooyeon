@@ -189,6 +189,11 @@ public class KalScript : MonoBehaviour
             end = true;
             GameObject.Find("ending").GetComponent<endingscene>().Playerpowerend();
         }
+
+        if (Input.GetKeyDown(KeyCode.S))
+        {
+            animator.SetTrigger("surprise");
+        }
     }
 
     void setting() //난수 설정

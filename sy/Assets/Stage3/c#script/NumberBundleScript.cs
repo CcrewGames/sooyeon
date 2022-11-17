@@ -37,7 +37,8 @@ public class NumberBundleScript : MonoBehaviour
 
     void Start()
     {
-        //bundle.SetActive(false);
+        bundle.SetActive(false);
+        bundle.transform.position = new Vector2(-0.3f, -1.2f);
         going = 0;
 
         num1 = Instantiate(attacknumber, new Vector2(x0, y0), transform.rotation);
@@ -208,7 +209,7 @@ public class NumberBundleScript : MonoBehaviour
 
     public void numbunOn()
     {
-        //bundle.SetActive(true);
+        bundle.SetActive(true);
 
         randomallsetting();
 
@@ -229,7 +230,7 @@ public class NumberBundleScript : MonoBehaviour
         CancelInvoke("num5damaged");
         going = 0;
         nummove = false;
-        //bundle.SetActive(false);
+        bundle.SetActive(false);
 
         Destroy(num1);
         Destroy(num2);
