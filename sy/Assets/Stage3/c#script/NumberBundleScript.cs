@@ -217,6 +217,16 @@ public class NumberBundleScript : MonoBehaviour
 
     public void numbunOff()
     {
+        CancelInvoke("num1setting_");
+        CancelInvoke("num2setting_");
+        CancelInvoke("num3setting_");
+        CancelInvoke("num4setting_");
+        CancelInvoke("num5setting_");
+        CancelInvoke("num1damaged");
+        CancelInvoke("num2damaged");
+        CancelInvoke("num3damaged");
+        CancelInvoke("num4damaged");
+        CancelInvoke("num5damaged");
         going = 0;
         nummove = false;
         //bundle.SetActive(false);

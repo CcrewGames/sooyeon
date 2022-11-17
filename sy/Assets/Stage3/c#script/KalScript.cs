@@ -169,9 +169,11 @@ public class KalScript : MonoBehaviour
             }
         }
 
-        if (Input.GetKeyDown(KeyCode.Space)) //임의 피격
+        if (Input.GetKeyDown(KeyCode.A) && GameObject.Find("NumberBundle").GetComponent<NumberBundleScript>().going == 1) //임의 피격
         {
             animator.SetTrigger("attack");
+            GameObject.Find("NumberBundle").GetComponent<NumberBundleScript>().who = 1;
+            GameObject.Find("NumberBundle").GetComponent<NumberBundleScript>().num1setting();
         }
 
         if (tremble == true)

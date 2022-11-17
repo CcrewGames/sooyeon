@@ -55,6 +55,8 @@ public class CulScript : MonoBehaviour
     float speed3 = 7.5f;
     bool flymode;
     int numnum;
+    bool timer;
+    float time;
 
     public int monnum;
 
@@ -87,6 +89,8 @@ public class CulScript : MonoBehaviour
         fnum2 = Instantiate(flynum, new Vector2(xn - 0.4f, yn), transform.rotation);
         fnum1.SetActive(false);
         fnum2.SetActive(false);
+
+        timer = false;
     }
 
     void FixedUpdate()
@@ -143,6 +147,24 @@ public class CulScript : MonoBehaviour
         else if (transform.position.y <= y0)
             movey = 4;
 
+        if (timer == true)
+        {
+            time -= Time.deltaTime;
+        }
+        
+        if(time <= 0)
+        {
+            if (GameObject.Find("NumberBundle").GetComponent<NumberBundleScript>().going == 1)
+            {
+                Timer();
+                CulPlus();
+            }
+            else
+            {
+                timer = false;
+            }
+        }
+
         if (Input.GetKeyDown(KeyCode.D)) //임의 피격
         {
             CulPlus();
@@ -178,6 +200,12 @@ public class CulScript : MonoBehaviour
             num1.SetActive(true);
             num2.SetActive(false);
         }
+    }
+
+    public void Timer()
+    {
+        time = Random.Range(6, 10);
+        timer = true;
     }
 
     public void CulPlus()

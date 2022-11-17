@@ -79,7 +79,7 @@ public class Stage3 : MonoBehaviour
 
         ResumeMode();
 
-        stage = 0;
+        stage = 1;
         stagemove = true;
         remain = 0;
 
@@ -345,6 +345,7 @@ public class Stage3 : MonoBehaviour
     public void CulSkill2()
     {
         GameObject.Find("NumberBundle").GetComponent<NumberBundleScript>().numbunOn();
+        GameObject.Find("Cul").GetComponent<CulScript>().Timer();
         FightBar.SetActive(true);
     }
 
@@ -352,12 +353,18 @@ public class Stage3 : MonoBehaviour
     {
         FightBar.SetActive(false);
         GameObject.Find("NumberBundle").GetComponent<NumberBundleScript>().numbunOff();
+        Invoke("Story2_2", 3f);
     }
 
     public void Lose()
     {
         FightBar.SetActive(false);
         GameObject.Find("NumberBundle").GetComponent<NumberBundleScript>().numbunOff();
+    }
+
+    public void Story2_2()
+    {
+        GameObject.Find("Story").GetComponent<Story3Script>().Story2_2On();
     }
 
     public void StageEnding()
