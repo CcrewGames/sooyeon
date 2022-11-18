@@ -110,7 +110,7 @@ public class Stage2 : MonoBehaviour
 
         text.SetActive(false);
 
-        stage = 2;
+        stage = 0;
         stagemove = true;
         remain = 0;
 
@@ -465,6 +465,7 @@ public class Stage2 : MonoBehaviour
     public void Fly()
     {
         GameObject.Find("Player").GetComponent<Animator>().SetTrigger("attack");
+        GameObject.Find("Player").GetComponent<PlayerScript2>().AttackEffect();
         fly.SetActive(true);
         flymode = true;
         punch.GetComponent<PunchScript2>().off();
@@ -505,6 +506,7 @@ public class Stage2 : MonoBehaviour
     public void Fly1()
     {
         GameObject.Find("Player").GetComponent<Animator>().SetTrigger("attack");
+        GameObject.Find("Player").GetComponent<PlayerScript2>().AttackEffect();
         fly.SetActive(true);
         flymode1 = true;
         punch.GetComponent<PunchScript2>().off();

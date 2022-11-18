@@ -4,6 +4,30 @@ using UnityEngine;
 
 public class CulScript : MonoBehaviour
 {
+    AudioSource audioSource;/////////////ì†Œë¦¬
+    public AudioClip culcome;
+    public AudioClip SwordR;
+    public AudioClip cal1appear;
+    public AudioClip culgoaway;
+
+    void PlaySound(string action){
+        switch (action){
+            case "culcome":
+                audioSource.clip = culcome;
+                break;
+            case "SwordR":
+                audioSource.clip = SwordR;
+                break;
+            case "cal1appear":
+                audioSource.clip = cal1appear;
+                break;
+            case "culgoaway":
+                audioSource.clip = culgoaway;
+                break;
+        }
+        audioSource.Play();
+    }
+
     public Animator animator;
 
     public GameObject AttackBar;
@@ -12,40 +36,40 @@ public class CulScript : MonoBehaviour
     public GameObject story;
     public GameObject punch;
 
-    private GameObject target; //¸¶¿ì½º Å¬¸¯ È®ÀÎ¿ë º¯¼ö
+    private GameObject target; //ë§ˆìš°ìŠ¤ í´ë¦­ í™•ì¸ìš© ë³€ìˆ˜
 
-    public int heart; //Å§ Ã¼·Â
+    public int heart; //í˜ ì²´ë ¥
 
-    //Å§ ÀÌµ¿ °ü·Ã
-    public int move; //Å§ ÀÌµ¿ º¯¼ö
+    //í˜ ì´ë™ ê´€ë ¨
+    public int move; //í˜ ì´ë™ ë³€ìˆ˜
     bool stop;
     float xb = 7f;
     float yb = -0.6f;
     float speed = 3f;
 
-    //Å§ ¤²¤§¤²¤§, µÕµÕ °ü·Ã
-    public int movey; //ÁÂ¿ì»óÇÏ
-    private bool tremble; //Å§ ¤²¤§¤²¤§ º¯¼ö
+    //í˜ ã…‚ã„·ã…‚ã„·, ë‘¥ë‘¥ ê´€ë ¨
+    public int movey; //ì¢Œìš°ìƒí•˜
+    private bool tremble; //í˜ ã…‚ã„·ã…‚ã„· ë³€ìˆ˜
     float x0;
     float x1;
     float speed1 = 3f;
-    float y0; //Å§ µÕµÕ º¯¼ö
+    float y0; //í˜ ë‘¥ë‘¥ ë³€ìˆ˜
     float y1;
     float speed2 = 0.4f;
 
-    //³­¼ö Ç¥½Ã °ü·Ã
+    //ë‚œìˆ˜ í‘œì‹œ ê´€ë ¨
     int random;
     public GameObject number;
-    private GameObject num1; //ÀÏÀÇ ÀÚ¸®
-    private GameObject num2; //½ÊÀÇ ÀÚ¸®
+    private GameObject num1; //ì¼ì˜ ìë¦¬
+    private GameObject num2; //ì‹­ì˜ ìë¦¬
     float dis = 0.25f;
-    float dis1 = 2.5f; //¼ıÀÚ ¸Ó¸® À§ °£°İ
+    float dis1 = 2.5f; //ìˆ«ì ë¨¸ë¦¬ ìœ„ ê°„ê²©
 
-    //Ä® ³¯¶ó°¡±â~
+    //ì¹¼ ë‚ ë¼ê°€ê¸°~
     public GameObject AttackBar1;
     public GameObject flynum;
-    private GameObject fnum1; //ÀÏÀÇ ÀÚ¸®
-    private GameObject fnum2; //½ÊÀÇ ÀÚ¸®
+    private GameObject fnum1; //ì¼ì˜ ìë¦¬
+    private GameObject fnum2; //ì‹­ì˜ ìë¦¬
     GameObject fly;
     float xk = 6.5f;
     float yk = 2.8f;
@@ -60,12 +84,15 @@ public class CulScript : MonoBehaviour
     bool timer;
     float time;
 
-    public GameObject KiloProto;
-    float xP = 3;
-    float yP = 0;
+    public GameObject KerWongi;
+    float xP = 20;
+    float yP = 1;
+    float speed4 = 2f;
+    int movek;
 
-    void Start() //°ÔÀÓ ½ÃÀÛ ÃÊ±âÈ­
+    void Start() //ê²Œì„ ì‹œì‘ ì´ˆê¸°í™”
     {
+        audioSource = GetComponent<AudioSource>();/////////////ì†Œë¦¬
         animator = GetComponent<Animator>();
 
         heart = 100;
@@ -97,17 +124,17 @@ public class CulScript : MonoBehaviour
 
         timer = false;
 
-        KiloProto.transform.position = new Vector2(3.5f, KiloProto.transform.position.y);
-        KiloProto.SetActive(false);
+        KerWongi.transform.position = new Vector2(xP, yP);
+        movek = 0;
     }
 
     void FixedUpdate()
     {
-        if (random > 9 && random <= 99) //½ÊÀÇ ÀÚ¸®ÀÏ ¶§
+        if (random > 9 && random <= 99) //ì‹­ì˜ ìë¦¬ì¼ ë•Œ
         {
             num1.transform.position = new Vector2(transform.position.x + dis, transform.position.y + dis1);
         }
-        else if (random > 0 && random <= 9) //ÀÏÀÇ ÀÚ¸®ÀÏ ¶§
+        else if (random > 0 && random <= 9) //ì¼ì˜ ìë¦¬ì¼ ë•Œ
         {
             num1.transform.position = new Vector2(transform.position.x, transform.position.y + dis1);
         }
@@ -122,12 +149,12 @@ public class CulScript : MonoBehaviour
             transform.position = Vector2.MoveTowards(transform.position, new Vector2(xb + 7, transform.position.y), Time.deltaTime * (speed + 2));
         }
 
-        if (movey == 1) //¤²¤§¤²¤§
+        if (movey == 1) //ã…‚ã„·ã…‚ã„·
             transform.position = new Vector2(transform.position.x - speed1 * Time.deltaTime, transform.position.y);
-        else if (movey == 2) //¤²¤§¤²¤§
+        else if (movey == 2) //ã…‚ã„·ã…‚ã„·
             transform.position = new Vector2(transform.position.x + speed1 * Time.deltaTime, transform.position.y);
 
-        if (movey == 3) //µÕµÕ
+        if (movey == 3) //ë‘¥ë‘¥
             transform.position = transform.position - transform.up * speed2 * Time.deltaTime;
         else if (movey == 4)
             transform.position = transform.position + transform.up * speed2 * Time.deltaTime;
@@ -141,7 +168,15 @@ public class CulScript : MonoBehaviour
             Flyoff();
         }
 
-        KiloProto.transform.position = new Vector2(transform.position.x - 3.5f, KiloProto.transform.position.y);
+        if (movek == 1)
+        {
+            KerWongi.transform.position = Vector3.Lerp(KerWongi.transform.position, new Vector2(transform.position.x - 3f, KerWongi.transform.position.y), Time.deltaTime * speed4); ;
+        }
+
+        if (movek == 2)
+        {
+            KerWongi.transform.position = new Vector2(transform.position.x - 3f, KerWongi.transform.position.y);
+        }
     }
 
     void Update()
@@ -177,22 +212,22 @@ public class CulScript : MonoBehaviour
             }
         }
 
-        if (Input.GetKeyDown(KeyCode.D)) //ÀÓÀÇ ÇÇ°İ
+        if (Input.GetKeyDown(KeyCode.D)) //ì„ì˜ í”¼ê²©
         {
             CulPlus();
         }
     }
 
-    void setting() //³­¼ö ¼³Á¤
+    void setting() //ë‚œìˆ˜ ì„¤ì •
     {
         random = Random.Range(30, 40);
         nummaker();
     }
 
-    void nummaker() //ÇÃ·¹ÀÌ¾î ¸Ó¸® À§ ³­¼ö »ı¼º ÇÔ¼ö
+    void nummaker() //í”Œë ˆì´ì–´ ë¨¸ë¦¬ ìœ„ ë‚œìˆ˜ ìƒì„± í•¨ìˆ˜
     {
         Sprite[] sprites = Resources.LoadAll<Sprite>("number");
-        if (random > 9 && random <= 99) //³­¼ö°¡ ½ÊÀÇ ÀÚ¸®ÀÏ ¶§
+        if (random > 9 && random <= 99) //ë‚œìˆ˜ê°€ ì‹­ì˜ ìë¦¬ì¼ ë•Œ
         {
             int b = random / 10;
             int a = random % 10;
@@ -204,7 +239,7 @@ public class CulScript : MonoBehaviour
             num1.SetActive(true);
             num2.SetActive(true);
         }
-        else if (random > 0 && random <= 9) //³­¼ö°¡ ÀÏÀÇ ÀÚ¸®ÀÏ ¶§
+        else if (random > 0 && random <= 9) //ë‚œìˆ˜ê°€ ì¼ì˜ ìë¦¬ì¼ ë•Œ
         {
             SpriteRenderer spriteA = num1.GetComponent<SpriteRenderer>();
             spriteA.sprite = sprites[random];
@@ -258,7 +293,7 @@ public class CulScript : MonoBehaviour
         Invoke("Fly", 1f);
     }
 
-    void flynummaker() //ÇÃ·¹ÀÌ¾î ¸Ó¸® À§ ³­¼ö »ı¼º ÇÔ¼ö
+    void flynummaker() //í”Œë ˆì´ì–´ ë¨¸ë¦¬ ìœ„ ë‚œìˆ˜ ìƒì„± í•¨ìˆ˜
     {
         Sprite[] sprites = Resources.LoadAll<Sprite>("number");
         int b = anum / 10;
@@ -275,6 +310,7 @@ public class CulScript : MonoBehaviour
     public void Fly()
     {
         animator.SetTrigger("attack");
+        PlaySound("SwordR");
         fly.SetActive(true);
         fnum1.SetActive(false);
         fnum2.SetActive(false);
@@ -313,14 +349,16 @@ public class CulScript : MonoBehaviour
     }
     public void realFlyoff()
     {
+        fnum1.SetActive(false);
+        fnum2.SetActive(false);
         fly.SetActive(false);
         flymode = false;
     }
 
-    public void KiloProtoOn()
+    public void KerWongiOn()
     {
-        KiloProto.transform.position = new Vector2(xP, yP);
-        KiloProto.SetActive(true);
+        KerWongi.transform.position = new Vector2(0, yP);
+        PlaySound("cal1appear");
         Invoke("Surprise", 0.5f);
         Invoke("Story3", 2f);
     }
@@ -363,7 +401,7 @@ public class CulScript : MonoBehaviour
     void Story3()
     {
         GameObject.Find("Story").GetComponent<Story3Script>().Story3On();
-        KiloProto.GetComponent<KiloProtoScript>().twingkle();
+        KerWongi.GetComponent<KerWongiScript>().twingkle();
         Invoke("Story3_1", 2f);
     }
     void Story3_1()
@@ -380,7 +418,7 @@ public class CulScript : MonoBehaviour
     void Story3_2()
     {
         GameObject.Find("Story").GetComponent<Story3Script>().Story3_2On();
-        KiloProto.GetComponent<KiloProtoScript>().Boom();
+        KerWongi.GetComponent<KerWongiScript>().Boom();
         transform.position = new Vector2(transform.position.x, yb);
         stop = true;
         movey = 0;
@@ -396,16 +434,21 @@ public class CulScript : MonoBehaviour
     {
         GameObject.Find("Story").GetComponent<Story3Script>().Story4On();
         Invoke("StandingAni", 2f);
-        Invoke("Story4_2", 5f);
+        Invoke("Story4_2", 6f);
     }
     void StandingAni()
     {
         animator.SetTrigger("standing");
         Invoke("DungDung", 1.5f);
+        Invoke("movek_", 2f);
     }
     void DungDung()
     {
         stop = false;
+    }
+    void movek_()
+    {
+        movek = 1;
     }
     void Story4_2()
     {
@@ -413,6 +456,7 @@ public class CulScript : MonoBehaviour
         Invoke("Story5", 5f);
         xb += 10;
         speed = 2;
+        movek = 2;
         Invoke("move2_", 0.5f);
     }
     void Story5()
@@ -423,6 +467,6 @@ public class CulScript : MonoBehaviour
     void Ending()
     {
         GameObject.Find("ending").GetComponent<endingscene3>().endingStart();
+        PlaySound("culgoaway");
     }
 }
-

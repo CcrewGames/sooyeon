@@ -55,6 +55,8 @@ public class PlayerScript : MonoBehaviour
     float yn = 1.3f;
     float dis = 0.25f;
 
+    public GameObject ef;
+
     //배경
     public GameObject Background;
     public GameObject Background2;
@@ -135,6 +137,8 @@ public class PlayerScript : MonoBehaviour
 
         num2.transform.position = new Vector2(num1.transform.position.x - 2 * dis, num1.transform.position.y);
 
+        ef.transform.position = new Vector2(transform.position.x + 2.5f, transform.position.y + 2.5f);
+
         if (move == 2 && transform.position.x > -7)
         {
             transform.position = Vector2.MoveTowards(transform.position, new Vector2(-7, transform.position.y), Time.deltaTime * (speed + 2));
@@ -153,8 +157,8 @@ public class PlayerScript : MonoBehaviour
                 Background.transform.position = new Vector2(-b, Background.transform.position.y);
         }
 
-        Background2.transform.position = new Vector2(Background.transform.position.x + 55f, Background.transform.position.y);
-        Background3.transform.position = new Vector2(Background.transform.position.x - 55f, Background.transform.position.y);
+        Background2.transform.position = new Vector2(Background.transform.position.x + 54.85f, Background.transform.position.y);
+        Background3.transform.position = new Vector2(Background.transform.position.x - 54.85f, Background.transform.position.y);
 
         floor.transform.position = new Vector2(Background.transform.position.x, floor.transform.position.y);
         floor2.transform.position = new Vector2(Background2.transform.position.x, floor2.transform.position.y);
@@ -242,6 +246,7 @@ public class PlayerScript : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Space)) //임의 피격
         {
             animator.SetTrigger("attack");
+            AttackEffect();
         }
 
         if (tremble == true)
@@ -277,6 +282,11 @@ public class PlayerScript : MonoBehaviour
             GameObject.Find("Stage").GetComponent<Stage>().bossdie = true;
             button = false;
         }
+    }
+
+    public void AttackEffect()
+    {
+        ef.GetComponent<Animator>().SetTrigger("effect");
     }
 
     void setting() //난수 설정

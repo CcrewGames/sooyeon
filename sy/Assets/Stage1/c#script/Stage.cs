@@ -462,6 +462,7 @@ public class Stage : MonoBehaviour
     public void Fly()
     {
         GameObject.Find("Player").GetComponent<Animator>().SetTrigger("attack");
+        GameObject.Find("Player").GetComponent<PlayerScript>().AttackEffect();
         fly.SetActive(true);
         flymode = true;
 
@@ -500,6 +501,7 @@ public class Stage : MonoBehaviour
     public void Fly1()
     {
         GameObject.Find("Player").GetComponent<Animator>().SetTrigger("attack");
+        GameObject.Find("Player").GetComponent<PlayerScript>().AttackEffect();
         fly.SetActive(true);
         flymode1 = true;
 

@@ -12,11 +12,20 @@ public class endingscene : MonoBehaviour
 
     float time;
     public int stage;
+    public GameObject BackgroundMusic;
+    AudioSource backmusic;
 
     //시간 불러오기 
 
+    public void Start() //게임 시작 초기화
+    {
+        backmusic = BackgroundMusic.GetComponent<AudioSource>();
+    }
+
     public void endingStart()
     {
+        backmusic.Pause();
+        GameObject.Find("buttonclick").GetComponent<Buttonclick2>().pausemode = true;
         if (stage == 1)
         {
             time = TimeCount.GetComponent<Timecount>().countdownSeconds;

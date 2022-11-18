@@ -232,11 +232,11 @@ public class NumberBundleScript : MonoBehaviour
         CancelInvoke("num5damaged");
         bundle.SetActive(false);
 
-        Destroy(num1);
-        Destroy(num2);
-        Destroy(num3);
-        Destroy(num4);
-        Destroy(num5);
+        num1.SetActive(false);
+        num2.SetActive(false);
+        num3.SetActive(false);
+        num4.SetActive(false);
+        num5.SetActive(false);
 
         GameObject.Find("Stage").GetComponent<Stage3>().realFlyoff();
         GameObject.Find("Cul").GetComponent<CulScript>().realFlyoff();
@@ -307,10 +307,10 @@ public class NumberBundleScript : MonoBehaviour
                 CulUp();
             }
             damaged1 = who;
+            Invoke("num1damaged", 1.5f);
+            num1.SetActive(false);
+            Invoke("num1setting_", 0.8f);
         }
-        Invoke("num1damaged", 0.7f);
-        num1.SetActive(false);
-        Invoke("num1setting_", 0.5f);
     }
     void num1setting_()
     {
@@ -334,10 +334,10 @@ public class NumberBundleScript : MonoBehaviour
                 CulUp();
             }
             damaged2 = who;
+            Invoke("num2damaged", 1.5f);
+            num2.SetActive(false);
+            Invoke("num2setting_", 0.8f);
         }
-        Invoke("num2damaged", 0.7f);
-        num2.SetActive(false);
-        Invoke("num2setting_", 0.5f);
     }
     void num2setting_()
     {
@@ -361,10 +361,10 @@ public class NumberBundleScript : MonoBehaviour
                 CulUp();
             }
             damaged3 = who;
+            Invoke("num3damaged", 1.5f);
+            num3.SetActive(false);
+            Invoke("num3setting_", 0.8f);
         }
-        Invoke("num3damaged", 0.7f);
-        num3.SetActive(false);
-        Invoke("num3setting_", 0.5f);
     }
     void num3setting_()
     {
@@ -388,10 +388,10 @@ public class NumberBundleScript : MonoBehaviour
                 CulUp();
             }
             damaged4 = who;
+            Invoke("num4damaged", 1.5f);
+            num4.SetActive(false);
+            Invoke("num4setting_", 0.8f);
         }
-        Invoke("num4damaged", 0.7f);
-        num4.SetActive(false);
-        Invoke("num4setting_", 0.5f);
     }
     void num4setting_()
     {
@@ -415,10 +415,10 @@ public class NumberBundleScript : MonoBehaviour
                 CulUp();
             }
             damaged5 = who;
+            Invoke("num5damaged", 1.5f);
+            num5.SetActive(false);
+            Invoke("num5setting_", 0.8f);
         }
-        Invoke("num5damaged", 0.7f);
-        num5.SetActive(false);
-        Invoke("num5setting_", 0.5f);
     }
     void num5setting_()
     {

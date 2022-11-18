@@ -4,6 +4,28 @@ using UnityEngine;
 
 public class KalScript : MonoBehaviour
 {
+    AudioSource audioSource;/////////////ì†Œë¦¬
+    public AudioClip healsuccess;
+    public AudioClip error;
+    public AudioClip opps;
+    public AudioClip moncome;
+    void PlaySound(string action){
+        switch (action){
+            case "healsuccess":
+                audioSource.clip = healsuccess;
+                break;
+            case "error":
+                audioSource.clip = error;
+                break;
+            case "opps":
+                audioSource.clip = opps;
+                break;
+            case "moncome":
+                audioSource.clip = moncome;
+                break;
+        }
+        audioSource.Play();
+    }
     public Animator animator;
 
     public GameObject Cul;
@@ -11,43 +33,45 @@ public class KalScript : MonoBehaviour
     public GameObject story;
     public GameObject punch;
 
-    public int heart; //ÇÃ·¹ÀÌ¾î Ã¼·Â
+    public int heart; //í”Œë ˆì´ì–´ ì²´ë ¥
 
-    //ÇÃ·¹ÀÌ¾î ÀÌµ¿ °ü·Ã
-    public int move; //ÇÃ·¹ÀÌ¾î ÀÌµ¿ º¯¼ö
+    //í”Œë ˆì´ì–´ ì´ë™ ê´€ë ¨
+    public int move; //í”Œë ˆì´ì–´ ì´ë™ ë³€ìˆ˜
     float speed = 3f;
 
-    //ÇÃ·¹ÀÌ¾î ¤²¤§¤²¤§ °ü·Ã
-    private bool tremble; //ÇÃ·¹ÀÌ¾î ¤²¤§¤²¤§ º¯¼ö
-    private int movey; //ÁÂ¿ì
+    //í”Œë ˆì´ì–´ ã…‚ã„·ã…‚ã„· ê´€ë ¨
+    private bool tremble; //í”Œë ˆì´ì–´ ã…‚ã„·ã…‚ã„· ë³€ìˆ˜
+    private int movey; //ì¢Œìš°
     float x0;
     float x1;
     float speed1 = 3f;
 
-    bool healmode; //Èú¸ğµå Á¦¾î¿ë º¯¼ö
-    int random; //Èú¸ğµå ³­¼ö
-    //³­¼ö Ç¥½Ã °ü·Ã
+    bool healmode; //íëª¨ë“œ ì œì–´ìš© ë³€ìˆ˜
+    int random; //íëª¨ë“œ ë‚œìˆ˜
+    //ë‚œìˆ˜ í‘œì‹œ ê´€ë ¨
     public GameObject number;
-    private GameObject num1; //ÀÏÀÇ ÀÚ¸®
-    private GameObject num2; //½ÊÀÇ ÀÚ¸®
+    private GameObject num1; //ì¼ì˜ ìë¦¬
+    private GameObject num2; //ì‹­ì˜ ìë¦¬
     float xn = -7f;
     float yn = 1.3f;
     float dis = 0.25f;
 
-    //¹è°æ
+    public GameObject ef;
+
+    //ë°°ê²½
     public GameObject Background;
     public GameObject Background2;
     public GameObject Background3;
     public GameObject floor;
     public GameObject floor2;
     public GameObject floor3;
-    bool f; //¹è°æ ¿òÁ÷ÀÓ º¯¼ö
+    bool f; //ë°°ê²½ ì›€ì§ì„ ë³€ìˆ˜
     float b = -27.5f;
 
-    bool end; //°ÔÀÓ ½ÇÆĞ º¯¼ö
+    bool end; //ê²Œì„ ì‹¤íŒ¨ ë³€ìˆ˜
 
-    private GameObject target; //¸¶¿ì½º Å¬¸¯ È®ÀÎ¿ë º¯¼ö
-    void CastRay() //¸¶¿ì½º Å¬¸¯ È®ÀÎ¿ë ÇÔ¼ö
+    private GameObject target; //ë§ˆìš°ìŠ¤ í´ë¦­ í™•ì¸ìš© ë³€ìˆ˜
+    void CastRay() //ë§ˆìš°ìŠ¤ í´ë¦­ í™•ì¸ìš© í•¨ìˆ˜
     {
         target = null;
         Vector2 pos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
@@ -59,8 +83,9 @@ public class KalScript : MonoBehaviour
         }
     }
 
-    void Start() //°ÔÀÓ ½ÃÀÛ ÃÊ±âÈ­
+    void Start() //ê²Œì„ ì‹œì‘ ì´ˆê¸°í™”
     {
+        audioSource = GetComponent<AudioSource>();/////
         animator = GetComponent<Animator>();
 
         heart = 100;
@@ -84,9 +109,9 @@ public class KalScript : MonoBehaviour
 
     void FixedUpdate()
     {
-        if (movey == 1) //¤²¤§¤²¤§
+        if (movey == 1) //ã…‚ã„·ã…‚ã„·
             transform.position = new Vector2(transform.position.x - speed1 * Time.deltaTime, transform.position.y);
-        else if (movey == 2) //¤²¤§¤²¤§
+        else if (movey == 2) //ã…‚ã„·ã…‚ã„·
             transform.position = new Vector2(transform.position.x + speed1 * Time.deltaTime, transform.position.y);
 
         if (move == 1 && transform.position.x < 0)
@@ -95,6 +120,8 @@ public class KalScript : MonoBehaviour
         }
 
         num2.transform.position = new Vector2(num1.transform.position.x - 2 * dis, num1.transform.position.y);
+
+        ef.transform.position = new Vector2(transform.position.x + 2.5f, transform.position.y + 2.5f);
 
         if (move == 2 && transform.position.x > -7)
         {
@@ -114,8 +141,8 @@ public class KalScript : MonoBehaviour
                 Background.transform.position = new Vector2(-b, Background.transform.position.y);
         }
 
-        Background2.transform.position = new Vector2(Background.transform.position.x + 55f, Background.transform.position.y);
-        Background3.transform.position = new Vector2(Background.transform.position.x - 55f, Background.transform.position.y);
+        Background2.transform.position = new Vector2(Background.transform.position.x + 54.85f, Background.transform.position.y);
+        Background3.transform.position = new Vector2(Background.transform.position.x - 54.85f, Background.transform.position.y);
 
         floor.transform.position = new Vector2(Background.transform.position.x, floor.transform.position.y);
         floor2.transform.position = new Vector2(Background2.transform.position.x, floor2.transform.position.y);
@@ -128,7 +155,7 @@ public class KalScript : MonoBehaviour
         {
             CastRay();
 
-            if (target == this.gameObject && healmode == false) //Èú¸ğµå ½ÃÀÛ
+            if (target == this.gameObject && healmode == false) //íëª¨ë“œ ì‹œì‘
             {
                 animator.SetBool("heal", true);
                 punch.GetComponent<PunchScript>().re();
@@ -138,10 +165,10 @@ public class KalScript : MonoBehaviour
                 setting();
                 healmode = true;
             }
-            else if ((target == this.gameObject || target == num1 || target == num2) && healmode == true) //Èú¸ğµå Á¾·á
+            else if ((target == this.gameObject || target == num1 || target == num2) && healmode == true) //íëª¨ë“œ ì¢…ë£Œ
             {
                 animator.SetBool("heal", false);
-                if (punch.GetComponent<PunchScript>().result == random) //³­¼ö = °á°ú ÀÏÄ¡
+                if (punch.GetComponent<PunchScript>().result == random) //ë‚œìˆ˜ = ê²°ê³¼ ì¼ì¹˜
                 {
                     if (heart + random < 100)
                         heart += random;
@@ -152,8 +179,9 @@ public class KalScript : MonoBehaviour
                     random = 0;
                     punch.GetComponent<PunchScript>().re();
                     punch.GetComponent<PunchScript>().ScrollChange2();
+                    PlaySound("healsuccess");/////////////ì†Œë¦¬
                 }
-                else //³­¼ö = °á°ú ºÒÀÏÄ¡
+                else //ë‚œìˆ˜ = ê²°ê³¼ ë¶ˆì¼ì¹˜
                 {
                     if (tremble == false)
                         Tremble();
@@ -162,6 +190,8 @@ public class KalScript : MonoBehaviour
                     random = 0;
                     punch.GetComponent<PunchScript>().re();
                     punch.GetComponent<PunchScript>().ScrollChange2();
+                    PlaySound("error");/////////////ì†Œë¦¬
+                    Handheld.Vibrate();
                 }
                 punch.GetComponent<PunchScript>().punchmode = 1;
                 punch.GetComponent<PunchScript>().PunchMode();
@@ -169,9 +199,10 @@ public class KalScript : MonoBehaviour
             }
         }
 
-        if (Input.GetKeyDown(KeyCode.A) && GameObject.Find("NumberBundle").GetComponent<NumberBundleScript>().going == 1) //ÀÓÀÇ ÇÇ°İ
+        if (Input.GetKeyDown(KeyCode.A) && GameObject.Find("NumberBundle").GetComponent<NumberBundleScript>().going == 1) //ì„ì˜ í”¼ê²©
         {
             animator.SetTrigger("attack");
+            AttackEffect();
             GameObject.Find("NumberBundle").GetComponent<NumberBundleScript>().who = 1;
             GameObject.Find("NumberBundle").GetComponent<NumberBundleScript>().num1setting();
         }
@@ -184,22 +215,27 @@ public class KalScript : MonoBehaviour
                 movey = 2;
         }
 
-        if (heart <= 0 && end == false) //½ÇÆĞ
+        if (heart <= 0 && end == false) //ì‹¤íŒ¨
         {
             end = true;
             GameObject.Find("ending").GetComponent<endingscene3>().endingStart();
         }
     }
 
-    void setting() //³­¼ö ¼³Á¤
+    public void AttackEffect()
+    {
+        ef.GetComponent<Animator>().SetTrigger("effect");
+    }
+
+    void setting() //ë‚œìˆ˜ ì„¤ì •
     {
         random = Random.Range(5, 10);
         nummaker();
     }
-    void nummaker() //ÇÃ·¹ÀÌ¾î ¸Ó¸® À§ ³­¼ö »ı¼º ÇÔ¼ö
+    void nummaker() //í”Œë ˆì´ì–´ ë¨¸ë¦¬ ìœ„ ë‚œìˆ˜ ìƒì„± í•¨ìˆ˜
     {
         Sprite[] sprites = Resources.LoadAll<Sprite>("number");
-        if (random > 9 && random <= 99) //³­¼ö°¡ ½ÊÀÇ ÀÚ¸®ÀÏ ¶§
+        if (random > 9 && random <= 99) //ë‚œìˆ˜ê°€ ì‹­ì˜ ìë¦¬ì¼ ë•Œ
         {
             int b = random / 10;
             int a = random % 10;
@@ -212,7 +248,7 @@ public class KalScript : MonoBehaviour
             num1.SetActive(true);
             num2.SetActive(true);
         }
-        else if (random > 0 && random <= 9) //³­¼ö°¡ ÀÏÀÇ ÀÚ¸®ÀÏ ¶§
+        else if (random > 0 && random <= 9) //ë‚œìˆ˜ê°€ ì¼ì˜ ìë¦¬ì¼ ë•Œ
         {
             SpriteRenderer spriteA = num1.GetComponent<SpriteRenderer>();
             spriteA.sprite = sprites[random];
@@ -223,7 +259,7 @@ public class KalScript : MonoBehaviour
         }
     }
 
-    void Tremble() //´ú´ú ÇÔ¼ö
+    void Tremble() //ëœëœ í•¨ìˆ˜
     {
         CancelInvoke("Stop");
         x0 = transform.position.x;
@@ -234,7 +270,7 @@ public class KalScript : MonoBehaviour
 
         Invoke("Stop", 0.35f);
     }
-    void Stop() //´ú´ú ¸ØÃß´Â ÇÔ¼ö
+    void Stop() //ëœëœ ë©ˆì¶”ëŠ” í•¨ìˆ˜
     {
         movey = 0;
         transform.position = new Vector2(x0, transform.position.y);
@@ -250,22 +286,22 @@ public class KalScript : MonoBehaviour
         punch.GetComponent<PunchScript>().re();
     }
 
-    //½ºÅ×ÀÌÁö ÀÌµ¿
-    public void Run() //ÀÌµ¿ ´ë±â ÇÔ¼ö
+    //ìŠ¤í…Œì´ì§€ ì´ë™
+    public void Run() //ì´ë™ ëŒ€ê¸° í•¨ìˆ˜
     {
         Invoke("Run_", 1f);
     }
-    void Run_() //¾Ö´Ï¸ŞÀÌ¼Ç ¹Ì¸®
+    void Run_() //ì• ë‹ˆë©”ì´ì…˜ ë¯¸ë¦¬
     {
         animator.SetBool("walk", true);
         Invoke("RunM", 0.6f);
     }
-    void RunM() //Áß°£À¸·Î ÀÌµ¿ ÇÔ¼ö
+    void RunM() //ì¤‘ê°„ìœ¼ë¡œ ì´ë™ í•¨ìˆ˜
     {
         move = 1;
         Invoke("Find", 5f);
     }
-    void Find() //¸ó½ºÅÍ ¸¶ÁÖÄ§! ÇÔ¼ö
+    void Find() //ëª¬ìŠ¤í„° ë§ˆì£¼ì¹¨! í•¨ìˆ˜
     {
         move = 0;
         f = true;
@@ -275,26 +311,30 @@ public class KalScript : MonoBehaviour
             animator.SetTrigger("surprise");
         }
         Invoke("Re", 2f);
+        PlaySound("opps");
     }
-    void Re() //¿øÀ§Ä¡·Î ÀÌµ¿ ÇÔ¼ö
+    void Re() //ì›ìœ„ì¹˜ë¡œ ì´ë™ í•¨ìˆ˜
     {
         Cul.GetComponent<CulScript>().move1();
         move = 2;
         f = false;
         Invoke("Next", 5f);
+        Invoke("soundDong", 1.5f);
         if (stage.GetComponent<Stage3>().stage == 0)
         {
             Invoke("Story1", 2.85f);
         }
     }
-    public void Next() //ÀÌµ¿ º¯¼ö ÃÊ±âÈ­ ÇÔ¼ö
+    void soundDong(){
+        PlaySound("moncome");
+    }
+    public void Next() //ì´ë™ ë³€ìˆ˜ ì´ˆê¸°í™” í•¨ìˆ˜
     {
         move = 0;
     }
 
-    void Story1() //½ºÅä¸®1
+    void Story1() //ìŠ¤í† ë¦¬1
     {
         story.GetComponent<Story3Script>().Story1On();
     }
 }
-

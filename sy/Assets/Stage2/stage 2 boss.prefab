@@ -76,7 +76,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: -8
+  m_SortingOrder: -10
   m_Sprite: {fileID: -699708809, guid: 3a61b22f00accc548bd48efb3bd1fc3a, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -126,7 +126,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9d6634dd36cd5b54dacf275f9e5144a4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  bombsound: {fileID: 8300000, guid: 3162c17fe4d054a50bf8e3dc12d8ca1a, type: 3}
+  bombsound: {fileID: 8300000, guid: 262b0029e3033492084b3186fe10716a, type: 3}
   bombgogo: {fileID: 0}
   logcome: {fileID: 8300000, guid: 1eca57c0e019a49bf8bf88d5509f377e, type: 3}
   animator: {fileID: 0}

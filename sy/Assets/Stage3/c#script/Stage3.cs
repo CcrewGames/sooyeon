@@ -1,4 +1,4 @@
-//½ºÅ×ÀÌÁö 3
+//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ 3
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -6,6 +6,35 @@ using UnityEngine.UI;
 
 public class Stage3 : MonoBehaviour
 {
+    public GameObject BackgroundMusic;
+    AudioSource backmusic;
+    AudioSource audioSource;/////////////ì†Œë¦¬
+    public AudioClip stagegogo;
+    public AudioClip stageclear;
+    public AudioClip sword;
+    public AudioClip pauseclick;
+    public AudioClip monappear;
+
+    void PlaySound(string action){
+        switch (action){
+            case "stagegogo":
+                audioSource.clip = stagegogo;
+                break;
+            case "stageclear":
+                audioSource.clip = stageclear;
+                break;
+            case "sword":
+                audioSource.clip = sword;
+                break;
+            case "pauseclick":
+                audioSource.clip = pauseclick;
+                break;
+            case "monappear":
+                audioSource.clip = monappear;
+                break;
+        }
+        audioSource.Play();
+    }
     public GameObject canvas;
     public GameObject ending;
     public GameObject FightBar;
@@ -16,11 +45,11 @@ public class Stage3 : MonoBehaviour
     public GameObject Resume;
     public bool pausemode;
 
-    public int stage; //ÇöÀç ´Ü°è È®ÀÎ¿ë º¯¼ö
-    public bool stagemove; //´Ü°è »çÀÌ ÀÌµ¿ ½Ã°£ È®º¸¿ë º¯¼ö
-    public int fortime; //½Ã°£ Èå¸£°Ô ÇÏ±â À§ÇÑ º¯¼ö
+    public int stage; //ï¿½ï¿½ï¿½ï¿½ ï¿½Ü°ï¿½ È®ï¿½Î¿ï¿½ ï¿½ï¿½ï¿½ï¿½
+    public bool stagemove; //ï¿½Ü°ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ìµï¿½ ï¿½Ã°ï¿½ È®ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+    public int fortime; //ï¿½Ã°ï¿½ ï¿½å¸£ï¿½ï¿½ ï¿½Ï±ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 
-    public int remain; //´Ü°èº° ³²Àº ¸ó½ºÅÍ ¼ö È®ÀÎ¿ë º¯¼ö
+    public int remain; //ï¿½Ü°èº° ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ È®ï¿½Î¿ï¿½ ï¿½ï¿½ï¿½ï¿½
 
     public GameObject monster;
     public GameObject monster2;
@@ -40,7 +69,7 @@ public class Stage3 : MonoBehaviour
     float y3 = -0.6f;
     float y4 = -1.2f;
 
-    //Ä® ³¯¶ó°¡±â~
+    //Ä® ï¿½ï¿½ï¿½ó°¡±ï¿½~
     public GameObject AttackBar1;
     GameObject fly;
     float xk = -6.5f;
@@ -60,8 +89,8 @@ public class Stage3 : MonoBehaviour
 
     GameObject ForDestroy;
 
-    private GameObject target; //¸¶¿ì½º Å¬¸¯ È®ÀÎ¿ë º¯¼ö
-    void CastRay() //¸¶¿ì½º Å¬¸¯ È®ÀÎ¿ë ÇÔ¼ö
+    private GameObject target; //ï¿½ï¿½ï¿½ì½º Å¬ï¿½ï¿½ È®ï¿½Î¿ï¿½ ï¿½ï¿½ï¿½ï¿½
+    void CastRay() //ï¿½ï¿½ï¿½ì½º Å¬ï¿½ï¿½ È®ï¿½Î¿ï¿½ ï¿½Ô¼ï¿½
     {
         target = null;
         Vector2 pos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
@@ -73,8 +102,10 @@ public class Stage3 : MonoBehaviour
         }
     }
 
-    public void Start() //°ÔÀÓ ½ÃÀÛ ÃÊ±âÈ­
+    public void Start() //ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ê±ï¿½È­
     {
+        backmusic = BackgroundMusic.GetComponent<AudioSource>();
+        audioSource = GetComponent<AudioSource>();/////////////ì†Œë¦¬
         FightBar.SetActive(false);
 
         ResumeMode();
@@ -83,7 +114,7 @@ public class Stage3 : MonoBehaviour
         //stagemove = false;
         //remain = 1;
 
-        stage = 0;
+        stage = 1;
         stagemove = true;
         remain = 0;
 
@@ -103,6 +134,7 @@ public class Stage3 : MonoBehaviour
         if (flymode == true)
         {
             fly.transform.position = Vector2.Lerp(fly.transform.position, new Vector2(xf, yf), Time.deltaTime * speed);
+            PlaySound("sword");/////////////ì†Œë¦¬
         }
         if (fly.transform.position.x >= xf - 1f && flymode == true)
         {
@@ -118,15 +150,17 @@ public class Stage3 : MonoBehaviour
 
             if (target == Pause)
             {
-                PauseMode();
+                MusicPauseMode();
+                PlaySound("pauseclick");
             }
             else if (target == Resume)
             {
-                ResumeMode();
+                MusicResumeMode();
+                PlaySound("pauseclick");
             }
         }
 
-        if (stage == 0 && remain == 0) //1´Ü°è ÁØºñ
+        if (stage == 0 && remain == 0) //1ï¿½Ü°ï¿½ ï¿½Øºï¿½
         {
             fortime = 0;
             punch.GetComponent<PunchScript>().ScrollChange3();
@@ -144,8 +178,9 @@ public class Stage3 : MonoBehaviour
             remain = 4;
         }
 
-        if (stage == 1 && stagemove == false) //1´Ü°è ½ÃÀÛ
+        if (stage == 1 && stagemove == false) //1ï¿½Ü°ï¿½ ï¿½ï¿½ï¿½ï¿½
         {
+            
             fortime = 1;
             punch.GetComponent<PunchScript>().ScrollChange2();
 
@@ -164,8 +199,9 @@ public class Stage3 : MonoBehaviour
             stagemove = true;
         }
 
-        if (stage == 1 && remain == 0) //1´Ü°è Á¾·á
+        if (stage == 1 && remain == 0) //1ï¿½Ü°ï¿½ ï¿½ï¿½ï¿½ï¿½
         {
+            PlaySound("stageclear");/////////////
             fortime = 0;
             punch.GetComponent<PunchScript>().ScrollChange3();
 
@@ -182,8 +218,9 @@ public class Stage3 : MonoBehaviour
             remain = 1;
         }
 
-        if (stage == 2 && stagemove == false) //2´Ü°è ½ÃÀÛ
+        if (stage == 2 && stagemove == false) //2ï¿½Ü°ï¿½ ï¿½ï¿½ï¿½ï¿½
         {
+            PlaySound("stagegogo");/////////////ì†Œë¦¬
             fortime = 1;
             punch.GetComponent<PunchScript>().ScrollChange2();
 
@@ -194,12 +231,14 @@ public class Stage3 : MonoBehaviour
             stagemove = true;
         }
 
-        if (stage == 3 && stagemove == false) //½ºÅä¸® ¸ğµå
+        if (stage == 3 && stagemove == false) //ï¿½ï¿½ï¿½ä¸® ï¿½ï¿½ï¿½
         {
+            PlaySound("stageclear");/////////////
             Cul.transform.position = new Vector2(7, Cul.transform.position.y);
 
             punch.GetComponent<PunchScript>().punchmode = 0;
             punch.GetComponent<PunchScript>().PunchMode();
+            punch.GetComponent<PunchScript>().re();
             punch.GetComponent<PunchScript>().ScrollChange3();
             Cul.GetComponent<CulScript>().AttackBarOff();
             Invoke("Story2_2", 4f);
@@ -208,8 +247,9 @@ public class Stage3 : MonoBehaviour
             stagemove = true;
         }
 
-        if (stage == 3 && remain == 0) //Å¬¸®¾î
+        if (stage == 3 && remain == 0) //Å¬ï¿½ï¿½ï¿½ï¿½
         {
+            PlaySound("stagegogo");/////////////ì†Œë¦¬
             StageEnding();
 
             stagemove = true;
@@ -220,7 +260,15 @@ public class Stage3 : MonoBehaviour
     {
         Time.timeScale = 0;
         pausemode = true;
-        GameObject.Find("buttonclick").GetComponent<Buttonclick>().pausemode = true;
+        Pause.SetActive(false);
+        Resume.SetActive(true);
+    }
+    public void MusicPauseMode()//ìŒì•…ë„ ê°™ì´
+    {
+        backmusic.Pause();
+        Time.timeScale = 0;
+        pausemode = true;
+        //GameObject.Find("buttonclick").GetComponent<Buttonclick2>().pausemode = true;
         Pause.SetActive(false);
         Resume.SetActive(true);
     }
@@ -228,12 +276,21 @@ public class Stage3 : MonoBehaviour
     {
         Time.timeScale = 1;
         pausemode = false;
-        GameObject.Find("buttonclick").GetComponent<Buttonclick>().pausemode = false;
+        Pause.SetActive(true);
+        Resume.SetActive(false);
+    }
+    public void MusicResumeMode() //ìŒì•…ë„ ê°™ì´
+    {
+        backmusic.Play();
+        Time.timeScale = 1;
+        pausemode = false;
+        //GameObject.Find("buttonclick").GetComponent<Buttonclick2>().pausemode = false;
         Pause.SetActive(true);
         Resume.SetActive(false);
     }
 
-    public void StageMove() //´Ü°è »çÀÌ ÀÌµ¿ ½Ã°£ È®º¸¿ë ÇÔ¼ö
+
+    public void StageMove() //ï¿½Ü°ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ìµï¿½ ï¿½Ã°ï¿½ È®ï¿½ï¿½ï¿½ï¿½ ï¿½Ô¼ï¿½
     {
         stage++;
         stagemove = false;
@@ -269,6 +326,7 @@ public class Stage3 : MonoBehaviour
     public void Fly()
     {
         GameObject.Find("Player").GetComponent<Animator>().SetTrigger("attack");
+        GameObject.Find("Player").GetComponent<KalScript>().AttackEffect();
         fly.SetActive(true);
         flymode = true;
 
@@ -338,6 +396,7 @@ public class Stage3 : MonoBehaviour
 
     public void CulSkill1()
     {
+        PlaySound("monappear");
         GameObject.Find("Player").GetComponent<Animator>().SetTrigger("surprise");
         mon1.transform.position = new Vector2(Cul.transform.position.x + 1, y1);
         mon2.transform.position = new Vector2(Cul.transform.position.x + 4, y2);
@@ -371,6 +430,7 @@ public class Stage3 : MonoBehaviour
     {
         punch.GetComponent<PunchScript>().punchmode = 0;
         punch.GetComponent<PunchScript>().PunchMode();
+        punch.GetComponent<PunchScript>().re();
         punch.GetComponent<PunchScript>().ScrollChange3();
         FightBar.SetActive(false);
         GameObject.Find("NumberBundle").GetComponent<NumberBundleScript>().numbunOff();
@@ -390,7 +450,7 @@ public class Stage3 : MonoBehaviour
     }
     public void NextStory()
     {
-        Cul.GetComponent<CulScript>().KiloProtoOn();
+        Cul.GetComponent<CulScript>().KerWongiOn();
     }
 
     public void StageEnding()

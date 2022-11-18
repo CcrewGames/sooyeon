@@ -37,7 +37,6 @@ public class PlayerScript2 : MonoBehaviour
 
     //플레이어 이동 관련
     public int move; //플레이어 이동 변수
-    float xm = -1.6f;
     float speed = 3f;
 
     //플레이어 ㅂㄷㅂㄷ 관련
@@ -56,6 +55,8 @@ public class PlayerScript2 : MonoBehaviour
     float xn = -7f;
     float yn = 1.3f;
     float dis = 0.25f;
+
+    public GameObject ef;
 
     //배경
     public GameObject Background;
@@ -130,6 +131,8 @@ public class PlayerScript2 : MonoBehaviour
 
         num2.transform.position = new Vector2(num1.transform.position.x - 2 * dis, num1.transform.position.y);
 
+        ef.transform.position = new Vector2(transform.position.x + 2.5f, transform.position.y + 2.5f);
+
         if (move == 2 && transform.position.x > -7)
         {
             transform.position = Vector2.MoveTowards(transform.position, new Vector2(-7, transform.position.y), Time.deltaTime * (speed + 2));
@@ -148,17 +151,17 @@ public class PlayerScript2 : MonoBehaviour
                 Background.transform.position = new Vector2(-b, Background.transform.position.y);
         }
 
-        Background2.transform.position = new Vector2(Background.transform.position.x + 55f, Background.transform.position.y);
-        Background3.transform.position = new Vector2(Background.transform.position.x - 55f, Background.transform.position.y);
+        Background2.transform.position = new Vector2(Background.transform.position.x + 54.85f, Background.transform.position.y);
+        Background3.transform.position = new Vector2(Background.transform.position.x - 54.85f, Background.transform.position.y);
 
         floor.transform.position = new Vector2(Background.transform.position.x, floor.transform.position.y);
         floor2.transform.position = new Vector2(Background2.transform.position.x, floor2.transform.position.y);
         floor3.transform.position = new Vector2(Background3.transform.position.x, floor3.transform.position.y);
 
         //엔딩 이동
-        if (move == 3 && transform.position.x <= -0.01f + xm)
+        if (move == 3 && transform.position.x <= -0.01f)
         {
-            transform.position = Vector2.MoveTowards(transform.position, new Vector2(xm, transform.position.y), Time.deltaTime * (speed + 2));
+            transform.position = Vector2.MoveTowards(transform.position, new Vector2(0, transform.position.y), Time.deltaTime * (speed + 2));
         }
         if (buttonmove == true)
         {
@@ -236,6 +239,7 @@ public class PlayerScript2 : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Space)) //임의 피격
         {
             animator.SetTrigger("attack");
+            AttackEffect();
         }
 
         if (tremble == true)
@@ -253,7 +257,7 @@ public class PlayerScript2 : MonoBehaviour
         }
 
         //엔딩
-        if (move == 3 && transform.position.x >= -0.01f + xm)
+        if (move == 3 && transform.position.x >= -0.01f)
         {
             buttonmove = true;
         }
@@ -271,6 +275,11 @@ public class PlayerScript2 : MonoBehaviour
             GameObject.Find("Stage").GetComponent<Stage2>().bossdie = true;
             button = false;
         }
+    }
+
+    public void AttackEffect()
+    {
+        ef.GetComponent<Animator>().SetTrigger("effect");
     }
 
     void setting() //난수 설정
