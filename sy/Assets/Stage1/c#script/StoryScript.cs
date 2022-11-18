@@ -13,15 +13,16 @@ public class StoryScript : MonoBehaviour
     public List<string> sentences1;
     public List<string> sentences1_2;
     public List<string> sentences2;
+    public List<string> sentences2_1;
     public List<string> sentences2_2;
     public List<string> sentences3;
     public bool clickNextButton = false;
 
     int size, i;
 
-    private GameObject target; //¸¶¿ì½º Å¬¸¯ È®ÀÎ¿ë º¯¼ö
+    private GameObject target; //ë§ˆìš°ìŠ¤ í´ë¦­ í™•ì¸ìš© ë³€ìˆ˜
 
-    void CastRay() //¸¶¿ì½º Å¬¸¯ È®ÀÎ¿ë ÇÔ¼ö
+    void CastRay() //ë§ˆìš°ìŠ¤ í´ë¦­ í™•ì¸ìš© í•¨ìˆ˜
     {
         target = null;
         Vector2 pos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
@@ -81,6 +82,19 @@ public class StoryScript : MonoBehaviour
                 storytext.text = sentences2[i];
                 clickNextButton = false;
             }
+            else if (GameObject.Find("Stage").GetComponent<Stage>().story == 2.1f)
+            {
+                if (i == 1 || i == 2)
+                {
+                    Storylog10();
+                }
+                else
+                {
+                    Storykal();
+                }
+                storytext.text = sentences2_1[i];
+                clickNextButton = false;
+            }
             else if (GameObject.Find("Stage").GetComponent<Stage>().story == 2.5f)
             {
                 if (i == 2)
@@ -123,15 +137,38 @@ public class StoryScript : MonoBehaviour
         nextbutton1.SetActive(true);
 
         sentences1 = new List<string>();
-        sentences1.Add("¹¹¾ß. ±×»õ ¾îµğ·Î »ç¶óÁø °Å¾ß?!");
-        sentences1.Add("±×³ªÀú³ª ¿À´Â ±æÀÌ ¹«³ÊÁ®°¡´Â ºùÇÏÀÏ ÁÙÀº ¸ô¶ú¾î...");
-        sentences1.Add("ÀÌ·² ÁÙ ¾Ë¾ÒÀ¸¸é Á¡ÇÁ ÈÆ·Ã ¶§ ´ÊÀáÀÚÁö ¸» °É!");
-        sentences1.Add("¸Õ ¾ÕÂÊ¿¡¼­ °­ÇÑ ¾ÇÇÑ ±â¿îÀÌ ´À²¸Áø´Ù.");
-        sentences1.Add("ÇÑ¹ø ³ª¾Æ°¡º¸ÀÚ.");
+        sentences1.Add("ë­ì•¼. ê·¸ìƒˆ ì–´ë””ë¡œ ì‚¬ë¼ì§„ ê±°ì•¼?!");
+        sentences1.Add("ê·¸ë‚˜ì €ë‚˜ ì˜¤ëŠ” ê¸¸ì´ ë¬´ë„ˆì ¸ê°€ëŠ” ë¹™í•˜ì¼ ì¤„ì€ ëª°ëì–´...");
+        sentences1.Add("ì´ëŸ´ ì¤„ ì•Œì•˜ìœ¼ë©´ ì í”„ í›ˆë ¨ ë•Œ ëŠ¦ì ìì§€ ë§ ê±¸!");
+        sentences1.Add("ë¨¼ ì•ìª½ì—ì„œ ê°•í•œ ì•…í•œ ê¸°ìš´ì´ ëŠê»´ì§„ë‹¤.");
+        sentences1.Add("í•œë²ˆ ë‚˜ì•„ê°€ë³´ì.");
         size = sentences1.Count;
 
         i = 0;
         storytext.text = sentences1[i];
+    }
+    public void Story2_1On()
+    {
+        GameObject.Find("Stage").GetComponent<Stage>().PauseMode();
+        GameObject.Find("Stage").GetComponent<Stage>().story = 2.1f;
+
+        canvas.SetActive(true);
+        background1.SetActive(true);
+        playerimage1.SetActive(true);
+        bossimage1.SetActive(false);
+        textbox1.SetActive(true);
+        nextbutton1.SetActive(true);
+
+        sentences2_1 = new List<string>();
+        //1, 2
+        sentences2_1.Add("ì´ê²Œ ë‹¤ì¸ê°€ìš”?"); //ì¹¼
+        sentences2_1.Add("ê·¸ëŸ´ë¦¬ê°€!"); //ë¡œê·¸ì‹­
+        sentences2_1.Add("ë‚´ ê³µê²©ì€ ì¡°ê¸ˆ ë‹¤ë¥¼ê±¸ì„¸."); //ë¡œê·¸ì‹­
+        size = sentences2_1.Count;
+
+        Storykal();
+        i = 0;
+        storytext.text = sentences2_1[i];
     }
     public void Story1_2On()
     {
@@ -146,13 +183,15 @@ public class StoryScript : MonoBehaviour
         nextbutton1.SetActive(true);
 
         sentences1_2 = new List<string>();
-        sentences1_2.Add("ÀÌ·±, Ã³À½ º¸´Â ±«¹°µéÀÌÀİ¾Æ!");
-        sentences1_2.Add("¸¶Âù°¡Áö·Î Å§ÀÇ ºÎÇÏµéÀÎ°¡º¸±º. ³»°¡ ÀüºÎ È¥ÂáÀ» ³»ÁÖÁö!");
+        sentences1_2.Add("ì´ëŸ°, ì²˜ìŒ ë³´ëŠ” ê´´ë¬¼ë“¤ì´ì–ì•„!");
+        sentences1_2.Add("ë§ˆì°¬ê°€ì§€ë¡œ í˜ì˜ ë¶€í•˜ë“¤ì¸ê°€ë³´êµ°. ë‚´ê°€ ì „ë¶€ í˜¼ì­ì„ ë‚´ì£¼ì§€!");
         size = sentences1_2.Count;
 
         i = 0;
         storytext.text = sentences1_2[i];
     }
+
+    
 
     public void Story2On()
     {
@@ -166,16 +205,16 @@ public class StoryScript : MonoBehaviour
 
         sentences2 = new List<string>();
         //0, 4, 5, 8, 9
-        sentences2.Add("ÀÌ·±! ¹ú½á ¿©±â±îÁö ¿Í ¹ö¸®´Ù´Ï! ¿ì¸® ±â»çµéÀ» ´Ù Ã³¸®ÇØ¹ö¸° °ÍÀÎ°¡?!"); //·Î±×½Ê
-        sentences2.Add("(µåµğ¾î Á¦´ë·Î Á¶¿ìÇß±º.)"); //Ä®
-        sentences2.Add("±×·¸½À´Ï´Ù. ´ëÃ¼ ÆòÈ­·Ó´ø ÀÌ ¾óÀ½ ¸¶À»À» ¿Ö °ø°İÇÑ °Ì´Ï±î?"); //Ä®
-        sentences2.Add("´ç½Åµé ¶§¹®¿¡ ¼ö¸¹Àº ÁÖ¹ÎµéÀÌ °íÅë¹Ş°í ÀÖ½À´Ï´Ù!"); //Ä®
-        sentences2.Add("±Û½ê? ´ÜÁö ¿ì¸° ÀÌ ¸¶À»¿¡ Çõ¸íÀ» ÀÏÀ¸Å² °Å¶ó³×!"); //·Î±×½Ê
-        sentences2.Add("¸ğµÎµé ¹ÌÀû¹ÌÀû´ë´Â ²ÃÀº Á¤¸» ºÁÁÙ ¼ö ¾ø¾î... ³» ½Å³äÀ» ÀÌÇØÇÒ ¼ö ÀÖ°Ú³ª?"); //·Î±×½Ê
-        sentences2.Add("(Á¦Á¤½ÅÀÌ ¾Æ´ÏÀİ¾Æ...)"); //Ä®
-        sentences2.Add("Ä®ÀÇ ¶æÀ» µû¸£°Ô µÈ °É ÈÄÈ¸ÇÏ°Ô µÉ °ÍÀÔ´Ï´Ù."); //Ä®
-        sentences2.Add("°¨È÷ ±× ºĞÀ» ¾ğ±ŞÇÏ´Ù´Ï! ÀÚ³Ù Àı´ë ¿ì¸®ÀÇ À§´ëÇÑ ±àÁö¸¦ ÀÌÇØÇÒ ¼ö ¾ø¾î!"); //·Î±×½Ê
-        sentences2.Add("³ªÀÇ 1:2, 3:2 Á¤¼ö ºñÀÇ ÀÌ»óÀû È­À½ °ø°İ ¸ÀÀ» º¸°Ô³ª!"); //·Î±×½Ê
+        sentences2.Add("ì´ëŸ°! ë²Œì¨ ì—¬ê¸°ê¹Œì§€ ì™€ ë²„ë¦¬ë‹¤ë‹ˆ! ìš°ë¦¬ ê¸°ì‚¬ë“¤ì„ ë‹¤ ì²˜ë¦¬í•´ë²„ë¦° ê²ƒì¸ê°€?!"); //ë¡œê·¸ì‹­
+        sentences2.Add("(ë“œë””ì–´ ì œëŒ€ë¡œ ì¡°ìš°í–ˆêµ°.)"); //ì¹¼
+        sentences2.Add("ê·¸ë ‡ìŠµë‹ˆë‹¤. ëŒ€ì²´ í‰í™”ë¡­ë˜ ì´ ì–¼ìŒ ë§ˆì„ì„ ì™œ ê³µê²©í•œ ê²ë‹ˆê¹Œ?"); //ì¹¼
+        sentences2.Add("ë‹¹ì‹ ë“¤ ë•Œë¬¸ì— ìˆ˜ë§ì€ ì£¼ë¯¼ë“¤ì´ ê³ í†µë°›ê³  ìˆìŠµë‹ˆë‹¤!"); //ì¹¼
+        sentences2.Add("ê¸€ì„? ë‹¨ì§€ ìš°ë¦° ì´ ë§ˆì„ì— í˜ëª…ì„ ì¼ìœ¼í‚¨ ê±°ë¼ë„¤!"); //ë¡œê·¸ì‹­
+        sentences2.Add("ëª¨ë‘ë“¤ ë¯¸ì ë¯¸ì ëŒ€ëŠ” ê¼´ì€ ì •ë§ ë´ì¤„ ìˆ˜ ì—†ì–´... ë‚´ ì‹ ë…ì„ ì´í•´í•  ìˆ˜ ìˆê² ë‚˜?"); //ë¡œê·¸ì‹­
+        sentences2.Add("(ì œì •ì‹ ì´ ì•„ë‹ˆì–ì•„...)"); //ì¹¼
+        sentences2.Add("ì¹¼ì˜ ëœ»ì„ ë”°ë¥´ê²Œ ëœ ê±¸ í›„íšŒí•˜ê²Œ ë  ê²ƒì…ë‹ˆë‹¤."); //ì¹¼
+        sentences2.Add("ê°íˆ ê·¸ ë¶„ì„ ì–¸ê¸‰í•˜ë‹¤ë‹ˆ! ìë„¨ ì ˆëŒ€ ìš°ë¦¬ì˜ ìœ„ëŒ€í•œ ê¸ì§€ë¥¼ ì´í•´í•  ìˆ˜ ì—†ì–´!"); //ë¡œê·¸ì‹­
+        sentences2.Add("ë‚˜ì˜ 1:2, 3:2 ì •ìˆ˜ ë¹„ì˜ ì´ìƒì  í™”ìŒ ê³µê²© ë§›ì„ ë³´ê²Œë‚˜!"); //ë¡œê·¸ì‹­
         size = sentences2.Count;
 
         Storylog10();
@@ -196,9 +235,9 @@ public class StoryScript : MonoBehaviour
 
         sentences2_2 = new List<string>();
         //2
-        sentences2_2.Add("´õ ÀÌ»óÀÇ ¾ÇÇàÀ» ¸ØÃß°Ú´Ù ¾à¼ÓÇÏ¼¼¿ä!"); //Ä®
-        sentences2_2.Add("±×·³ Àúµµ ´õ ÀÌ»ó ´ç½ÅÀ» °ø°İÇÏÁö ¾ÊÀ» °ÍÀÔ´Ï´Ù!"); //Ä®
-        sentences2_2.Add("Çê¼Ò¸®´Â Áı¾îÄ¡¿ö!"); //·Î±×½Ê
+        sentences2_2.Add("ë” ì´ìƒì˜ ì•…í–‰ì„ ë©ˆì¶”ê² ë‹¤ ì•½ì†í•˜ì„¸ìš”!"); //ì¹¼
+        sentences2_2.Add("ê·¸ëŸ¼ ì €ë„ ë” ì´ìƒ ë‹¹ì‹ ì„ ê³µê²©í•˜ì§€ ì•Šì„ ê²ƒì…ë‹ˆë‹¤!"); //ì¹¼
+        sentences2_2.Add("í—›ì†Œë¦¬ëŠ” ì§‘ì–´ì¹˜ì›Œ!"); //ë¡œê·¸ì‹­
         size = sentences2_2.Count;
 
         Storykal();
@@ -220,10 +259,10 @@ public class StoryScript : MonoBehaviour
 
         sentences3 = new List<string>();
         //0, 2, 3
-        sentences3.Add("À¸À¹..."); //·Î±×½Ê
-        sentences3.Add("...´ëÃ¼ ¹«¾ùÀÌ ´ç½ÅÀ» ÀÌ·¸°Ô±îÁö ¸¸µç °Ì´Ï±î."); //Ä®
-        sentences3.Add("¸»ÇßÀİ¾Æ. ³Ê µûÀ© Àı´ë·Î ÀÌÇØÇÒ ¼ö ¾ø´Ù°í..."); //·Î±×½Ê
-        sentences3.Add("¹æ½ÉÇÏÁö ¸¶. ³»°¡ Á×¾îµµ ÀÌ ½Î¿òÀº °è¼ÓµÉ°É¼¼..."); //·Î±×½Ê
+        sentences3.Add("ìœ¼ìœ½..."); //ë¡œê·¸ì‹­
+        sentences3.Add("...ëŒ€ì²´ ë¬´ì—‡ì´ ë‹¹ì‹ ì„ ì´ë ‡ê²Œê¹Œì§€ ë§Œë“  ê²ë‹ˆê¹Œ."); //ì¹¼
+        sentences3.Add("ë§í–ˆì–ì•„. ë„ˆ ë”°ìœˆ ì ˆëŒ€ë¡œ ì´í•´í•  ìˆ˜ ì—†ë‹¤ê³ ..."); //ë¡œê·¸ì‹­
+        sentences3.Add("ë°©ì‹¬í•˜ì§€ ë§ˆ. ë‚´ê°€ ì£½ì–´ë„ ì´ ì‹¸ì›€ì€ ê³„ì†ë ê±¸ì„¸..."); //ë¡œê·¸ì‹­
         size = sentences3.Count;
 
         Storylog10();

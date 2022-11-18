@@ -4,20 +4,26 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using UnityEngine.SceneManagement;
 
 public class Timecount2 : MonoBehaviour
 {
+    AudioSource audioSource;/////////////소리
+
     public float countdownSeconds = 210;
     private TextMeshProUGUI timeText;
 
     private bool timeend;
+    private bool timeends;/////////////소리
 
     public GameObject stage;
 
     private void Start()
     {
+        audioSource = GetComponent<AudioSource>();/////////////소리
         timeText = GetComponent<TextMeshProUGUI>();
         timeend = true;
+        timeends = true;/////////////소리
     }
 
     void Update()
@@ -35,6 +41,13 @@ public class Timecount2 : MonoBehaviour
                 timeend = false;
             }
         }
+        if (timeends == true){/////////////소리
+            if (countdownSeconds <= 6) 
+            {
+               audioSource.Play();
+               timeends = false;
+            }
+        }
     }
     void Stagetimeout()
     {
@@ -47,6 +60,6 @@ public class Timecount2 : MonoBehaviour
 
     void End()
     {
-        //다른 씬으로 넘어가도록 해야 됨
+        //SceneManager.LoadScene("Stagehome");
     }
 }

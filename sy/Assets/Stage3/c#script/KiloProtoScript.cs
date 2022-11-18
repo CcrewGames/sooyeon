@@ -27,7 +27,7 @@ public class KiloProtoScript : MonoBehaviour
 
     void FixedUpdate()
     {
-        ef.transform.position = transform.position;
+        ef.transform.position = new Vector2(transform.position.x, transform.position.y - 0.5f);
     }
 
     void Update()

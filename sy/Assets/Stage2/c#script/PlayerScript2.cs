@@ -4,47 +4,70 @@ using UnityEngine;
 
 public class PlayerScript2 : MonoBehaviour
 {
+    AudioSource audioSource;/////////////ì†Œë¦¬
+    public AudioClip healsuccess;
+    public AudioClip error;
+    public AudioClip opps;
+    public AudioClip moncome;
+    void PlaySound(string action){
+        switch (action){
+            case "healsuccess":
+                audioSource.clip = healsuccess;
+                break;
+            case "error":
+                audioSource.clip = error;
+                break;
+            case "opps":
+                audioSource.clip = opps;
+                break;
+            case "moncome":
+                audioSource.clip = moncome;
+                break;
+        }
+        audioSource.Play();
+    }
+
     public Animator animator;
 
     public GameObject stage;
     public GameObject story;
     public GameObject punch;
 
-    public int heart; //ÇÃ·¹ÀÌ¾î Ã¼·Â
+    public int heart; //í”Œë ˆì´ì–´ ì²´ë ¥
 
-    //ÇÃ·¹ÀÌ¾î ÀÌµ¿ °ü·Ã
-    public int move; //ÇÃ·¹ÀÌ¾î ÀÌµ¿ º¯¼ö
+    //í”Œë ˆì´ì–´ ì´ë™ ê´€ë ¨
+    public int move; //í”Œë ˆì´ì–´ ì´ë™ ë³€ìˆ˜
     float xm = -1.6f;
     float speed = 3f;
 
-    //ÇÃ·¹ÀÌ¾î ¤²¤§¤²¤§ °ü·Ã
-    private bool tremble; //ÇÃ·¹ÀÌ¾î ¤²¤§¤²¤§ º¯¼ö
-    private int movey; //ÁÂ¿ì
+    //í”Œë ˆì´ì–´ ã…‚ã„·ã…‚ã„· ê´€ë ¨
+    private bool tremble; //í”Œë ˆì´ì–´ ã…‚ã„·ã…‚ã„· ë³€ìˆ˜
+    private int movey; //ì¢Œìš°
     float x0;
     float x1;
     float speed1 = 3f;
 
-    bool healmode; //Èú¸ğµå Á¦¾î¿ë º¯¼ö
-    int random; //Èú¸ğµå ³­¼ö
-    //³­¼ö Ç¥½Ã °ü·Ã
+    bool healmode; //íëª¨ë“œ ì œì–´ìš© ë³€ìˆ˜
+    int random; //íëª¨ë“œ ë‚œìˆ˜
+    //ë‚œìˆ˜ í‘œì‹œ ê´€ë ¨
     public GameObject number;
-    private GameObject num1; //ÀÏÀÇ ÀÚ¸®
-    private GameObject num2; //½ÊÀÇ ÀÚ¸®
+    private GameObject num1; //ì¼ì˜ ìë¦¬
+    private GameObject num2; //ì‹­ì˜ ìë¦¬
     float xn = -7f;
     float yn = 1.3f;
     float dis = 0.25f;
 
-    //¹è°æ
+    //ë°°ê²½
     public GameObject Background;
     public GameObject Background2;
     public GameObject Background3;
     public GameObject floor;
     public GameObject floor2;
     public GameObject floor3;
-    bool f; //¹è°æ ¿òÁ÷ÀÓ º¯¼ö
+    bool f; //ë°°ê²½ ì›€ì§ì„ ë³€ìˆ˜
     float b = -27.5f;
 
-    bool end; //°ÔÀÓ ½ÇÆĞ º¯¼ö
+    bool end; //ê²Œì„ ì‹¤íŒ¨ ë³€ìˆ˜
 
     public bool button;
     public bool buttonmove;
@@ -56,8 +79,8 @@ public class PlayerScript2 : MonoBehaviour
     public GameObject b3;
     public GameObject b4;
 
-    private GameObject target; //¸¶¿ì½º Å¬¸¯ È®ÀÎ¿ë º¯¼ö
-    void CastRay() //¸¶¿ì½º Å¬¸¯ È®ÀÎ¿ë ÇÔ¼ö
+    private GameObject target; //ë§ˆìš°ìŠ¤ í´ë¦­ í™•ì¸ìš© ë³€ìˆ˜
+    void CastRay() //ë§ˆìš°ìŠ¤ í´ë¦­ í™•ì¸ìš© í•¨ìˆ˜
     {
         target = null;
         Vector2 pos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
@@ -69,8 +92,9 @@ public class PlayerScript2 : MonoBehaviour
         }
     }
 
-    void Start() //°ÔÀÓ ½ÃÀÛ ÃÊ±âÈ­
+    void Start() //ê²Œì„ ì‹œì‘ ì´ˆê¸°í™”
     {
+        audioSource = GetComponent<AudioSource>();/////////////ì†Œë¦¬
         animator = GetComponent<Animator>();
 
         heart = 100;
@@ -94,9 +118,9 @@ public class PlayerScript2 : MonoBehaviour
 
     void FixedUpdate()
     {
-        if (movey == 1) //¤²¤§¤²¤§
+        if (movey == 1) //ã…‚ã„·ã…‚ã„·
             transform.position = new Vector2(transform.position.x - speed1 * Time.deltaTime, transform.position.y);
-        else if (movey == 2) //¤²¤§¤²¤§
+        else if (movey == 2) //ã…‚ã„·ã…‚ã„·
             transform.position = new Vector2(transform.position.x + speed1 * Time.deltaTime, transform.position.y);
 
         if (move == 1 && transform.position.x < 0)
@@ -131,7 +155,7 @@ public class PlayerScript2 : MonoBehaviour
         floor2.transform.position = new Vector2(Background2.transform.position.x, floor2.transform.position.y);
         floor3.transform.position = new Vector2(Background3.transform.position.x, floor3.transform.position.y);
 
-        //¿£µù ÀÌµ¿
+        //ì—”ë”© ì´ë™
         if (move == 3 && transform.position.x <= -0.01f + xm)
         {
             transform.position = Vector2.MoveTowards(transform.position, new Vector2(xm, transform.position.y), Time.deltaTime * (speed + 2));
@@ -166,7 +190,7 @@ public class PlayerScript2 : MonoBehaviour
         {
             CastRay();
 
-            if (target == this.gameObject && healmode == false) //Èú¸ğµå ½ÃÀÛ
+            if (target == this.gameObject && healmode == false) //íëª¨ë“œ ì‹œì‘
             {
                 animator.SetBool("heal", true);
                 punch.GetComponent<PunchScript2>().re();
@@ -176,10 +200,10 @@ public class PlayerScript2 : MonoBehaviour
                 setting();
                 healmode = true;
             }
-            else if ((target == this.gameObject || target == num1 || target == num2) && healmode == true) //Èú¸ğµå Á¾·á
+            else if ((target == this.gameObject || target == num1 || target == num2) && healmode == true) //íëª¨ë“œ ì¢…ë£Œ
             {
                 animator.SetBool("heal", false);
-                if (punch.GetComponent<PunchScript2>().result == random) //³­¼ö = °á°ú ÀÏÄ¡
+                if (punch.GetComponent<PunchScript2>().result == random) //ë‚œìˆ˜ = ê²°ê³¼ ì¼ì¹˜
                 {
                     if (heart + random < 100)
                         heart += random;
@@ -190,8 +214,9 @@ public class PlayerScript2 : MonoBehaviour
                     random = 0;
                     punch.GetComponent<PunchScript2>().re();
                     punch.GetComponent<PunchScript2>().ScrollChange2();
+                    PlaySound("healsuccess");
                 }
-                else //³­¼ö = °á°ú ºÒÀÏÄ¡
+                else //ë‚œìˆ˜ = ê²°ê³¼ ë¶ˆì¼ì¹˜
                 {
                     if (tremble == false)
                         Tremble();
@@ -200,6 +225,7 @@ public class PlayerScript2 : MonoBehaviour
                     random = 0;
                     punch.GetComponent<PunchScript2>().re();
                     punch.GetComponent<PunchScript2>().ScrollChange2();
+                    PlaySound("error");/////////////ì†Œë¦¬
                 }
                 punch.GetComponent<PunchScript2>().punchmode = 1;
                 punch.GetComponent<PunchScript2>().PunchMode();
@@ -207,7 +233,7 @@ public class PlayerScript2 : MonoBehaviour
             }
         }
 
-        if (Input.GetKeyDown(KeyCode.Space)) //ÀÓÀÇ ÇÇ°İ
+        if (Input.GetKeyDown(KeyCode.Space)) //ì„ì˜ í”¼ê²©
         {
             animator.SetTrigger("attack");
         }
@@ -220,13 +246,13 @@ public class PlayerScript2 : MonoBehaviour
                 movey = 2;
         }
 
-        if (heart <= 0 && end == false) //½ÇÆĞ
+        if (heart <= 0 && end == false) //ì‹¤íŒ¨
         {
             end = true;
             GameObject.Find("ending").GetComponent<endingscene>().Playerpowerend();
         }
 
-        //¿£µù
+        //ì—”ë”©
         if (move == 3 && transform.position.x >= -0.01f + xm)
         {
             buttonmove = true;
@@ -247,15 +273,15 @@ public class PlayerScript2 : MonoBehaviour
         }
     }
 
-    void setting() //³­¼ö ¼³Á¤
+    void setting() //ë‚œìˆ˜ ì„¤ì •
     {
         random = Random.Range(5, 10);
         nummaker();
     }
-    void nummaker() //ÇÃ·¹ÀÌ¾î ¸Ó¸® À§ ³­¼ö »ı¼º ÇÔ¼ö
+    void nummaker() //í”Œë ˆì´ì–´ ë¨¸ë¦¬ ìœ„ ë‚œìˆ˜ ìƒì„± í•¨ìˆ˜
     {
         Sprite[] sprites = Resources.LoadAll<Sprite>("number");
-        if (random > 9 && random <= 99) //³­¼ö°¡ ½ÊÀÇ ÀÚ¸®ÀÏ ¶§
+        if (random > 9 && random <= 99) //ë‚œìˆ˜ê°€ ì‹­ì˜ ìë¦¬ì¼ ë•Œ
         {
             int b = random / 10;
             int a = random % 10;
@@ -268,7 +294,7 @@ public class PlayerScript2 : MonoBehaviour
             num1.SetActive(true);
             num2.SetActive(true);
         }
-        else if (random > 0 && random <= 9) //³­¼ö°¡ ÀÏÀÇ ÀÚ¸®ÀÏ ¶§
+        else if (random > 0 && random <= 9) //ë‚œìˆ˜ê°€ ì¼ì˜ ìë¦¬ì¼ ë•Œ
         {
             SpriteRenderer spriteA = num1.GetComponent<SpriteRenderer>();
             spriteA.sprite = sprites[random];
@@ -279,7 +305,7 @@ public class PlayerScript2 : MonoBehaviour
         }
     }
 
-    void Tremble() //´ú´ú ÇÔ¼ö
+    void Tremble() //ëœëœ í•¨ìˆ˜
     {
         CancelInvoke("Stop");
         x0 = transform.position.x;
@@ -290,7 +316,7 @@ public class PlayerScript2 : MonoBehaviour
 
         Invoke("Stop", 0.35f);
     }
-    void Stop() //´ú´ú ¸ØÃß´Â ÇÔ¼ö
+    void Stop() //ëœëœ ë©ˆì¶”ëŠ” í•¨ìˆ˜
     {
         movey = 0;
         transform.position = new Vector2(x0, transform.position.y);
@@ -306,8 +332,8 @@ public class PlayerScript2 : MonoBehaviour
         punch.GetComponent<PunchScript2>().off();
     }
 
-    //½ºÅ×ÀÌÁö ÀÌµ¿
-    public void Run() //ÀÌµ¿ ´ë±â ÇÔ¼ö
+    //ìŠ¤í…Œì´ì§€ ì´ë™
+    public void Run() //ì´ë™ ëŒ€ê¸° í•¨ìˆ˜
     {
         if (stage.GetComponent<Stage2>().stage == 0)
         {
@@ -319,31 +345,33 @@ public class PlayerScript2 : MonoBehaviour
             Invoke("Run_", 1f);
         }
     }
-    void Run_() //¾Ö´Ï¸ŞÀÌ¼Ç ¹Ì¸®
+    void Run_() //ì• ë‹ˆë©”ì´ì…˜ ë¯¸ë¦¬
     {
         animator.SetBool("walk", true);
         Invoke("RunM", 0.6f);
     }
-    void RunM() //Áß°£À¸·Î ÀÌµ¿ ÇÔ¼ö
+    void RunM() //ì¤‘ê°„ìœ¼ë¡œ ì´ë™ í•¨ìˆ˜
     {
         move = 1;
         Invoke("Find", 5f);
     }
-    void Find() //¸ó½ºÅÍ ¸¶ÁÖÄ§! ÇÔ¼ö
+    void Find() //ëª¬ìŠ¤í„° ë§ˆì£¼ì¹¨! í•¨ìˆ˜
     {
         move = 0;
         f = true;
         animator.SetBool("walk", false);
         animator.SetTrigger("surprise");
         Invoke("Re", 2f);
+        PlaySound("opps");
     }
-    void Re() //¿øÀ§Ä¡·Î ÀÌµ¿ ÇÔ¼ö
+    void Re() //ì›ìœ„ì¹˜ë¡œ ì´ë™ í•¨ìˆ˜
     {
         stage.GetComponent<Stage2>().monstermove = 1;
         stage.GetComponent<Stage2>().MonsterMove();
         move = 2;
         f = false;
         Invoke("Next", 5f);
+        Invoke("soundDong", 1.5f);
         if (stage.GetComponent<Stage2>().stage == 0)
         {
             Invoke("Story1_2", 2.85f);
@@ -353,45 +381,50 @@ public class PlayerScript2 : MonoBehaviour
             Invoke("Story2", 2.85f);
         }
     }
-    public void Next() //ÀÌµ¿ º¯¼ö ÃÊ±âÈ­ ÇÔ¼ö
+
+    void soundDong(){
+        PlaySound("moncome");
+    }
+
+    public void Next() //ì´ë™ ë³€ìˆ˜ ì´ˆê¸°í™” í•¨ìˆ˜
     {
         move = 0;
     }
 
-    //¿£µù ÀÌµ¿
-    public void eRun() //ÀÌµ¿ ´ë±â ÇÔ¼ö
+    //ì—”ë”© ì´ë™
+    public void eRun() //ì´ë™ ëŒ€ê¸° í•¨ìˆ˜
     {
         Invoke("eRun_", 1f);
         f = true;
     }
-    void eRun_() //¾Ö´Ï¸ŞÀÌ¼Ç ¹Ì¸®
+    void eRun_() //ì• ë‹ˆë©”ì´ì…˜ ë¯¸ë¦¬
     {
         animator.SetBool("walk", true);
         Invoke("eRunM", 0.6f);
     }
-    void eRunM() //Áß°£À¸·Î ÀÌµ¿ ÇÔ¼ö
+    void eRunM() //ì¤‘ê°„ìœ¼ë¡œ ì´ë™ í•¨ìˆ˜
     {
         move = 3;
     }
-    void eFind() //³¡~ ÇÔ¼ö
+    void eFind() //ë~ í•¨ìˆ˜
     {
         move = 0;
     }
 
-    void Story1() //½ºÅä¸®1
+    void Story1() //ìŠ¤í† ë¦¬1
     {
         story.GetComponent<Story2Script>().Story1On();
     }
-    void Story1_2() //½ºÅä¸®1-2
+    void Story1_2() //ìŠ¤í† ë¦¬1-2
     {
         story.GetComponent<Story2Script>().Story1_2On();
     }
-    void Story2() //½ºÅä¸®2
+    void Story2() //ìŠ¤í† ë¦¬2
     {
         story.GetComponent<Story2Script>().Story2On();
     }
 
-    public void bm() //¹öÆ°
+    public void bm() //ë²„íŠ¼
     {
         b1.transform.position = new Vector2(xb, yb);
         b2.transform.position = new Vector2(xb, yb);
@@ -404,4 +437,3 @@ public class PlayerScript2 : MonoBehaviour
         button = true;
     }
 }
-

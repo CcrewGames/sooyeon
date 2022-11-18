@@ -7,20 +7,20 @@ public class NumberBarScript2 : MonoBehaviour
     public GameObject punch;
 
     public GameObject number;
-    private GameObject num1; //ÀÏÀÇ ÀÚ¸®
-    private GameObject num2; //½ÊÀÇ ÀÚ¸®
-    private GameObject num3; //¹éÀÇ ÀÚ¸®
+    private GameObject num1; //ì¼ì˜ ìë¦¬
+    private GameObject num2; //ì‹­ì˜ ìë¦¬
+    private GameObject num3; //ë°±ì˜ ìë¦¬
     private GameObject sign;
     private GameObject endnum;
 
     public int i;
     public int j;
-    bool move1; //°¡¿îµ¥·Î ¸ğÀ¸±â
-    bool move2; //¿ŞÂÊÀ¸·Î º¸³»±â
-    bool move3; //¹Ù·Î!
+    bool move1; //ê°€ìš´ë°ë¡œ ëª¨ìœ¼ê¸°
+    bool move2; //ì™¼ìª½ìœ¼ë¡œ ë³´ë‚´ê¸°
+    bool move3; //ë°”ë¡œ!
 
     float speed = 5f;
-    float dis = 0.2f; //¼ıÀÚ °£°İ
+    float dis = 0.2f; //ìˆ«ì ê°„ê²©
 
     float x0 = -6f;
     float height = 2.8f;
@@ -195,12 +195,12 @@ public class NumberBarScript2 : MonoBehaviour
     {
         move1 = true;
     }
-    void Run1() //°¡¿îµ¥·Î ¸ğÀ¸±â
+    void Run1() //ê°€ìš´ë°ë¡œ ëª¨ìœ¼ê¸°
     {
         num1.transform.position = Vector2.MoveTowards(num1.transform.position, new Vector2(x0 - 0.2f, height), Time.deltaTime * speed);
         endnum.transform.position = Vector2.MoveTowards(endnum.transform.position, new Vector2(x0 + 0.2f, height), Time.deltaTime * speed);
     }
-    void Stop1() //°¡¿îµ¥·Î ¸ğÀ¸±â ¹Ù·Î µµÂø
+    void Stop1() //ê°€ìš´ë°ë¡œ ëª¨ìœ¼ê¸° ë°”ë¡œ ë„ì°©
     {
         endnum.transform.position = new Vector2(x0 + 0.2f, height);
 
@@ -214,9 +214,9 @@ public class NumberBarScript2 : MonoBehaviour
         Sprite[] spritesN = Resources.LoadAll<Sprite>("number");
         Sprite[] spritesM = Resources.LoadAll<Sprite>("sign");
 
-        int a = punch.GetComponent<PunchScript2>().result % 10; //ÀÏÀÇ ÀÚ¸®
-        int b = (punch.GetComponent<PunchScript2>().result / 10) % 10; //½ÊÀÇ ÀÚ¸®
-        int c = punch.GetComponent<PunchScript2>().result / 100; //¹éÀÇ ÀÚ¸®
+        int a = punch.GetComponent<PunchScript2>().result % 10; //ì¼ì˜ ìë¦¬
+        int b = (punch.GetComponent<PunchScript2>().result / 10) % 10; //ì‹­ì˜ ìë¦¬
+        int c = punch.GetComponent<PunchScript2>().result / 100; //ë°±ì˜ ìë¦¬
 
         SpriteRenderer spriteA = num1.GetComponent<SpriteRenderer>();
         spriteA.sprite = spritesN[a];
@@ -248,17 +248,17 @@ public class NumberBarScript2 : MonoBehaviour
         }
     }
 
-    void Run2() //¿ŞÂÊÀ¸·Î º¸³»±â
+    void Run2() //ì™¼ìª½ìœ¼ë¡œ ë³´ë‚´ê¸°
     {
         num1.transform.position = Vector2.MoveTowards(num1.transform.position, new Vector2(x0 - 1, height), Time.deltaTime * (speed + 3));
     }
-    void Stop2() //¿ŞÂÊÀ¸·Î º¸³»±â ¹Ù·Î µµÂø
+    void Stop2() //ì™¼ìª½ìœ¼ë¡œ ë³´ë‚´ê¸° ë°”ë¡œ ë„ì°©
     {
         num1.transform.position = new Vector2(x0 - 1, height);
         move2 = false;
     }
 
-    void Run3() //³¯¾Æ°¡°Ô ÇÏ±â
+    void Run3() //ë‚ ì•„ê°€ê²Œ í•˜ê¸°
     {
         if (i == 1)
         {
@@ -273,7 +273,7 @@ public class NumberBarScript2 : MonoBehaviour
             endnum.transform.position = Vector3.Slerp(endnum.transform.position, new Vector3(x0 + 1, height), Time.deltaTime * 8);
         }
     }
-    void Stop3() //³¯¾Æ°¡°Ô ÇÏ±â ¹Ù·Î µµÂø
+    void Stop3() //ë‚ ì•„ê°€ê²Œ í•˜ê¸° ë°”ë¡œ ë„ì°©
     {
         if (i == 1)
         {

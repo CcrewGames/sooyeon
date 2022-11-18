@@ -5,19 +5,39 @@ using UnityEngine.UI;
 
 public class Stage1BossScript : MonoBehaviour
 {
+    AudioSource audioSource;/////////////ì†Œë¦¬
+    public AudioClip bombsound;
+    public AudioClip bombgogo; //íƒ€ëŠ”ì†Œë¦¬
+    public AudioClip logcome;
+
+    void PlaySound(string action){
+        switch (action){
+            case "bombsound":
+                audioSource.clip = bombsound;
+                break;
+            case "bombgogo":
+                audioSource.clip = bombgogo;
+                break;
+            case "logcome":
+                audioSource.clip = logcome;
+                break;
+        }
+        audioSource.Play();
+    }
+
     public Animator animator;
 
-    public int heart; //¸ó½ºÅÍ Ã¼·Â
+    public int heart; //ëª¬ìŠ¤í„° ì²´ë ¥
 
     private bool move;
-    private int movey; //¸ó½ºÅÍ ÀÌµ¿ º¯¼ö2
-    private bool tremble; //¸ó½ºÅÍ ¤²¤§¤²¤§ º¯¼ö
+    private int movey; //ëª¬ìŠ¤í„° ì´ë™ ë³€ìˆ˜2
+    private bool tremble; //ëª¬ìŠ¤í„° ã…‚ã„·ã…‚ã„· ë³€ìˆ˜
 
-    //¸ó½ºÅÍ ÀÌµ¿ °ü·Ã
+    //ëª¬ìŠ¤í„° ì´ë™ ê´€ë ¨
     float speed;
     public float xm;
 
-    //¸ó½ºÅÍ ¤²¤§¤²¤§ °ü·Ã
+    //ëª¬ìŠ¤í„° ã…‚ã„·ã…‚ã„· ê´€ë ¨
     float speed2 = 5f;
     float time;
     float x0;
@@ -25,10 +45,10 @@ public class Stage1BossScript : MonoBehaviour
 
     public int random;
 
-    //³­¼ö Ç¥½Ã °ü·Ã
+    //ë‚œìˆ˜ í‘œì‹œ ê´€ë ¨
     public GameObject number;
-    private GameObject num1; //ÀÏÀÇ ÀÚ¸®
-    private GameObject num2; //½ÊÀÇ ÀÚ¸®
+    private GameObject num1; //ì¼ì˜ ìë¦¬
+    private GameObject num2; //ì‹­ì˜ ìë¦¬
     float dis = 0.3f;
 
     public bool skill1;
@@ -48,13 +68,13 @@ public class Stage1BossScript : MonoBehaviour
     private GameObject ef3;
     private GameObject ef4;
 
-    //ÆøÅº
-    int bombmove; //0 ±âº», 1 ¼ÒÈ¯, 2 °ø°İ, 3 ÇÇ°İ
+    //í­íƒ„
+    int bombmove; //0 ê¸°ë³¸, 1 ì†Œí™˜, 2 ê³µê²©, 3 í”¼ê²©
     float speed3 = 4f;
     float speed4 = 7f;
 
-    private GameObject target; //¸¶¿ì½º Å¬¸¯ È®ÀÎ¿ë º¯¼ö
-    void CastRay() //¸¶¿ì½º Å¬¸¯ È®ÀÎ¿ë ÇÔ¼ö
+    private GameObject target; //ë§ˆìš°ìŠ¤ í´ë¦­ í™•ì¸ìš© ë³€ìˆ˜
+    void CastRay() //ë§ˆìš°ìŠ¤ í´ë¦­ í™•ì¸ìš© í•¨ìˆ˜
     {
         target = null;
         Vector2 pos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
@@ -66,8 +86,9 @@ public class Stage1BossScript : MonoBehaviour
         }
     }
 
-    void Start() //½ºÆù
+    void Start() //ìŠ¤í°
     {
+        audioSource = GetComponent<AudioSource>();/////////////ì†Œë¦¬
         animator = GetComponent<Animator>();
 
         heart = 5;
@@ -98,10 +119,11 @@ public class Stage1BossScript : MonoBehaviour
         num2.SetActive(false);
     }
 
-    public void Run() //¸®½ºÆù
+    public void Run() //ë¦¬ìŠ¤í°
     {
         speed = 5f;
         move = true;
+        PlaySound("logcome");///////ì†Œë¦¬
     }
 
     void FixedUpdate()
@@ -111,16 +133,16 @@ public class Stage1BossScript : MonoBehaviour
             transform.position = Vector2.MoveTowards(transform.position, new Vector2(xm, transform.position.y), Time.deltaTime * speed);
         }
 
-        if (movey == 4) //¤²¤§¤²¤§
+        if (movey == 4) //ã…‚ã„·ã…‚ã„·
             transform.position = new Vector2(transform.position.x - speed2 * Time.deltaTime, transform.position.y);
-        else if (movey == 5) //¤²¤§¤²¤§
+        else if (movey == 5) //ã…‚ã„·ã…‚ã„·
             transform.position = new Vector2(transform.position.x + speed2 * Time.deltaTime, transform.position.y);
 
-        if (random > 9 && random <= 99) //½ÊÀÇ ÀÚ¸®ÀÏ ¶§
+        if (random > 9 && random <= 99) //ì‹­ì˜ ìë¦¬ì¼ ë•Œ
         {
             num1.transform.position = new Vector2(bom.transform.position.x + dis, bom.transform.position.y);
         }
-        else if (random > 0 && random <= 9) //ÀÏÀÇ ÀÚ¸®ÀÏ ¶§
+        else if (random > 0 && random <= 9) //ì¼ì˜ ìë¦¬ì¼ ë•Œ
         {
             num1.transform.position = new Vector2(bom.transform.position.x, bom.transform.position.y);
         }
@@ -144,7 +166,7 @@ public class Stage1BossScript : MonoBehaviour
 
             if ((target == num1 || target == num2 || target == bom) && GameObject.Find("Punch").GetComponent<PunchScript>().punchmode == 1)
             {
-                if (GameObject.Find("Punch").GetComponent<PunchScript>().result == random && time1 > 0) //³­¼ö = °á°ú ÀÏÄ¡
+                if (GameObject.Find("Punch").GetComponent<PunchScript>().result == random && time1 > 0) //ë‚œìˆ˜ = ê²°ê³¼ ì¼ì¹˜
                 {
                     timer = false;
 
@@ -202,6 +224,7 @@ public class Stage1BossScript : MonoBehaviour
         if (skill1 == false && skill2 == false && GameObject.Find("Stage").GetComponent<Stage>().remain == 1)
         {
             bom.transform.position = new Vector2(transform.position.x, -2);
+            Invoke("story2_1", 1.5f);
             Invoke("Skill_2", 2f);
             damaged = false;
             skill2 = true;
@@ -218,6 +241,8 @@ public class Stage1BossScript : MonoBehaviour
         {
             bom.GetComponent<Animator>().SetTrigger("bombdestroy");
             Invoke("Attack", 0.47f);
+            PlaySound("bombsound"); ////////ì†Œë¦¬
+            Handheld.Vibrate();
             bombmove = 0;
         }
 
@@ -250,7 +275,7 @@ public class Stage1BossScript : MonoBehaviour
         }
     }
 
-    private void setting() //³­¼ö ¼³Á¤
+    private void setting() //ë‚œìˆ˜ ì„¤ì •
     {
         random = Random.Range(20, 30);
         nummaker();
@@ -259,7 +284,7 @@ public class Stage1BossScript : MonoBehaviour
     void nummaker()
     {
         Sprite[] sprites = Resources.LoadAll<Sprite>("number");
-        if (random > 9 && random <= 99) //½ÊÀÇ ÀÚ¸®ÀÏ ¶§
+        if (random > 9 && random <= 99) //ì‹­ì˜ ìë¦¬ì¼ ë•Œ
         {
             int b = random / 10;
             int a = random % 10;
@@ -271,7 +296,7 @@ public class Stage1BossScript : MonoBehaviour
             num1.SetActive(true);
             num2.SetActive(true);
         }
-        else if (random > 0 && random <= 9) //ÀÏÀÇ ÀÚ¸®ÀÏ ¶§
+        else if (random > 0 && random <= 9) //ì¼ì˜ ìë¦¬ì¼ ë•Œ
         {
             SpriteRenderer spriteA = num1.GetComponent<SpriteRenderer>();
             spriteA.sprite = sprites[random];
@@ -281,7 +306,7 @@ public class Stage1BossScript : MonoBehaviour
         }
     }
 
-    void Tremble() //´ú´ú ÇÔ¼ö
+    void Tremble() //ëœëœ í•¨ìˆ˜
     {
         CancelInvoke("Stop");
         x0 = gameObject.transform.position.x;
@@ -338,8 +363,14 @@ public class Stage1BossScript : MonoBehaviour
         animator.SetTrigger("stage1bosshit");
         heart--;
         damaged = false;
+        PlaySound("bombsound"); ////////ì†Œë¦¬
+        Handheld.Vibrate();
     }
 
+    void story2_1()
+    {
+        GameObject.Find("Story").GetComponent<StoryScript>().Story2_1On();
+    }
     void story2_2()
     {
         GameObject.Find("Story").GetComponent<StoryScript>().Story2_2On();
@@ -349,7 +380,7 @@ public class Stage1BossScript : MonoBehaviour
         GameObject.Find("Story").GetComponent<StoryScript>().Story3On();
     }
 
-    void Die() //Á×À½ Ã³¸® ÇÔ¼ö
+    void Die() //ì£½ìŒ ì²˜ë¦¬ í•¨ìˆ˜
     {
         GameObject.Find("Stage").GetComponent<Stage>().BossHealthbarOff();
         GameObject.Find("Stage").GetComponent<Stage>().remain -= 1;

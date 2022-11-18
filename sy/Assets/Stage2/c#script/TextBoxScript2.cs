@@ -4,9 +4,16 @@ using UnityEngine;
 
 public class TextBoxScript2 : MonoBehaviour
 {
-    private GameObject target; //¸¶¿ì½º Å¬¸¯ È®ÀÎ¿ë º¯¼ö
+    private GameObject target; //ë§ˆìš°ìŠ¤ í´ë¦­ í™•ì¸ìš© ë³€ìˆ˜
 
-    void CastRay() //¸¶¿ì½º Å¬¸¯ È®ÀÎ¿ë ÇÔ¼ö
+    AudioSource audioSource; /////////////ì†Œë¦¬
+    public AudioClip click;
+
+    void Start(){
+        audioSource = GetComponent<AudioSource>();/////////////ì†Œë¦¬
+    }
+
+    void CastRay() //ë§ˆìš°ìŠ¤ í´ë¦­ í™•ì¸ìš© í•¨ìˆ˜
     {
         target = null;
         Vector2 pos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
@@ -20,13 +27,16 @@ public class TextBoxScript2 : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetMouseButtonDown(0))
+        if (Input.GetMouseButtonDown(0)) //í”¼ê²©
         {
             CastRay();
+            audioSource.Play();
 
             if (target == this.gameObject)
             {
                 GameObject.Find("Story").GetComponent<Story2Script>().clickNextButton = true;
+                audioSource.clip = click;/////////ì†Œë¦¬
+                audioSource.Play(); /////////ì†Œë¦¬
             }
         }
     }

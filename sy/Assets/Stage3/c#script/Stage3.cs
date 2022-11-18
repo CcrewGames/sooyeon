@@ -79,6 +79,10 @@ public class Stage3 : MonoBehaviour
 
         ResumeMode();
 
+        //stage = 3;
+        //stagemove = false;
+        //remain = 1;
+
         stage = 0;
         stagemove = true;
         remain = 0;
@@ -189,8 +193,22 @@ public class Stage3 : MonoBehaviour
 
             stagemove = true;
         }
-        
-        if (stage == 3 && stagemove == false) //클리어
+
+        if (stage == 3 && stagemove == false) //스토리 모드
+        {
+            Cul.transform.position = new Vector2(7, Cul.transform.position.y);
+
+            punch.GetComponent<PunchScript>().punchmode = 0;
+            punch.GetComponent<PunchScript>().PunchMode();
+            punch.GetComponent<PunchScript>().ScrollChange3();
+            Cul.GetComponent<CulScript>().AttackBarOff();
+            Invoke("Story2_2", 4f);
+            Invoke("WinAni", 1f);
+
+            stagemove = true;
+        }
+
+        if (stage == 3 && remain == 0) //클리어
         {
             StageEnding();
 
@@ -215,7 +233,7 @@ public class Stage3 : MonoBehaviour
         Resume.SetActive(false);
     }
 
-    void StageMove() //단계 사이 이동 시간 확보용 함수
+    public void StageMove() //단계 사이 이동 시간 확보용 함수
     {
         stage++;
         stagemove = false;
@@ -312,6 +330,11 @@ public class Stage3 : MonoBehaviour
         punch.GetComponent<PunchScript>().PunchMode();
         punch.GetComponent<PunchScript>().ScrollChange2();
     }
+    public void realFlyoff()
+    {
+        fly.SetActive(false);
+        flymode = false;
+    }
 
     public void CulSkill1()
     {
@@ -335,19 +358,29 @@ public class Stage3 : MonoBehaviour
 
     public void Win()
     {
-        punch.GetComponent<PunchScript>().punchmode = 0;
-        punch.GetComponent<PunchScript>().PunchMode();
         FightBar.SetActive(false);
         GameObject.Find("NumberBundle").GetComponent<NumberBundleScript>().numbunOff();
-        Invoke("Story2_2", 3f);
+        StageMove();
+    }
+    void WinAni()
+    {
+        GameObject.Find("Cul").GetComponent<Animator>().SetTrigger("hit");
     }
 
     public void Lose()
     {
         punch.GetComponent<PunchScript>().punchmode = 0;
         punch.GetComponent<PunchScript>().PunchMode();
+        punch.GetComponent<PunchScript>().ScrollChange3();
         FightBar.SetActive(false);
         GameObject.Find("NumberBundle").GetComponent<NumberBundleScript>().numbunOff();
+        Cul.GetComponent<CulScript>().AttackBarOff();
+        Invoke("LoseAni", 1f);
+    }
+    void LoseAni()
+    {
+        GameObject.Find("Player").GetComponent<Animator>().SetTrigger("hit");
+        GameObject.Find("ending").GetComponent<endingscene3>().endingStart();
     }
 
     public void Story2_2()

@@ -4,6 +4,26 @@ using UnityEngine;
 
 public class MonsterScript : MonoBehaviour
 {
+    AudioSource audioSource;/////////////소리
+    public AudioClip monattacked;
+    public AudioClip error;
+    public AudioClip iceattack;
+    
+    void PlaySound(string action){
+        switch (action){
+            case "monattacked":
+                audioSource.clip = monattacked;
+                break;
+            case "error":
+                audioSource.clip = error;
+                break;
+            case "iceattack":
+                audioSource.clip = iceattack;
+                break;
+        }
+        audioSource.Play();
+    }
+
     public Animator animator; //애니
 
     public int heart; //몬스터 체력
@@ -75,6 +95,7 @@ public class MonsterScript : MonoBehaviour
 
     void Awake() //start()보다 먼저 호출
     {
+        audioSource = GetComponent<AudioSource>(); /////////////소리
         animator = GetComponent<Animator>(); //애니
     }
 
@@ -388,6 +409,7 @@ public class MonsterScript : MonoBehaviour
 
     void Tremble() //덜덜 함수
     {
+        PlaySound("error");/////////////소리
         CancelInvoke("Stop");
         move = false;
         x0 = gameObject.transform.position.x;
@@ -399,6 +421,7 @@ public class MonsterScript : MonoBehaviour
 
     public void OnDamaged() //피격 함수
     {
+        PlaySound("monattacked");/////////////소리
         heart--;
         animator.SetInteger("hit", heart); //애니
         if (heart != 0)
@@ -439,6 +462,8 @@ public class MonsterScript : MonoBehaviour
 
     void Attack() //공격 함수
     {
+        PlaySound("iceattack");/////////////소리
+        Handheld.Vibrate();
         ef1.GetComponent<Animator>().SetTrigger("effect1");
         ef2.GetComponent<Animator>().SetTrigger("effect2");
 

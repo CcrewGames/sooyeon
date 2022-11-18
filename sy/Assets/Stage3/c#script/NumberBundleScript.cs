@@ -218,6 +218,8 @@ public class NumberBundleScript : MonoBehaviour
 
     public void numbunOff()
     {
+        going = 0;
+        nummove = false;
         CancelInvoke("num1setting_");
         CancelInvoke("num2setting_");
         CancelInvoke("num3setting_");
@@ -228,8 +230,6 @@ public class NumberBundleScript : MonoBehaviour
         CancelInvoke("num3damaged");
         CancelInvoke("num4damaged");
         CancelInvoke("num5damaged");
-        going = 0;
-        nummove = false;
         bundle.SetActive(false);
 
         Destroy(num1);
@@ -237,6 +237,9 @@ public class NumberBundleScript : MonoBehaviour
         Destroy(num3);
         Destroy(num4);
         Destroy(num5);
+
+        GameObject.Find("Stage").GetComponent<Stage3>().realFlyoff();
+        GameObject.Find("Cul").GetComponent<CulScript>().realFlyoff();
     }
 
     void randomallsetting()

@@ -18,11 +18,13 @@ public class CulScript : MonoBehaviour
 
     //Å§ ÀÌµ¿ °ü·Ã
     public int move; //Å§ ÀÌµ¿ º¯¼ö
-    float xb = 4.5f;
+    bool stop;
+    float xb = 7f;
+    float yb = -0.6f;
     float speed = 3f;
 
     //Å§ ¤²¤§¤²¤§, µÕµÕ °ü·Ã
-    private int movey; //ÁÂ¿ì»óÇÏ
+    public int movey; //ÁÂ¿ì»óÇÏ
     private bool tremble; //Å§ ¤²¤§¤²¤§ º¯¼ö
     float x0;
     float x1;
@@ -59,8 +61,6 @@ public class CulScript : MonoBehaviour
     float time;
 
     public GameObject KiloProto;
-    float xP0 = 20;
-    float yP0 = 0;
     float xP = 3;
     float yP = 0;
 
@@ -72,6 +72,7 @@ public class CulScript : MonoBehaviour
 
         transform.position = new Vector2(xb + 7, transform.position.y);
         move = 0;
+        stop = false;
 
         tremble = false;
 
@@ -96,7 +97,7 @@ public class CulScript : MonoBehaviour
 
         timer = false;
 
-        KiloProto.transform.position = new Vector2(xP0, yP0);
+        KiloProto.transform.position = new Vector2(3.5f, KiloProto.transform.position.y);
         KiloProto.SetActive(false);
     }
 
@@ -117,7 +118,9 @@ public class CulScript : MonoBehaviour
             transform.position = Vector2.MoveTowards(transform.position, new Vector2(xb, transform.position.y), Time.deltaTime * (speed + 2));
 
         if (move == 2)
+        {
             transform.position = Vector2.MoveTowards(transform.position, new Vector2(xb + 7, transform.position.y), Time.deltaTime * (speed + 2));
+        }
 
         if (movey == 1) //¤²¤§¤²¤§
             transform.position = new Vector2(transform.position.x - speed1 * Time.deltaTime, transform.position.y);
@@ -137,6 +140,8 @@ public class CulScript : MonoBehaviour
         {
             Flyoff();
         }
+
+        KiloProto.transform.position = new Vector2(transform.position.x - 3.5f, KiloProto.transform.position.y);
     }
 
     void Update()
@@ -149,9 +154,9 @@ public class CulScript : MonoBehaviour
                 movey = 2;
         }
 
-        if (transform.position.y >= y1)
+        if (transform.position.y >= y1 && stop == false)
             movey = 3;
-        else if (transform.position.y <= y0)
+        else if (transform.position.y <= y0 && stop == false)
             movey = 4;
 
         if (timer == true)
@@ -306,6 +311,11 @@ public class CulScript : MonoBehaviour
         fly.SetActive(false);
         flymode = false;
     }
+    public void realFlyoff()
+    {
+        fly.SetActive(false);
+        flymode = false;
+    }
 
     public void KiloProtoOn()
     {
@@ -337,6 +347,7 @@ public class CulScript : MonoBehaviour
     public void move1()
     {
         transform.position = new Vector2(xb + 7, transform.position.y);
+        transform.localScale = new Vector3(1, 1, 1);
         move = 1;
     }
     public void move2()
@@ -346,6 +357,7 @@ public class CulScript : MonoBehaviour
     void move2_()
     {
         move = 2;
+        transform.localScale = new Vector3(-1, 1, 1);
     }
 
     void Story3()
@@ -357,7 +369,7 @@ public class CulScript : MonoBehaviour
     void Story3_1()
     {
         GameObject.Find("Story").GetComponent<Story3Script>().Story3_1On();
-        Invoke("Story3_15", 2f);
+        Invoke("Story3_15", 1f);
     }
     void Story3_15()
     {
@@ -369,6 +381,48 @@ public class CulScript : MonoBehaviour
     {
         GameObject.Find("Story").GetComponent<Story3Script>().Story3_2On();
         KiloProto.GetComponent<KiloProtoScript>().Boom();
+        transform.position = new Vector2(transform.position.x, yb);
+        stop = true;
+        movey = 0;
+        Invoke("OuchAni", 0.2f);
+        Invoke("Story4", 4f);
+    }
+    void OuchAni()
+    {
+        GameObject.Find("Player").GetComponent<Animator>().SetBool("ouch", true);
+        animator.SetBool("ouch", true);
+    }
+    void Story4()
+    {
+        GameObject.Find("Story").GetComponent<Story3Script>().Story4On();
+        Invoke("StandingAni", 2f);
+        Invoke("Story4_2", 5f);
+    }
+    void StandingAni()
+    {
+        animator.SetTrigger("standing");
+        Invoke("DungDung", 1.5f);
+    }
+    void DungDung()
+    {
+        stop = false;
+    }
+    void Story4_2()
+    {
+        GameObject.Find("Story").GetComponent<Story3Script>().Story4_2On();
+        Invoke("Story5", 5f);
+        xb += 10;
+        speed = 2;
+        Invoke("move2_", 0.5f);
+    }
+    void Story5()
+    {
+        GameObject.Find("Story").GetComponent<Story3Script>().Story5On();
+        Invoke("Ending", 2f);
+    }
+    void Ending()
+    {
+        GameObject.Find("ending").GetComponent<endingscene3>().endingStart();
     }
 }
 

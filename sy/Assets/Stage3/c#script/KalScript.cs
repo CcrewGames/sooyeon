@@ -187,12 +187,7 @@ public class KalScript : MonoBehaviour
         if (heart <= 0 && end == false) //½ÇÆÐ
         {
             end = true;
-            GameObject.Find("ending").GetComponent<endingscene>().Playerpowerend();
-        }
-
-        if (Input.GetKeyDown(KeyCode.S))
-        {
-            animator.SetTrigger("surprise");
+            GameObject.Find("ending").GetComponent<endingscene3>().endingStart();
         }
     }
 

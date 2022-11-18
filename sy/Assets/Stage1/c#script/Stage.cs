@@ -6,6 +6,34 @@ using UnityEngine.UI;
 
 public class Stage : MonoBehaviour
 {
+    public GameObject BackgroundMusic;
+    AudioSource backmusic;
+
+    AudioSource audioSource;/////////////소리
+    public AudioClip stagegogo;
+    public AudioClip stageclear;
+    public AudioClip sword;
+    public AudioClip pauseclick;
+
+    void PlaySound(string action){
+        switch (action){
+            case "stagegogo":
+                audioSource.clip = stagegogo;
+                break;
+            case "stageclear":
+                audioSource.clip = stageclear;
+                break;
+            case "sword":
+                audioSource.clip = sword;
+                break;
+            case "pauseclick":
+                audioSource.clip = pauseclick;
+                break;
+        }
+        audioSource.Play();
+    }
+
+    public GameObject tutorialscript;
     public GameObject canvas;
     public GameObject ending;
     public GameObject text;
@@ -77,6 +105,8 @@ public class Stage : MonoBehaviour
 
     public void Start() //게임 시작 초기화
     {
+        backmusic = BackgroundMusic.GetComponent<AudioSource>();
+        audioSource = GetComponent<AudioSource>();/////////////소리
         ResumeMode();
 
         text.SetActive(false);
@@ -107,6 +137,7 @@ public class Stage : MonoBehaviour
         if (flymode == true)
         {
             fly.transform.position = Vector2.Lerp(fly.transform.position, new Vector2(xf, yf), Time.deltaTime * speed);
+            PlaySound("sword");/////////////소리
         }
         if (fly.transform.position.x >= xf - 1f && flymode == true)
         {
@@ -131,11 +162,13 @@ public class Stage : MonoBehaviour
 
             if (target == Pause)
             {
-                PauseMode();
+                MusicPauseMode();
+                PlaySound("pauseclick");
             }
             else if (target == Resume)
             {
-                ResumeMode();
+                MusicResumeMode();
+                PlaySound("pauseclick");
             }
         }
 
@@ -159,6 +192,8 @@ public class Stage : MonoBehaviour
 
         if (stage == 1 && stagemove == false) //1단계 시작
         {
+            //tutorialscript.GetComponent<tutorial>().tutorialstart();////튜토리얼
+
             fortime = 1;
             punch.GetComponent<PunchScript>().ScrollChange2();
 
@@ -182,6 +217,7 @@ public class Stage : MonoBehaviour
 
         if (stage == 1 && remain == 0) //1단계 종료
         {
+            PlaySound("stageclear");/////////////소리
             fortime = 0;
             punch.GetComponent<PunchScript>().ScrollChange3();
 
@@ -204,6 +240,7 @@ public class Stage : MonoBehaviour
 
         if (stage == 2 && stagemove == false) //2단계 시작
         {
+            PlaySound("stagegogo");/////////////소리
             fortime = 1;
             punch.GetComponent<PunchScript>().ScrollChange2();
 
@@ -227,6 +264,7 @@ public class Stage : MonoBehaviour
 
         if (stage == 2 && remain == 0) //2단계 종료
         {
+            PlaySound("stageclear");/////////////소리
             fortime = 0;
             punch.GetComponent<PunchScript>().ScrollChange3();
 
@@ -249,6 +287,7 @@ public class Stage : MonoBehaviour
 
         if (stage == 3 && stagemove == false) //3단계 시작
         {
+            PlaySound("stagegogo");/////////////소리
             fortime = 1;
             punch.GetComponent<PunchScript>().ScrollChange2();
 
@@ -272,6 +311,7 @@ public class Stage : MonoBehaviour
 
         if (stage == 3 && remain == 0 && bossdie == true) //클리어
         {
+            PlaySound("stageclear");/////////////소리
             fortime = 0;
             punch.GetComponent<PunchScript>().ScrollChange3();
 
@@ -302,12 +342,28 @@ public class Stage : MonoBehaviour
     {
         Time.timeScale = 0;
         pausemode = true;
+        Pause.SetActive(false);
+        Resume.SetActive(true);
+    }
+    public void MusicPauseMode()//음악도 같이
+    {
+        backmusic.Pause();
+        Time.timeScale = 0;
+        pausemode = true;
         GameObject.Find("buttonclick").GetComponent<Buttonclick>().pausemode = true;
         Pause.SetActive(false);
         Resume.SetActive(true);
     }
     public void ResumeMode()
     {
+        Time.timeScale = 1;
+        pausemode = false;
+        Pause.SetActive(true);
+        Resume.SetActive(false);
+    }
+    public void MusicResumeMode() //음악도 같이
+    {
+        backmusic.Play();
         Time.timeScale = 1;
         pausemode = false;
         GameObject.Find("buttonclick").GetComponent<Buttonclick>().pausemode = false;
