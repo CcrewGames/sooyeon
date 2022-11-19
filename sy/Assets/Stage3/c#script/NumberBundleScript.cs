@@ -5,11 +5,10 @@ using UnityEngine;
 public class NumberBundleScript : MonoBehaviour
 {
     public GameObject attacknumber;
-    public GameObject bundle;
     public GameObject Canvas;
 
     public int going;
-    public int who; //1 Į, 2 ŧ
+    public int who1, who2, who3, who4, who5; //1 Į, 2 ŧ
     public int damaged1, damaged2, damaged3, damaged4, damaged5;
 
     GameObject num1, num2, num3, num4, num5;
@@ -37,8 +36,6 @@ public class NumberBundleScript : MonoBehaviour
 
     void Start()
     {
-        bundle.SetActive(false);
-        bundle.transform.position = new Vector2(-0.3f, -1.2f);
         going = 0;
 
         num1 = Instantiate(attacknumber, new Vector2(x0, y0), transform.rotation);
@@ -58,7 +55,11 @@ public class NumberBundleScript : MonoBehaviour
         damaged3 = 0;
         damaged4 = 0;
         damaged5 = 0;
-        who = 0;
+        who1 = 0;
+        who2 = 0;
+        who3 = 0;
+        who4 = 0;
+        who5 = 0;
     }
 
     void FixedUpdate()
@@ -89,7 +90,7 @@ public class NumberBundleScript : MonoBehaviour
                     GameObject.Find("Stage").GetComponent<Stage3>().numnum = 1;
 
                     GameObject.Find("Stage").GetComponent<Stage3>().Fly();
-                    who = 1;
+                    who1 = 1;
 
                     GameObject.Find("Punch").GetComponent<PunchScript>().punchmode = 0;
                     GameObject.Find("Punch").GetComponent<PunchScript>().PunchMode();
@@ -114,7 +115,7 @@ public class NumberBundleScript : MonoBehaviour
                     GameObject.Find("Stage").GetComponent<Stage3>().numnum = 2;
 
                     GameObject.Find("Stage").GetComponent<Stage3>().Fly();
-                    who = 1;
+                    who2 = 1;
 
                     GameObject.Find("Punch").GetComponent<PunchScript>().punchmode = 0;
                     GameObject.Find("Punch").GetComponent<PunchScript>().PunchMode();
@@ -139,7 +140,7 @@ public class NumberBundleScript : MonoBehaviour
                     GameObject.Find("Stage").GetComponent<Stage3>().numnum = 3;
 
                     GameObject.Find("Stage").GetComponent<Stage3>().Fly();
-                    who = 1;
+                    who3 = 1;
 
                     GameObject.Find("Punch").GetComponent<PunchScript>().punchmode = 0;
                     GameObject.Find("Punch").GetComponent<PunchScript>().PunchMode();
@@ -164,7 +165,7 @@ public class NumberBundleScript : MonoBehaviour
                     GameObject.Find("Stage").GetComponent<Stage3>().numnum = 4;
 
                     GameObject.Find("Stage").GetComponent<Stage3>().Fly();
-                    who = 1;
+                    who4 = 1;
 
                     GameObject.Find("Punch").GetComponent<PunchScript>().punchmode = 0;
                     GameObject.Find("Punch").GetComponent<PunchScript>().PunchMode();
@@ -189,7 +190,7 @@ public class NumberBundleScript : MonoBehaviour
                     GameObject.Find("Stage").GetComponent<Stage3>().numnum = 5;
 
                     GameObject.Find("Stage").GetComponent<Stage3>().Fly();
-                    who = 1;
+                    who5 = 1;
 
                     GameObject.Find("Punch").GetComponent<PunchScript>().punchmode = 0;
                     GameObject.Find("Punch").GetComponent<PunchScript>().PunchMode();
@@ -205,12 +206,15 @@ public class NumberBundleScript : MonoBehaviour
                 }
             }
         }
+
+        if (GameObject.Find("ending").GetComponent<endingscene>().ending == true)
+        {
+            numbunOff();
+        }
     }
 
     public void numbunOn()
     {
-        bundle.SetActive(true);
-
         randomallsetting();
 
         going = 1;
@@ -218,6 +222,17 @@ public class NumberBundleScript : MonoBehaviour
 
     public void numbunOff()
     {
+        damaged1 = 3;
+        damaged2 = 3;
+        damaged3 = 3;
+        damaged4 = 3;
+        damaged5 = 3;
+        who1 = 3;
+        who2 = 3;
+        who3 = 3;
+        who4 = 3;
+        who5 = 3;
+
         going = 0;
         nummove = false;
         CancelInvoke("num1setting_");
@@ -230,7 +245,6 @@ public class NumberBundleScript : MonoBehaviour
         CancelInvoke("num3damaged");
         CancelInvoke("num4damaged");
         CancelInvoke("num5damaged");
-        bundle.SetActive(false);
 
         num1.SetActive(false);
         num2.SetActive(false);
@@ -257,10 +271,10 @@ public class NumberBundleScript : MonoBehaviour
         x5 = 3;
 
         y1 = -0.5f;
-        y2 = 1;
-        y3 = 2;
+        y2 = 1.2f;
+        y3 = 0;
         y4 = 1;
-        y5 = -0.5f;
+        y5 = -0.7f;
 
         num1.GetComponent<NumberScript>().y0 = y1;
         num2.GetComponent<NumberScript>().y0 = y2;
@@ -298,15 +312,15 @@ public class NumberBundleScript : MonoBehaviour
     {
         if (damaged1 == 0)
         {
-            if (who == 1)
+            if (who1 == 1)
             {
                 KalUp();
             }
-            else
+            else if (who1 == 2)
             {
                 CulUp();
             }
-            damaged1 = who;
+            damaged1 = who1;
             Invoke("num1damaged", 1.5f);
             num1.SetActive(false);
             Invoke("num1setting_", 0.8f);
@@ -325,15 +339,15 @@ public class NumberBundleScript : MonoBehaviour
     {
         if (damaged2 == 0)
         {
-            if (who == 1)
+            if (who2 == 1)
             {
                 KalUp();
             }
-            else
+            else if (who2 == 2)
             {
                 CulUp();
             }
-            damaged2 = who;
+            damaged2 = who2;
             Invoke("num2damaged", 1.5f);
             num2.SetActive(false);
             Invoke("num2setting_", 0.8f);
@@ -352,15 +366,15 @@ public class NumberBundleScript : MonoBehaviour
     {
         if (damaged3 == 0)
         {
-            if (who == 1)
+            if (who3 == 1)
             {
                 KalUp();
             }
-            else
+            else if (who3 == 2)
             {
                 CulUp();
             }
-            damaged3 = who;
+            damaged3 = who3;
             Invoke("num3damaged", 1.5f);
             num3.SetActive(false);
             Invoke("num3setting_", 0.8f);
@@ -379,15 +393,15 @@ public class NumberBundleScript : MonoBehaviour
     {
         if (damaged4 == 0)
         {
-            if (who == 1)
+            if (who4 == 1)
             {
                 KalUp();
             }
-            else
+            else if (who4 == 2)
             {
                 CulUp();
             }
-            damaged4 = who;
+            damaged4 = who4;
             Invoke("num4damaged", 1.5f);
             num4.SetActive(false);
             Invoke("num4setting_", 0.8f);
@@ -406,15 +420,15 @@ public class NumberBundleScript : MonoBehaviour
     {
         if(damaged5 == 0)
         {
-            if (who == 1)
+            if (who5 == 1)
             {
                 KalUp();
             }
-            else
+            else if (who5 == 2)
             {
                 CulUp();
             }
-            damaged5 = who;
+            damaged5 = who5;
             Invoke("num5damaged", 1.5f);
             num5.SetActive(false);
             Invoke("num5setting_", 0.8f);
@@ -432,27 +446,27 @@ public class NumberBundleScript : MonoBehaviour
     public void num1damaged()
     {
         damaged1 = 0;
-        who = 0;
+        who1 = 0;
     }
     public void num2damaged()
     {
         damaged2 = 0;
-        who = 0;
+        who2 = 0;
     }
     public void num3damaged()
     {
         damaged3 = 0;
-        who = 0;
+        who3 = 0;
     }
     public void num4damaged()
     {
         damaged4 = 0;
-        who = 0;
+        who4 = 0;
     }
     public void num5damaged()
     {
         damaged5 = 0;
-        who = 0;
+        who5 = 0;
     }
 
     public void KalUp()

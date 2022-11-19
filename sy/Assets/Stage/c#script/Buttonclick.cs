@@ -52,7 +52,7 @@ public class Buttonclick : MonoBehaviour
     
     void btnprint(GameObject Num)
     {
-        if (pausemode == false)
+        if (pausemode == false && GameObject.Find("ending").GetComponent<endingscene>().ending == false)
         {
             if (Num == num1)
             {

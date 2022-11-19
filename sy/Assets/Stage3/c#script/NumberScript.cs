@@ -65,7 +65,7 @@ public class NumberScript : MonoBehaviour
 
     public void nummaker()
     {
-        Sprite[] sprites = Resources.LoadAll<Sprite>("number");
+        Sprite[] sprites = Resources.LoadAll<Sprite>("number3");
         int b = result / 10;
         int a = result % 10;
         SpriteRenderer spriteA = num1.GetComponent<SpriteRenderer>();

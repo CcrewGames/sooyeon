@@ -216,6 +216,11 @@ public class CulScript : MonoBehaviour
         {
             CulPlus();
         }
+
+        if (GameObject.Find("ending").GetComponent<endingscene>().ending == true)
+        {
+            AllStop();
+        }
     }
 
     void setting() //난수 설정
@@ -263,32 +268,36 @@ public class CulScript : MonoBehaviour
             anum = GameObject.Find("NumberBundle").GetComponent<NumberBundleScript>().anum1;
             xf = GameObject.Find("NumberBundle").GetComponent<NumberBundleScript>().x1;
             yf = GameObject.Find("NumberBundle").GetComponent<NumberBundleScript>().y1;
+            GameObject.Find("NumberBundle").GetComponent<NumberBundleScript>().who1 = 2;
         }
         else if (numnum == 2)
         {
             anum = GameObject.Find("NumberBundle").GetComponent<NumberBundleScript>().anum2;
             xf = GameObject.Find("NumberBundle").GetComponent<NumberBundleScript>().x2;
             yf = GameObject.Find("NumberBundle").GetComponent<NumberBundleScript>().y2;
+            GameObject.Find("NumberBundle").GetComponent<NumberBundleScript>().who2 = 2;
         }
         else if (numnum == 3)
         {
             anum = GameObject.Find("NumberBundle").GetComponent<NumberBundleScript>().anum3;
             xf = GameObject.Find("NumberBundle").GetComponent<NumberBundleScript>().x3;
             yf = GameObject.Find("NumberBundle").GetComponent<NumberBundleScript>().y3;
+            GameObject.Find("NumberBundle").GetComponent<NumberBundleScript>().who3 = 2;
         }
         else if (numnum == 4)
         {
             anum = GameObject.Find("NumberBundle").GetComponent<NumberBundleScript>().anum4;
             xf = GameObject.Find("NumberBundle").GetComponent<NumberBundleScript>().x4;
             yf = GameObject.Find("NumberBundle").GetComponent<NumberBundleScript>().y4;
+            GameObject.Find("NumberBundle").GetComponent<NumberBundleScript>().who4 = 2;
         }
         else if (numnum == 5)
         {
             anum = GameObject.Find("NumberBundle").GetComponent<NumberBundleScript>().anum5;
             xf = GameObject.Find("NumberBundle").GetComponent<NumberBundleScript>().x5;
             yf = GameObject.Find("NumberBundle").GetComponent<NumberBundleScript>().y5;
+            GameObject.Find("NumberBundle").GetComponent<NumberBundleScript>().who5 = 2;
         }
-        GameObject.Find("NumberBundle").GetComponent<NumberBundleScript>().who = 2;
         flynummaker();
         Invoke("Fly", 1f);
     }
@@ -360,7 +369,7 @@ public class CulScript : MonoBehaviour
         KerWongi.transform.position = new Vector2(0, yP);
         PlaySound("cal1appear");
         Invoke("Surprise", 0.5f);
-        Invoke("Story3", 2f);
+        Invoke("Story3", 3f);
     }
     void Surprise()
     {
@@ -395,6 +404,7 @@ public class CulScript : MonoBehaviour
     void move2_()
     {
         move = 2;
+        PlaySound("culgoaway");
         transform.localScale = new Vector3(-1, 1, 1);
     }
 
@@ -466,7 +476,11 @@ public class CulScript : MonoBehaviour
     }
     void Ending()
     {
-        GameObject.Find("ending").GetComponent<endingscene3>().endingStart();
-        PlaySound("culgoaway");
+        GameObject.Find("Stage").GetComponent<Stage3>().StageEnding();
+    }
+
+    void AllStop()
+    {
+        move2();
     }
 }

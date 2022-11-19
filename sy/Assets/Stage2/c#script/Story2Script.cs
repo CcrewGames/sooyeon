@@ -13,6 +13,7 @@ public class Story2Script : MonoBehaviour
     public List<string> sentences1;
     public List<string> sentences1_2;
     public List<string> sentences2;
+    public List<string> sentences2_1;
     public List<string> sentences2_2;
     public List<string> sentences3;
     public bool clickNextButton = false;
@@ -65,6 +66,19 @@ public class Story2Script : MonoBehaviour
                     Storykal();
                 }
                 storytext.text = sentences2[i];
+                clickNextButton = false;
+            }
+            else if (GameObject.Find("Stage").GetComponent<Stage2>().story == 2.1f)
+            {
+                if (i == 2)
+                {
+                    Storylog1();
+                }
+                else
+                {
+                    Storykal();
+                }
+                storytext.text = sentences2_1[i];
                 clickNextButton = false;
             }
             else if (GameObject.Find("Stage").GetComponent<Stage2>().story == 2.5f)
@@ -155,6 +169,30 @@ public class Story2Script : MonoBehaviour
         Storylog1();
         i = 0;
         storytext.text = sentences2[i];
+    }
+    public void Story2_1On()
+    {
+        GameObject.Find("Stage").GetComponent<Stage2>().PauseMode();
+        GameObject.Find("Stage").GetComponent<Stage2>().story = 2.1f;
+
+        canvas.SetActive(true);
+        background1.SetActive(true);
+        playerimage1.SetActive(true);
+        bossimage1.SetActive(false);
+        textbox1.SetActive(true);
+        nextbutton1.SetActive(true);
+
+        sentences2_1 = new List<string>();
+        //0, 2
+        sentences2_1.Add("벌써 다 죽이다니! 하지만 이번엔 쉽지 않을 겁니다...!"); //로그일
+        sentences2_1.Add("혹시 폭탄으로 공격하실 건가요?"); //칼
+        sentences2_1.Add("헉! 어떻게 알았나요?!"); //로그일
+        sentences2_1.Add("(...형제는 맞나보군.)"); //칼
+        size = sentences2_1.Count;
+
+        Storylog1();
+        i = 0;
+        storytext.text = sentences2_1[i];
     }
     public void Story2_2On()
     {

@@ -85,6 +85,7 @@ public class Stage : MonoBehaviour
     public int monnum2;
 
     public float story;
+    public bool tutorial;
 
     public bool bossdie;
 
@@ -121,6 +122,7 @@ public class Stage : MonoBehaviour
         monnum2 = 0;
 
         story = 0;
+        tutorial = false;
 
         fly = Instantiate(AttackBar, new Vector2(x5, y5), transform.rotation);
         fly.SetActive(false);
@@ -156,7 +158,7 @@ public class Stage : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetMouseButtonDown(0) && story == 0)
+        if (Input.GetMouseButtonDown(0) && story == 0 && GameObject.Find("ending").GetComponent<endingscene>().ending == false)
         {
             CastRay();
 
@@ -312,7 +314,6 @@ public class Stage : MonoBehaviour
         if (stage == 3 && remain == 0 && bossdie == true) //클리어
         {
             PlaySound("stageclear");/////////////소리
-            fortime = 0;
             punch.GetComponent<PunchScript>().ScrollChange3();
 
             punch.GetComponent<PunchScript>().punchmode = 0;
@@ -335,6 +336,11 @@ public class Stage : MonoBehaviour
             StageEnding();
 
             stagemove = true;
+        }
+
+        if (GameObject.Find("ending").GetComponent<endingscene>().ending == true)
+        {
+            BH.SetActive(false);
         }
     }
 
@@ -395,6 +401,9 @@ public class Stage : MonoBehaviour
             mon1.SetActive(true);
             mon2.SetActive(true);
             mon3.SetActive(true);
+            mon1.layer = 8;
+            mon2.layer = 10;
+            mon3.layer = 9;
         }
         else if (stage == 1)
         {
@@ -407,6 +416,9 @@ public class Stage : MonoBehaviour
             mon1.SetActive(true);
             mon2.SetActive(true);
             mon3.SetActive(true);
+            mon1.layer = 8;
+            mon2.layer = 10;
+            mon3.layer = 9;
         }
         else if (stage == 2)
         {
@@ -416,6 +428,8 @@ public class Stage : MonoBehaviour
             mon2.GetComponent<MonsterScript>().stage = 1;
             mon1.SetActive(true);
             mon2.SetActive(true);
+            mon1.layer = 8;
+            mon2.layer = 10;
 
             boss = Instantiate(BossMonster, new Vector2(x4, y4), transform.rotation);
         }

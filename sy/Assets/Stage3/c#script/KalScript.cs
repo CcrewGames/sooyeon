@@ -66,7 +66,6 @@ public class KalScript : MonoBehaviour
     public GameObject floor2;
     public GameObject floor3;
     bool f; //배경 움직임 변수
-    float b = -27.5f;
 
     bool end; //게임 실패 변수
 
@@ -126,23 +125,16 @@ public class KalScript : MonoBehaviour
         if (move == 2 && transform.position.x > -7)
         {
             transform.position = Vector2.MoveTowards(transform.position, new Vector2(-7, transform.position.y), Time.deltaTime * (speed + 2));
-
-            if (Background.transform.position.x > b)
-                Background.transform.position = Vector2.MoveTowards(Background.transform.position, new Vector2(b, Background.transform.position.y), Time.deltaTime * (speed + 2));
-            else if (Background.transform.position.x <= b)
-                Background.transform.position = new Vector2(-b, Background.transform.position.y);
+            Background.transform.position = new Vector2(Background.transform.position.x - (speed + 2) * Time.deltaTime, Background.transform.position.y);
         }
 
         if (transform.position.x >= 0 && f == false)
         {
-            if (Background.transform.position.x > b)
-                Background.transform.position = Vector2.MoveTowards(Background.transform.position, new Vector2(b, Background.transform.position.y), Time.deltaTime * (speed + 2));
-            else if (Background.transform.position.x <= b)
-                Background.transform.position = new Vector2(-b, Background.transform.position.y);
+            Background.transform.position = new Vector2(Background.transform.position.x - (speed + 2) * Time.deltaTime, Background.transform.position.y);
         }
 
-        Background2.transform.position = new Vector2(Background.transform.position.x + 54.85f, Background.transform.position.y);
-        Background3.transform.position = new Vector2(Background.transform.position.x - 54.85f, Background.transform.position.y);
+        Background2.transform.position = new Vector2(Background.transform.position.x + 54.8f, Background.transform.position.y);
+        Background3.transform.position = new Vector2(Background.transform.position.x + 109.6f, Background.transform.position.y);
 
         floor.transform.position = new Vector2(Background.transform.position.x, floor.transform.position.y);
         floor2.transform.position = new Vector2(Background2.transform.position.x, floor2.transform.position.y);
@@ -151,7 +143,7 @@ public class KalScript : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetMouseButtonDown(0) && stage.GetComponent<Stage3>().fortime == 1 && stage.GetComponent<Stage3>().pausemode == false && stage.GetComponent<Stage3>().stage < 2)
+        if (Input.GetMouseButtonDown(0) && stage.GetComponent<Stage3>().fortime == 1 && stage.GetComponent<Stage3>().pausemode == false && stage.GetComponent<Stage3>().stage < 2 && GameObject.Find("ending").GetComponent<endingscene>().ending == false)
         {
             CastRay();
 
@@ -203,7 +195,7 @@ public class KalScript : MonoBehaviour
         {
             animator.SetTrigger("attack");
             AttackEffect();
-            GameObject.Find("NumberBundle").GetComponent<NumberBundleScript>().who = 1;
+            GameObject.Find("NumberBundle").GetComponent<NumberBundleScript>().who1 = 1;
             GameObject.Find("NumberBundle").GetComponent<NumberBundleScript>().num1setting();
         }
 
@@ -218,7 +210,7 @@ public class KalScript : MonoBehaviour
         if (heart <= 0 && end == false) //실패
         {
             end = true;
-            GameObject.Find("ending").GetComponent<endingscene3>().endingStart();
+            GameObject.Find("ending").GetComponent<endingscene>().Playerpowerend();
         }
     }
 

@@ -73,6 +73,8 @@ public class Stage1BossScript : MonoBehaviour
     float speed3 = 4f;
     float speed4 = 7f;
 
+    public GameObject canvas;
+
     private GameObject target; //마우스 클릭 확인용 변수
     void CastRay() //마우스 클릭 확인용 함수
     {
@@ -137,6 +139,12 @@ public class Stage1BossScript : MonoBehaviour
             transform.position = new Vector2(transform.position.x - speed2 * Time.deltaTime, transform.position.y);
         else if (movey == 5) //ㅂㄷㅂㄷ
             transform.position = new Vector2(transform.position.x + speed2 * Time.deltaTime, transform.position.y);
+
+        if (movey == 6) //안녕히계세요~
+        {
+            transform.position = Vector2.MoveTowards(transform.position, new Vector2(xm + 7, transform.position.y), Time.deltaTime * (speed - 2));
+            transform.localScale = new Vector3(-0.9f, 0.9f, 1);
+        }
 
         if (random > 9 && random <= 99) //십의 자리일 때
         {
@@ -216,9 +224,12 @@ public class Stage1BossScript : MonoBehaviour
         }
         if (heart == 0 && damaged == false)
         {
+            GameObject.Find("Canvas").GetComponent<HpBossScript>().healthbar = heart;
+            GameObject.Find("Canvas").GetComponent<HpBossScript>().healthbar_boss();
             Invoke("story3", 1.5f);
             Invoke("Die", 3f);
             damaged = true;
+            GameObject.Find("Stage").GetComponent<Stage>().fortime = 0;
         }
 
         if (skill1 == false && skill2 == false && GameObject.Find("Stage").GetComponent<Stage>().remain == 1)
@@ -273,11 +284,16 @@ public class Stage1BossScript : MonoBehaviour
             GameObject.Find("Canvas").GetComponent<HpBossScript>().healthbar = heart;
             GameObject.Find("Canvas").GetComponent<HpBossScript>().healthbar_boss();
         }
+
+        if (GameObject.Find("ending").GetComponent<endingscene>().ending == true)
+        {
+            AllStop();
+        }
     }
 
     private void setting() //난수 설정
     {
-        random = Random.Range(20, 30);
+        random = Random.Range(20, 31);
         nummaker();
     }
 
@@ -392,5 +408,15 @@ public class Stage1BossScript : MonoBehaviour
         GameObject.Find("Player").GetComponent<PlayerScript>().xb = transform.position.x;
         GameObject.Find("Player").GetComponent<PlayerScript>().yb = transform.position.y;
         GameObject.Find("Player").GetComponent<PlayerScript>().bm();
+    }
+
+    void AllStop()
+    {
+        CancelInvoke("Skill_2");
+        move = false;
+        if (GameObject.Find("ending").GetComponent<endingscene>().endingnum != 1)
+        {
+            movey = 6;
+        }
     }
 }

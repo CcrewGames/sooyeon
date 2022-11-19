@@ -87,6 +87,9 @@ public class Stage3 : MonoBehaviour
 
     public float story;
 
+    public GameObject TimeCount;
+    public GameObject TimeBox;
+
     GameObject ForDestroy;
 
     private GameObject target; //���콺 Ŭ�� Ȯ�ο� ����
@@ -144,7 +147,7 @@ public class Stage3 : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetMouseButtonDown(0) && story == 0)
+        if (Input.GetMouseButtonDown(0) && story == 0 && GameObject.Find("ending").GetComponent<endingscene>().ending == false)
         {
             CastRay();
 
@@ -180,7 +183,6 @@ public class Stage3 : MonoBehaviour
 
         if (stage == 1 && stagemove == false) //1�ܰ� ����
         {
-            
             fortime = 1;
             punch.GetComponent<PunchScript>().ScrollChange2();
 
@@ -201,8 +203,8 @@ public class Stage3 : MonoBehaviour
 
         if (stage == 1 && remain == 0) //1�ܰ� ����
         {
-            PlaySound("stageclear");/////////////
             fortime = 0;
+            PlaySound("stageclear");/////////////
             punch.GetComponent<PunchScript>().ScrollChange3();
 
             punch.GetComponent<PunchScript>().punchmode = 0;
@@ -220,8 +222,10 @@ public class Stage3 : MonoBehaviour
 
         if (stage == 2 && stagemove == false) //2�ܰ� ����
         {
-            PlaySound("stagegogo");/////////////소리
             fortime = 1;
+            TimeCount.transform.position = new Vector2(-8.5f, TimeCount.transform.position.y);
+            TimeBox.transform.position = new Vector2(-8.5f, TimeBox.transform.position.y);
+            PlaySound("stagegogo");/////////////소리
             punch.GetComponent<PunchScript>().ScrollChange2();
 
             GameObject.Find("Story").GetComponent<Story3Script>().Story2On();
@@ -233,6 +237,9 @@ public class Stage3 : MonoBehaviour
 
         if (stage == 3 && stagemove == false) //���丮 ���
         {
+            fortime = 0;
+            TimeCount.transform.position = new Vector2(0, TimeCount.transform.position.y);
+            TimeBox.transform.position = new Vector2(0, TimeBox.transform.position.y);
             PlaySound("stageclear");/////////////
             Cul.transform.position = new Vector2(7, Cul.transform.position.y);
 
@@ -312,6 +319,10 @@ public class Stage3 : MonoBehaviour
             mon2.SetActive(true);
             mon3.SetActive(true);
             mon4.SetActive(true);
+            mon1.layer = 8;
+            mon2.layer = 10;
+            mon3.layer = 8;
+            mon4.layer = 10;
         }
     }
 
@@ -413,6 +424,7 @@ public class Stage3 : MonoBehaviour
         GameObject.Find("NumberBundle").GetComponent<NumberBundleScript>().numbunOn();
         GameObject.Find("Cul").GetComponent<CulScript>().Timer();
         FightBar.SetActive(true);
+        fortime = 1;
     }
 
     public void Win()
@@ -423,7 +435,7 @@ public class Stage3 : MonoBehaviour
     }
     void WinAni()
     {
-        GameObject.Find("Cul").GetComponent<Animator>().SetTrigger("hit");
+        Cul.GetComponent<Animator>().SetTrigger("hit");
     }
 
     public void Lose()
@@ -433,14 +445,30 @@ public class Stage3 : MonoBehaviour
         punch.GetComponent<PunchScript>().re();
         punch.GetComponent<PunchScript>().ScrollChange3();
         FightBar.SetActive(false);
-        GameObject.Find("NumberBundle").GetComponent<NumberBundleScript>().numbunOff();
         Cul.GetComponent<CulScript>().AttackBarOff();
+        Cul.GetComponent<CulScript>().move2();
         Invoke("LoseAni", 1f);
     }
     void LoseAni()
     {
         GameObject.Find("Player").GetComponent<Animator>().SetTrigger("hit");
-        GameObject.Find("ending").GetComponent<endingscene3>().endingStart();
+        GameObject.Find("ending").GetComponent<endingscene>().Playerpowerend();
+    }
+    public void TimeOut()
+    {
+        punch.GetComponent<PunchScript>().punchmode = 0;
+        punch.GetComponent<PunchScript>().PunchMode();
+        punch.GetComponent<PunchScript>().re();
+        punch.GetComponent<PunchScript>().ScrollChange3();
+        FightBar.SetActive(false);
+        GameObject.Find("NumberBundle").GetComponent<NumberBundleScript>().numbunOff();
+        Cul.GetComponent<CulScript>().AttackBarOff();
+        Invoke("TimeLoseAni", 1f);
+    }
+    void TimeLoseAni()
+    {
+        GameObject.Find("Player").GetComponent<Animator>().SetTrigger("hit");
+        GameObject.Find("ending").GetComponent<endingscene>().Stagetimeout();
     }
 
     public void Story2_2()
@@ -457,7 +485,8 @@ public class Stage3 : MonoBehaviour
     {
         if (ending != null)
         {
-            ending.GetComponent<endingscene3>().endingStart();
+            ending.GetComponent<endingscene>().stage = 3;
+            ending.GetComponent<endingscene>().endingStart();
         }
     }
 }

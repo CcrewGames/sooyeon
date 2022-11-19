@@ -348,11 +348,16 @@ public class MonsterScript2 : MonoBehaviour
             Destroy(hpbar2);
             Destroy(hpbar3);
         }
+
+        if (GameObject.Find("ending").GetComponent<endingscene>().ending == true)
+        {
+            AllStop();
+        }
     }
 
     void setting() //난수 설정
     {
-        random = Random.Range(5, 15);
+        random = Random.Range(5, 17);
         nummaker();
     }
 
@@ -493,5 +498,16 @@ public class MonsterScript2 : MonoBehaviour
             GameObject.Find("Stage").GetComponent<Stage2>().remain -= 1;
         else
             GameObject.Find("Stage").GetComponent<Stage3>().remain -= 1;
+    }
+
+    void AllStop()
+    {
+        CancelInvoke("Stop");
+        CancelInvoke("reAttack");
+        move = false;
+        movey = 0;
+        tremble = false;
+        attack = true;
+        damaged = true;
     }
 }

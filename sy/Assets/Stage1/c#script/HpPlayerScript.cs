@@ -17,7 +17,10 @@ public class HpPlayerScript : MonoBehaviour
 
     void Update() 
     {
-        if(GameObject.Find("Player").GetComponent<PlayerScript>().heart >= 0)
-            healthbar_player();
+        if(GameObject.Find("Stage").GetComponent<Stage>().tutorial == false)
+        {
+            if(GameObject.Find("Player").GetComponent<PlayerScript>().heart >= 0)
+                healthbar_player();
+        }
     }
 }

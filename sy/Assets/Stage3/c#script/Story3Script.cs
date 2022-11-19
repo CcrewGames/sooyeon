@@ -417,7 +417,6 @@ public class Story3Script : MonoBehaviour
     public void StoryOff()
     {
         GameObject.Find("Stage").GetComponent<Stage3>().ResumeMode();
-        GameObject.Find("Stage").GetComponent<Stage3>().story = 0;
 
         canvas.SetActive(false);
         background1.SetActive(false);
@@ -427,5 +426,15 @@ public class Story3Script : MonoBehaviour
         nextbutton1.SetActive(false);
 
         clickNextButton = false;
+
+        if(GameObject.Find("Stage").GetComponent<Stage3>().story == 3)
+        {
+            GameObject.Find("KerWongi").GetComponent<KerWongiScript>().twingklesound();
+        }
+        if(GameObject.Find("Stage").GetComponent<Stage3>().story == 3.5)
+        {
+            GameObject.Find("KerWongi").GetComponent<KerWongiScript>().BoomSound();
+        }
+        GameObject.Find("Stage").GetComponent<Stage3>().story = 0;
     }
 }

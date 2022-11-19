@@ -16,9 +16,9 @@ TagManager:
   - UI
   - Player
   - Enemy
-  - 
-  - 
-  - 
+  - monster1
+  - monster2
+  - monster3
   - 
   - 
   - 
@@ -52,4 +52,7 @@ TagManager:
     locked: 0
   - name: EndingText
     uniqueID: 1355991815
+    locked: 0
+  - name: Tutorial
+    uniqueID: 418124069
     locked: 0

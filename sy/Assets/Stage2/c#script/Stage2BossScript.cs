@@ -30,7 +30,7 @@ public class Stage2BossScript : MonoBehaviour
     public int heart; //몬스터 체력
 
     private bool move;
-    private int movey; //몬스터 이동 변수2
+    public int movey; //몬스터 이동 변수2
     private bool tremble; //몬스터 ㅂㄷㅂㄷ 변수
 
     //몬스터 이동 관련
@@ -135,6 +135,12 @@ public class Stage2BossScript : MonoBehaviour
         else if (movey == 5) //ㅂㄷㅂㄷ
             transform.position = new Vector2(transform.position.x + speed2 * Time.deltaTime, transform.position.y);
 
+        if (movey == 6) //안녕히계세요~
+        {
+            transform.position = Vector2.MoveTowards(transform.position, new Vector2(xm + 7, transform.position.y), Time.deltaTime * (speed - 2));
+            transform.localScale = new Vector3(-0.9f, 0.9f, 1);
+        }
+
         if (random > 9 && random <= 99) //십의 자리일 때
         {
             num1.transform.position = new Vector2(bom.transform.position.x + dis, bom.transform.position.y);
@@ -210,14 +216,18 @@ public class Stage2BossScript : MonoBehaviour
         }
         if (heart == 0 && damaged == false)
         {
+            GameObject.Find("Canvas").GetComponent<HpBossScript>().healthbar = heart;
+            GameObject.Find("Canvas").GetComponent<HpBossScript>().healthbar_boss();
             Invoke("story3", 1.5f);
             Invoke("Die", 3f);
             damaged = true;
+            GameObject.Find("Stage").GetComponent<Stage2>().fortime = 0;
         }
 
         if (skill1 == false && skill2 == false && GameObject.Find("Stage").GetComponent<Stage2>().remain == 1)
         {
             bom.transform.position = new Vector2(transform.position.x, -2);
+            Invoke("story2_1", 1.5f);
             Invoke("Skill_2", 2f);
             damaged = false;
             skill2 = true;
@@ -265,11 +275,16 @@ public class Stage2BossScript : MonoBehaviour
             GameObject.Find("Canvas").GetComponent<HpBossScript>().healthbar = heart;
             GameObject.Find("Canvas").GetComponent<HpBossScript>().healthbar_boss();
         }
+
+        if(GameObject.Find("ending").GetComponent<endingscene>().ending == true)
+        {
+            AllStop();
+        }
     }
 
     private void setting() //난수 설정
     {
-        random = Random.Range(1, 10);
+        random = Random.Range(1, 11);
         nummaker();
     }
 
@@ -361,6 +376,10 @@ public class Stage2BossScript : MonoBehaviour
         Handheld.Vibrate();
     }
 
+    void story2_1()
+    {
+        GameObject.Find("Story").GetComponent<Story2Script>().Story2_1On();
+    }
     void story2_2()
     {
         GameObject.Find("Story").GetComponent<Story2Script>().Story2_2On();
@@ -382,5 +401,15 @@ public class Stage2BossScript : MonoBehaviour
         GameObject.Find("Player").GetComponent<PlayerScript2>().xb = transform.position.x;
         GameObject.Find("Player").GetComponent<PlayerScript2>().yb = transform.position.y;
         GameObject.Find("Player").GetComponent<PlayerScript2>().bm();
+    }
+
+    void AllStop()
+    {
+        CancelInvoke("Skill_2");
+        move = false;
+        if (GameObject.Find("ending").GetComponent<endingscene>().endingnum != 1)
+        {
+            movey = 6;
+        }
     }
 }

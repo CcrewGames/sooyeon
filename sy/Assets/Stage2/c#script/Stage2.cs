@@ -84,6 +84,7 @@ public class Stage2 : MonoBehaviour
     public int monnum2;
 
     public float story;
+    public bool tutorial;
 
     public bool bossdie;
 
@@ -155,7 +156,7 @@ public class Stage2 : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetMouseButtonDown(0) && story == 0)
+        if (Input.GetMouseButtonDown(0) && story == 0 && GameObject.Find("ending").GetComponent<endingscene>().ending == false)
         {
             CastRay();
 
@@ -313,7 +314,6 @@ public class Stage2 : MonoBehaviour
         if (stage == 3 && remain == 0 && bossdie == true) //클리어
         {
             PlaySound("stageclear");/////////////소리
-            fortime = 0;
             punch.GetComponent<PunchScript2>().ScrollChange3();
             punch.GetComponent<PunchScript2>().off();
 
@@ -337,6 +337,11 @@ public class Stage2 : MonoBehaviour
             StageEnding();
 
             stagemove = true;
+        }
+
+        if (GameObject.Find("ending").GetComponent<endingscene>().ending == true)
+        {
+            BH.SetActive(false);
         }
     }
 
@@ -398,6 +403,9 @@ public class Stage2 : MonoBehaviour
             mon1.SetActive(true);
             mon2.SetActive(true);
             mon3.SetActive(true);
+            mon1.layer = 8;
+            mon2.layer = 10;
+            mon3.layer = 9;
         }
         else if (stage == 1)
         {
@@ -410,6 +418,9 @@ public class Stage2 : MonoBehaviour
             mon1.SetActive(true);
             mon2.SetActive(true);
             mon3.SetActive(true);
+            mon1.layer = 8;
+            mon2.layer = 10;
+            mon3.layer = 9;
         }
         else if (stage == 2)
         {
@@ -419,6 +430,8 @@ public class Stage2 : MonoBehaviour
             mon2.GetComponent<MonsterScript2>().stage = 2;
             mon1.SetActive(true);
             mon2.SetActive(true);
+            mon1.layer = 8;
+            mon2.layer = 10;
 
             boss = Instantiate(BossMonster, new Vector2(x4, y4), transform.rotation);
         }

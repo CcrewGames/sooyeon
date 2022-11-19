@@ -57,12 +57,19 @@ public class KerWongiScript : MonoBehaviour
     public void twingkle()
     {
         animator.SetBool("effect1", true);
+    }
+    public void twingklesound()
+    {
         PlaySound("caltwingle");
     }
 
     public void Boom()
     {
         animator.SetTrigger("effect2");
+        animator.SetBool("effect1", false);
+    }
+    public void BoomSound()
+    {
         PlaySound("calBomb");
     }
 }

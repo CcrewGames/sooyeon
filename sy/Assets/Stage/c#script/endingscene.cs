@@ -11,31 +11,58 @@ public class endingscene : MonoBehaviour
     public GameObject a, b, c, d, e, f, g, h, I;
 
     float time;
+    int star;
     public int stage;
     public GameObject BackgroundMusic;
     AudioSource backmusic;
+
+    public bool ending;
+    public int endingnum;
 
     //시간 불러오기 
 
     public void Start() //게임 시작 초기화
     {
         backmusic = BackgroundMusic.GetComponent<AudioSource>();
+        ending = false;
+        endingnum = 0;
     }
 
     public void endingStart()
     {
         backmusic.Pause();
-        GameObject.Find("buttonclick").GetComponent<Buttonclick2>().pausemode = true;
+        ending = true;
+        endingnum = 1;
         if (stage == 1)
         {
             time = TimeCount.GetComponent<Timecount>().countdownSeconds;
+            GameObject.Find("buttonclick").GetComponent<Buttonclick>().pausemode = true;
         }
         else if (stage == 2)
         {
             time = TimeCount.GetComponent<Timecount2>().countdownSeconds;
+            GameObject.Find("buttonclick").GetComponent<Buttonclick2>().pausemode = true;
+        }
+        else if (stage == 3)
+        {
+            time = TimeCount.GetComponent<Timecount3>().countdownSeconds;
+            GameObject.Find("buttonclick").GetComponent<Buttonclick>().pausemode = true;
         }
 
-        if ( 30 >= time && time > 0){//별 1개
+        if (30 >= time && time > 0)
+        {
+            star = 1;
+        }
+        else if (60 >= time && time > 30) 
+        {
+            star = 2;
+        }
+        else if (time > 60)
+        {
+            star = 3;
+        }
+
+        if (star == 1){//별 1개
             endingback = Resources.Load<GameObject>("ending/endingBackground");
             Instantiate(endingback, new Vector3(-0.08f,-0.02f,-3f), Quaternion.identity); // 배경이미지 생성
             endingPlayer = Resources.Load<GameObject>("ending/realendingplayer");
@@ -48,7 +75,8 @@ public class endingscene : MonoBehaviour
             endingfailstar3 = Resources.Load<GameObject>("ending/realendingfailstar3");
             Instantiate(endingfailstar3, new Vector3(5,1.5f, -5f), endingfailstar3.transform.rotation);
         }
-        else if (60 >= time && time > 30){//별 2개
+        else if (star == 2)
+        {//별 2개
             endingback = Resources.Load<GameObject>("ending/endingBackground");
             Instantiate(endingback, new Vector3(-0.08f,-0.02f,-3f), Quaternion.identity); // 배경이미지 생성
             endingPlayer = Resources.Load<GameObject>("ending/realendingplayer");
@@ -77,6 +105,9 @@ public class endingscene : MonoBehaviour
     }
     public void Stagetimeout()
     {
+        ending = true;
+        backmusic.Pause();
+        endingnum = 2;
         endingback = Resources.Load<GameObject>("ending/endingBackground");
         Instantiate(endingback, new Vector3(-0.08f,-0.02f,-3f), Quaternion.identity); // 배경이미지 생성
         endingPlayer = Resources.Load<GameObject>("ending/timeendingplayer1");
@@ -104,12 +135,16 @@ public class endingscene : MonoBehaviour
     }  
 
     public void Playerpowerend(){
+        ending = true;
+        backmusic.Pause();
+        endingnum = 3;
+        GameObject.Find("Player").GetComponent<Animator>().SetBool("ouch", true);
         endingback = Resources.Load<GameObject>("ending/endingBackground");
         Instantiate(endingback, new Vector3(-0.08f,-0.02f,-3f), Quaternion.identity); // 배경이미지 생성
         endingPlayer = Resources.Load<GameObject>("ending/timeendingplayer1");
         Instantiate(endingPlayer, new Vector3(-0.18f,-7.89f,-5f), Quaternion.identity); //주인공이미지생성
-        canvas.GetComponent<TextScript2>().endingtext1.text = "    Power";
-        canvas.GetComponent<TextScript2>().endingtext2.text = "     0";
+        canvas.GetComponent<TextScript2>().endingtext1.text = "Power";
+        canvas.GetComponent<TextScript2>().endingtext2.text = "0";
         canvas.GetComponent<TextScript2>().endingtext1.fontSize = 1.5f;
         canvas.GetComponent<TextScript2>().endingtext2.fontSize = 1.5f;
 

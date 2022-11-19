@@ -66,7 +66,6 @@ public class PlayerScript2 : MonoBehaviour
     public GameObject floor2;
     public GameObject floor3;
     bool f; //배경 움직임 변수
-    float b = -27.5f;
 
     bool end; //게임 실패 변수
 
@@ -136,23 +135,16 @@ public class PlayerScript2 : MonoBehaviour
         if (move == 2 && transform.position.x > -7)
         {
             transform.position = Vector2.MoveTowards(transform.position, new Vector2(-7, transform.position.y), Time.deltaTime * (speed + 2));
-
-            if (Background.transform.position.x > b)
-                Background.transform.position = Vector2.MoveTowards(Background.transform.position, new Vector2(b, Background.transform.position.y), Time.deltaTime * (speed + 2));
-            else if (Background.transform.position.x <= b)
-                Background.transform.position = new Vector2(-b, Background.transform.position.y);
+            Background.transform.position = new Vector2(Background.transform.position.x - (speed + 2) * Time.deltaTime, Background.transform.position.y);
         }
 
         if (transform.position.x >= 0 && f == false)
         {
-            if (Background.transform.position.x > b)
-                Background.transform.position = Vector2.MoveTowards(Background.transform.position, new Vector2(b, Background.transform.position.y), Time.deltaTime * (speed + 2));
-            else if (Background.transform.position.x <= b)
-                Background.transform.position = new Vector2(-b, Background.transform.position.y);
+            Background.transform.position = new Vector2(Background.transform.position.x - (speed + 2) * Time.deltaTime, Background.transform.position.y);
         }
 
-        Background2.transform.position = new Vector2(Background.transform.position.x + 54.85f, Background.transform.position.y);
-        Background3.transform.position = new Vector2(Background.transform.position.x - 54.85f, Background.transform.position.y);
+        Background2.transform.position = new Vector2(Background.transform.position.x + 54.8f, Background.transform.position.y);
+        Background3.transform.position = new Vector2(Background.transform.position.x + 109.6f, Background.transform.position.y);
 
         floor.transform.position = new Vector2(Background.transform.position.x, floor.transform.position.y);
         floor2.transform.position = new Vector2(Background2.transform.position.x, floor2.transform.position.y);
@@ -166,10 +158,7 @@ public class PlayerScript2 : MonoBehaviour
         if (buttonmove == true)
         {
             b1.transform.position = Vector2.MoveTowards(b1.transform.position, new Vector2(-2, b1.transform.position.y), Time.deltaTime * (speed + 2));
-            if (Background.transform.position.x > b)
-                Background.transform.position = Vector2.MoveTowards(Background.transform.position, new Vector2(b, Background.transform.position.y), Time.deltaTime * (speed + 2));
-            else if (Background.transform.position.x <= b)
-                Background.transform.position = new Vector2(-b, Background.transform.position.y);
+            Background.transform.position = new Vector2(Background.transform.position.x - (speed + 2) * Time.deltaTime, Background.transform.position.y);
         }
         if (button == false)
         {
@@ -180,16 +169,16 @@ public class PlayerScript2 : MonoBehaviour
 
         if (button == true)
         {
-            b1.transform.position = Vector3.Lerp(b1.transform.position, new Vector2(xb - 2f, -2.2f), Time.deltaTime * speedb);
-            b2.transform.position = Vector3.Lerp(b2.transform.position, new Vector2(xb - 1f, -2.2f), Time.deltaTime * speedb);
-            b3.transform.position = Vector3.Lerp(b3.transform.position, new Vector2(xb + 0.5f, -2.2f), Time.deltaTime * speedb);
-            b4.transform.position = Vector3.Lerp(b4.transform.position, new Vector2(xb + 2f, -2.2f), Time.deltaTime * speedb);
+            b1.transform.position = Vector3.Slerp(b1.transform.position, new Vector2(xb - 2f, -2.2f), Time.deltaTime * speedb);
+            b2.transform.position = Vector3.Slerp(b2.transform.position, new Vector2(xb - 1f, -2.2f), Time.deltaTime * speedb);
+            b3.transform.position = Vector3.Slerp(b3.transform.position, new Vector2(xb + 0.5f, -2.2f), Time.deltaTime * speedb);
+            b4.transform.position = Vector3.Slerp(b4.transform.position, new Vector2(xb + 2f, -2.2f), Time.deltaTime * speedb);
         }
     }
 
     void Update()
     {
-        if (Input.GetMouseButtonDown(0) && stage.GetComponent<Stage2>().fortime == 1 && stage.GetComponent<Stage2>().pausemode == false)
+        if (Input.GetMouseButtonDown(0) && stage.GetComponent<Stage2>().fortime == 1 && stage.GetComponent<Stage2>().pausemode == false && GameObject.Find("ending").GetComponent<endingscene>().ending == false)
         {
             CastRay();
 
@@ -274,6 +263,11 @@ public class PlayerScript2 : MonoBehaviour
         {
             GameObject.Find("Stage").GetComponent<Stage2>().bossdie = true;
             button = false;
+        }
+
+        if (GameObject.Find("ending").GetComponent<endingscene>().ending == true)
+        {
+            AllStop();
         }
     }
 
@@ -383,6 +377,7 @@ public class PlayerScript2 : MonoBehaviour
         Invoke("soundDong", 1.5f);
         if (stage.GetComponent<Stage2>().stage == 0)
         {
+            Invoke("Tutorial", 2.75f);
             Invoke("Story1_2", 2.85f);
         }
         if (stage.GetComponent<Stage2>().stage == 2)
@@ -417,12 +412,42 @@ public class PlayerScript2 : MonoBehaviour
     }
     void eFind() //끝~ 함수
     {
+        animator.SetBool("heal", true);
+        Invoke("button1_", 0.3f);
+        Invoke("button2_", 0.9f);
+        Invoke("button3_", 0.6f);
+        Invoke("button4_", 1.2f);
+        Invoke("motionend", 1.5f);
         move = 0;
+    }
+    void motionend()
+    {
+        animator.SetBool("heal", false);
+    }
+    void button1_()
+    {
+        b1.SetActive(false);
+    }
+    void button2_()
+    {
+        b2.SetActive(false);
+    }
+    void button3_()
+    {
+        b3.SetActive(false);
+    }
+    void button4_()
+    {
+        b4.SetActive(false);
     }
 
     void Story1() //스토리1
     {
         story.GetComponent<Story2Script>().Story1On();
+    }
+    void Tutorial() //튜토리얼
+    {
+        GameObject.Find("Tutorial").GetComponent<TutorialScript2>().Scene();
     }
     void Story1_2() //스토리1-2
     {
@@ -444,5 +469,12 @@ public class PlayerScript2 : MonoBehaviour
         b3.SetActive(true);
         b4.SetActive(true);
         button = true;
+    }
+
+    void AllStop()
+    {
+        num1.SetActive(false);
+        num2.SetActive(false);
+        punch.GetComponent<PunchScript2>().off();
     }
 }

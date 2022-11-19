@@ -4,6 +4,20 @@ using UnityEngine;
 
 public class PunchScript : MonoBehaviour
 {
+    AudioSource audioSource;/////////////소리
+    public AudioClip error;
+
+    void PlaySound(string action)
+    {
+        switch (action)
+        {
+            case "error":
+                audioSource.clip = error;
+                break;
+        }
+        audioSource.Play();
+    }
+
     public int punchmode; //0은 None, 1은 Attack, 2는 Healing
     public GameObject AttackBar; //공격바
     public GameObject HealingBar; //힐링바
@@ -32,6 +46,7 @@ public class PunchScript : MonoBehaviour
 
     void Start() //게임 시작 초기화
     {
+        audioSource = GetComponent<AudioSource>();/////////////소리
         i = 0;
         sign = 0;
         result = 0;
@@ -68,7 +83,7 @@ public class PunchScript : MonoBehaviour
                 if (attack[0] < attack[2])
                 {
                     result = 0;
-                    Debug.Log("0보다 작은 수를 만들 수 없습니다.");
+                    PlaySound("error");
                 }
                 else
                 {
@@ -84,7 +99,7 @@ public class PunchScript : MonoBehaviour
                 if (attack[0] % attack[2] != 0)
                 {
                     result = attack[0];
-                    Debug.Log("약수로만 나눌 수 있습니다.");
+                    PlaySound("error");
                 }
                 else
                 {
@@ -95,7 +110,7 @@ public class PunchScript : MonoBehaviour
             if(result > 999)
             {
                 result = 999;
-                Debug.Log("999보다 큰 수를 만들 수 없습니다.");
+                PlaySound("error");
             }
 
             attack[0] = result;
