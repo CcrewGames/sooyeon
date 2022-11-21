@@ -420,11 +420,11 @@ public class PlayerScript : MonoBehaviour
     void eFind() //끝~ 함수
     {
         animator.SetBool("heal", true);
-        Invoke("button1_", 0.3f);
-        Invoke("button2_", 0.9f);
-        Invoke("button3_", 0.6f);
-        Invoke("button4_", 1.2f);
-        Invoke("motionend", 1.5f);
+        Invoke("button1_", 0.6f);
+        Invoke("button2_", 1.2f);
+        Invoke("button3_", 0.9f);
+        Invoke("button4_", 1.5f);
+        Invoke("motionend", 1.6f);
         move = 0;
     }
     void motionend()

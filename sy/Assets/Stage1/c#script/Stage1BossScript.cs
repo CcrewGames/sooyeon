@@ -353,6 +353,7 @@ public class Stage1BossScript : MonoBehaviour
         GameObject.Find("Player").GetComponent<Animator>().SetTrigger("hit");
         GameObject.Find("Punch").GetComponent<PunchScript>().re();
         GameObject.Find("Punch").GetComponent<PunchScript>().ScrollChange2();
+        Handheld.Vibrate();
 
         bom.transform.position = new Vector2(transform.position.x, -2);
         bom.SetActive(false);

@@ -184,8 +184,8 @@ public class TutorialScript : MonoBehaviour
             arrow3.SetActive(true);
 
             attackbar.GetComponent<SpriteRenderer>().sortingOrder = 2;
-            num4.GetComponent<SpriteRenderer>().sortingOrder = 2;
-            num5.GetComponent<SpriteRenderer>().sortingOrder = 2;
+            num4.GetComponent<SpriteRenderer>().sortingOrder = 3;
+            num5.GetComponent<SpriteRenderer>().sortingOrder = 3;
             button1.GetComponent<SpriteRenderer>().sortingOrder = 2;
             button2.GetComponent<SpriteRenderer>().sortingOrder = 2;
             button3.GetComponent<SpriteRenderer>().sortingOrder = 2;
@@ -217,8 +217,8 @@ public class TutorialScript : MonoBehaviour
             arrow3.SetActive(true);
 
             attackbar.GetComponent<SpriteRenderer>().sortingOrder = 2;
-            num4.GetComponent<SpriteRenderer>().sortingOrder = 2;
-            num5.GetComponent<SpriteRenderer>().sortingOrder = 2;
+            num4.GetComponent<SpriteRenderer>().sortingOrder = 3;
+            num5.GetComponent<SpriteRenderer>().sortingOrder = 3;
             button1.GetComponent<SpriteRenderer>().sortingOrder = 2;
             button2.GetComponent<SpriteRenderer>().sortingOrder = 2;
             button3.GetComponent<SpriteRenderer>().sortingOrder = 2;

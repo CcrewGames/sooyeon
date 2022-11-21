@@ -192,7 +192,7 @@ public class Stage2 : MonoBehaviour
 
         if (stage == 1 && stagemove == false) //1단계 시작
         {
-            //tutorialscript.GetComponent<tutorial2>().tutorialstart();////튜토리얼
+            PlaySound("stagegogo");
             fortime = 1;
             punch.GetComponent<PunchScript2>().ScrollChange2();
             punch.GetComponent<PunchScript2>().re();

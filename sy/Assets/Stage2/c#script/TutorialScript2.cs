@@ -42,7 +42,7 @@ public class TutorialScript2 : MonoBehaviour
         nextbutton = false;
 
         sentences = new List<string>();
-        sentences.Add("이번에는 숫자가 먼저 주어집니다.");
+        sentences.Add("이번에는 먼저 숫자가 주어집니다.");
         sentences.Add("0보다 작은 수는 만들 수 없습니다.");
         sentences.Add("나누기는 약수로만 가능합니다.");
     }

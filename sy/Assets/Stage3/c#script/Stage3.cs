@@ -113,11 +113,7 @@ public class Stage3 : MonoBehaviour
 
         ResumeMode();
 
-        //stage = 3;
-        //stagemove = false;
-        //remain = 1;
-
-        stage = 1;
+        stage = 0;
         stagemove = true;
         remain = 0;
 
@@ -183,7 +179,7 @@ public class Stage3 : MonoBehaviour
 
         if (stage == 1 && stagemove == false) //1�ܰ� ����
         {
-            fortime = 1;
+            PlaySound("stagegogo");
             punch.GetComponent<PunchScript>().ScrollChange2();
 
             punch.GetComponent<PunchScript>().punchmode = 1;
@@ -196,7 +192,6 @@ public class Stage3 : MonoBehaviour
             mon4.GetComponent<MonsterScript2>().Layer();
 
             GameObject.Find("Story").GetComponent<Story3Script>().Story1_2On();
-            Invoke("CulSkill1", 0.5f);
 
             stagemove = true;
         }
@@ -230,7 +225,6 @@ public class Stage3 : MonoBehaviour
 
             GameObject.Find("Story").GetComponent<Story3Script>().Story2On();
             Cul.GetComponent<CulScript>().AttackBarOn();
-            Invoke("CulSkill2", 1f);
 
             stagemove = true;
         }
@@ -418,6 +412,7 @@ public class Stage3 : MonoBehaviour
         mon3.GetComponent<MonsterScript2>().respawn2();
         mon4.GetComponent<MonsterScript2>().respawn2();
         Cul.GetComponent<CulScript>().move2();
+        fortime = 1;
     }
     public void CulSkill2()
     {

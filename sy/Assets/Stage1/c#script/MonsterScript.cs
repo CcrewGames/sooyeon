@@ -468,7 +468,6 @@ public class MonsterScript : MonoBehaviour
     void Attack() //공격 함수
     {
         PlaySound("iceattack");/////////////소리
-        Handheld.Vibrate();
         ef1.GetComponent<Animator>().SetTrigger("effect1");
         ef2.GetComponent<Animator>().SetTrigger("effect2");
 
@@ -483,6 +482,7 @@ public class MonsterScript : MonoBehaviour
             GameObject.Find("Player").GetComponent<KalScript>().heart -= 1;
 
         GameObject.Find("Player").GetComponent<Animator>().SetTrigger("hit");
+        Handheld.Vibrate();
     }
 
     void reAttack() //공격 재개 함수

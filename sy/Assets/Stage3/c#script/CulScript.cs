@@ -256,7 +256,7 @@ public class CulScript : MonoBehaviour
 
     public void Timer()
     {
-        time = Random.Range(4, 6);
+        time = Random.Range(6, 8);
         timer = true;
     }
 

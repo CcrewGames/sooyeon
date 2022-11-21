@@ -53,6 +53,6 @@ TagManager:
   - name: EndingText
     uniqueID: 1355991815
     locked: 0
-  - name: Tutorial
+  - name: Button
     uniqueID: 418124069
     locked: 0
