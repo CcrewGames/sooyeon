@@ -237,7 +237,7 @@ public class Story3Script : MonoBehaviour
         sentences2 = new List<string>();
         //1, 3, 5, 7, 9, 11
         sentences2.Add("큘, 이런 자잘한 괴물들론 넌 날 절대 무너뜨릴 수 없어!"); //칼
-        sentences2.Add("하! 과연 그럴까? 네 콧대를 꺾기 위헤 이번엔 끔찍한 수로 몰려오도록 해야 겠군!"); //큘
+        sentences2.Add("하! 과연 그럴까? 네 콧대를 납작하게 눌러주기 위해 이번엔 끔찍한 수로 몰려오도록 해야 겠군!"); //큘
         sentences2.Add("잠깐 큘, 우리 내기 하나 하는 거 어때?"); //칼
         sentences2.Add("무슨 내기?"); //큘
         sentences2.Add("넌 지금도 네가 이 왕국의 기사단장이었어야 했다고 생각하잖아."); //칼
