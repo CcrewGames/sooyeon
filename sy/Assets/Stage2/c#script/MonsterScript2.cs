@@ -227,7 +227,10 @@ public class MonsterScript2 : MonoBehaviour
         //난수와 체력바와 효과 이동
         if (heart != 0)
         {
-            ef.transform.position = new Vector2(transform.position.x - 4f, transform.position.y + 0.1f);
+            if (attack == true)
+            {
+                ef.transform.position = new Vector2(transform.position.x - 4f, transform.position.y + 0.1f);
+            }
 
             if (random > 9 && random <= 99) //십의 자리일 때
             {

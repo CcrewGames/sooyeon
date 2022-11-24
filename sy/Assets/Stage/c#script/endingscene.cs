@@ -24,7 +24,6 @@ public class endingscene : MonoBehaviour
     public void Start() //게임 시작 초기화
     {
         backmusic = BackgroundMusic.GetComponent<AudioSource>();
-        ending = false;
         endingnum = 0;
     }
 

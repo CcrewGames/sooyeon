@@ -107,6 +107,7 @@ public class Stage3 : MonoBehaviour
 
     public void Start() //���� ���� �ʱ�ȭ
     {
+        ending.GetComponent<endingscene>().ending = false;
         backmusic = BackgroundMusic.GetComponent<AudioSource>();
         audioSource = GetComponent<AudioSource>();/////////////소리
         FightBar.SetActive(false);
@@ -143,7 +144,7 @@ public class Stage3 : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetMouseButtonDown(0) && story == 0 && GameObject.Find("ending").GetComponent<endingscene>().ending == false)
+        if (Input.GetMouseButtonDown(0) && story == 0 && ending.GetComponent<endingscene>().ending == false)
         {
             CastRay();
 
@@ -218,8 +219,8 @@ public class Stage3 : MonoBehaviour
         if (stage == 2 && stagemove == false) //2�ܰ� ����
         {
             fortime = 1;
-            TimeCount.transform.position = new Vector2(-8.5f, TimeCount.transform.position.y);
-            TimeBox.transform.position = new Vector2(-8.5f, TimeBox.transform.position.y);
+            TimeCount.transform.position = new Vector2(-7.5f, TimeCount.transform.position.y);
+            TimeBox.transform.position = new Vector2(-7.5f, TimeBox.transform.position.y);
             PlaySound("stagegogo");/////////////소리
             punch.GetComponent<PunchScript>().ScrollChange2();
 

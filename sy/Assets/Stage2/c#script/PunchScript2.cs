@@ -58,7 +58,6 @@ public class PunchScript2 : MonoBehaviour
 
     public void re() //계산 초기화 함수
     {
-        Debug.Log("버튼");
         i = 1;
         sign = 0;
         num = -1;

@@ -105,6 +105,7 @@ public class Stage2 : MonoBehaviour
 
     public void Start() //게임 시작 초기화
     {
+        ending.GetComponent<endingscene>().ending = false;
         backmusic = BackgroundMusic.GetComponent<AudioSource>();
         audioSource = GetComponent<AudioSource>();/////////////소리
         ResumeMode();
@@ -156,7 +157,7 @@ public class Stage2 : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetMouseButtonDown(0) && story == 0 && GameObject.Find("ending").GetComponent<endingscene>().ending == false)
+        if (Input.GetMouseButtonDown(0) && story == 0 && ending.GetComponent<endingscene>().ending == false)
         {
             CastRay();
 

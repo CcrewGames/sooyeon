@@ -16,6 +16,7 @@ public class NextButtonScript : MonoBehaviour
 
     void Start()
     {
+        myTimeScale = 1f;
         move = false;
         y0 = transform.position.y;
         y1 = y0 - 0.1f;

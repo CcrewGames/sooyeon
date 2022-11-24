@@ -168,12 +168,12 @@ public class TutorialScript : MonoBehaviour
             text.text = sentences[i];
             arrow5.SetActive(true);
 
-            monster.GetComponent<SpriteRenderer>().sortingOrder = 2;
-            monheart1.GetComponent<SpriteRenderer>().sortingOrder = 2;
-            monheart2.GetComponent<SpriteRenderer>().sortingOrder = 2;
-            monheart3.GetComponent<SpriteRenderer>().sortingOrder = 2;
-            num2.GetComponent<SpriteRenderer>().sortingOrder = 2;
-            num3.GetComponent<SpriteRenderer>().sortingOrder = 2;
+            monster.GetComponent<SpriteRenderer>().sortingOrder = 42;
+            monheart1.GetComponent<SpriteRenderer>().sortingOrder = 42;
+            monheart2.GetComponent<SpriteRenderer>().sortingOrder = 42;
+            monheart3.GetComponent<SpriteRenderer>().sortingOrder = 42;
+            num2.GetComponent<SpriteRenderer>().sortingOrder = 42;
+            num3.GetComponent<SpriteRenderer>().sortingOrder = 42;
         }
         else if (i == 1)
         {
@@ -183,24 +183,24 @@ public class TutorialScript : MonoBehaviour
             arrow5.SetActive(false);
             arrow3.SetActive(true);
 
-            attackbar.GetComponent<SpriteRenderer>().sortingOrder = 2;
-            num4.GetComponent<SpriteRenderer>().sortingOrder = 3;
-            num5.GetComponent<SpriteRenderer>().sortingOrder = 3;
-            button1.GetComponent<SpriteRenderer>().sortingOrder = 2;
-            button2.GetComponent<SpriteRenderer>().sortingOrder = 2;
-            button3.GetComponent<SpriteRenderer>().sortingOrder = 2;
+            attackbar.GetComponent<SpriteRenderer>().sortingOrder = 42;
+            num4.GetComponent<SpriteRenderer>().sortingOrder = 43;
+            num5.GetComponent<SpriteRenderer>().sortingOrder = 43;
+            button1.GetComponent<SpriteRenderer>().sortingOrder = 42;
+            button2.GetComponent<SpriteRenderer>().sortingOrder = 42;
+            button3.GetComponent<SpriteRenderer>().sortingOrder = 42;
         }
         else if (i == 2)
         {
-            attackbar.GetComponent<SpriteRenderer>().sortingOrder = 0;
-            num4.GetComponent<SpriteRenderer>().sortingOrder = 0;
-            num5.GetComponent<SpriteRenderer>().sortingOrder = 0;
-            button1.GetComponent<SpriteRenderer>().sortingOrder = 0;
-            button2.GetComponent<SpriteRenderer>().sortingOrder = 0;
-            button3.GetComponent<SpriteRenderer>().sortingOrder = 0;
-            monheart1.GetComponent<SpriteRenderer>().sortingOrder = 0;
-            monheart2.GetComponent<SpriteRenderer>().sortingOrder = 0;
-            monheart3.GetComponent<SpriteRenderer>().sortingOrder = 0;
+            attackbar.GetComponent<SpriteRenderer>().sortingOrder = 40;
+            num4.GetComponent<SpriteRenderer>().sortingOrder = 40;
+            num5.GetComponent<SpriteRenderer>().sortingOrder = 40;
+            button1.GetComponent<SpriteRenderer>().sortingOrder = 40;
+            button2.GetComponent<SpriteRenderer>().sortingOrder = 40;
+            button3.GetComponent<SpriteRenderer>().sortingOrder = 40;
+            monheart1.GetComponent<SpriteRenderer>().sortingOrder = 40;
+            monheart2.GetComponent<SpriteRenderer>().sortingOrder = 40;
+            monheart3.GetComponent<SpriteRenderer>().sortingOrder = 40;
 
             balloon.transform.position = new Vector2(x5, y5);
             Text.transform.position = new Vector2(x5, y5t);
@@ -216,35 +216,35 @@ public class TutorialScript : MonoBehaviour
             arrow5.SetActive(false);
             arrow3.SetActive(true);
 
-            attackbar.GetComponent<SpriteRenderer>().sortingOrder = 2;
-            num4.GetComponent<SpriteRenderer>().sortingOrder = 3;
-            num5.GetComponent<SpriteRenderer>().sortingOrder = 3;
-            button1.GetComponent<SpriteRenderer>().sortingOrder = 2;
-            button2.GetComponent<SpriteRenderer>().sortingOrder = 2;
-            button3.GetComponent<SpriteRenderer>().sortingOrder = 2;
-            monheart1.GetComponent<SpriteRenderer>().sortingOrder = 2;
-            monheart2.GetComponent<SpriteRenderer>().sortingOrder = 2;
-            monheart3.GetComponent<SpriteRenderer>().sortingOrder = 2;
+            attackbar.GetComponent<SpriteRenderer>().sortingOrder = 42;
+            num4.GetComponent<SpriteRenderer>().sortingOrder = 43;
+            num5.GetComponent<SpriteRenderer>().sortingOrder = 43;
+            button1.GetComponent<SpriteRenderer>().sortingOrder = 42;
+            button2.GetComponent<SpriteRenderer>().sortingOrder = 42;
+            button3.GetComponent<SpriteRenderer>().sortingOrder = 42;
+            monheart1.GetComponent<SpriteRenderer>().sortingOrder = 42;
+            monheart2.GetComponent<SpriteRenderer>().sortingOrder = 42;
+            monheart3.GetComponent<SpriteRenderer>().sortingOrder = 42;
         }
         else if (i == 4)
         {
-            monster.GetComponent<SpriteRenderer>().sortingOrder = 0;
-            num2.GetComponent<SpriteRenderer>().sortingOrder = 0;
-            num3.GetComponent<SpriteRenderer>().sortingOrder = 0;
-            monheart1.GetComponent<SpriteRenderer>().sortingOrder = 0;
-            monheart2.GetComponent<SpriteRenderer>().sortingOrder = 0;
-            monheart3.GetComponent<SpriteRenderer>().sortingOrder = 0;
+            monster.GetComponent<SpriteRenderer>().sortingOrder = 40;
+            num2.GetComponent<SpriteRenderer>().sortingOrder = 40;
+            num3.GetComponent<SpriteRenderer>().sortingOrder = 40;
+            monheart1.GetComponent<SpriteRenderer>().sortingOrder = 40;
+            monheart2.GetComponent<SpriteRenderer>().sortingOrder = 40;
+            monheart3.GetComponent<SpriteRenderer>().sortingOrder = 40;
 
             text.text = sentences[i];
         }
         else if (i == 5)
         {
-            attackbar.GetComponent<SpriteRenderer>().sortingOrder = 0;
-            num4.GetComponent<SpriteRenderer>().sortingOrder = 0;
-            num5.GetComponent<SpriteRenderer>().sortingOrder = 0;
-            button1.GetComponent<SpriteRenderer>().sortingOrder = 0;
-            button2.GetComponent<SpriteRenderer>().sortingOrder = 0;
-            button3.GetComponent<SpriteRenderer>().sortingOrder = 0;
+            attackbar.GetComponent<SpriteRenderer>().sortingOrder = 40;
+            num4.GetComponent<SpriteRenderer>().sortingOrder = 40;
+            num5.GetComponent<SpriteRenderer>().sortingOrder = 40;
+            button1.GetComponent<SpriteRenderer>().sortingOrder = 40;
+            button2.GetComponent<SpriteRenderer>().sortingOrder = 40;
+            button3.GetComponent<SpriteRenderer>().sortingOrder = 40;
 
             balloon.transform.position = new Vector2(x1, y1);
             Text.transform.position = new Vector2(x1, y1);
@@ -252,7 +252,7 @@ public class TutorialScript : MonoBehaviour
             arrow3.SetActive(false);
             arrow1.SetActive(true);
 
-            button4.GetComponent<SpriteRenderer>().sortingOrder = 2;
+            button4.GetComponent<SpriteRenderer>().sortingOrder = 42;
         }
         else if (i == 6)
         {
@@ -264,11 +264,11 @@ public class TutorialScript : MonoBehaviour
             num4.SetActive(false);
             num5.SetActive(false);
 
-            player.GetComponent<SpriteRenderer>().sortingOrder = 0;
-            attackbar.GetComponent<SpriteRenderer>().sortingOrder = 0;
-            num4.GetComponent<SpriteRenderer>().sortingOrder = 0;
-            num5.GetComponent<SpriteRenderer>().sortingOrder = 0;
-            button4.GetComponent<SpriteRenderer>().sortingOrder = 0;
+            player.GetComponent<SpriteRenderer>().sortingOrder = 40;
+            attackbar.GetComponent<SpriteRenderer>().sortingOrder = 40;
+            num4.GetComponent<SpriteRenderer>().sortingOrder = 40;
+            num5.GetComponent<SpriteRenderer>().sortingOrder = 40;
+            button4.GetComponent<SpriteRenderer>().sortingOrder = 40;
 
             balloon.transform.position = new Vector2(x2, y2);
             Text.transform.position = new Vector2(x2, y2t);
@@ -276,25 +276,25 @@ public class TutorialScript : MonoBehaviour
             arrow1.SetActive(false);
             arrow2.SetActive(true);
 
-            playerheal.GetComponent<SpriteRenderer>().sortingOrder = 2;
-            healingbar.GetComponent<SpriteRenderer>().sortingOrder = 2;
-            num1.GetComponent<SpriteRenderer>().sortingOrder = 2;
+            playerheal.GetComponent<SpriteRenderer>().sortingOrder = 42;
+            healingbar.GetComponent<SpriteRenderer>().sortingOrder = 42;
+            num1.GetComponent<SpriteRenderer>().sortingOrder = 42;
         }
         else if (i == 7)
         {
             text.text = sentences[i];
 
-            button1.GetComponent<SpriteRenderer>().sortingOrder = 2;
-            button2.GetComponent<SpriteRenderer>().sortingOrder = 2;
-            button3.GetComponent<SpriteRenderer>().sortingOrder = 2;
+            button1.GetComponent<SpriteRenderer>().sortingOrder = 42;
+            button2.GetComponent<SpriteRenderer>().sortingOrder = 42;
+            button3.GetComponent<SpriteRenderer>().sortingOrder = 42;
         }
         else if (i == 8)
         {
-            healingbar.GetComponent<SpriteRenderer>().sortingOrder = 0;
-            num1.GetComponent<SpriteRenderer>().sortingOrder = 0;
-            button1.GetComponent<SpriteRenderer>().sortingOrder = 0;
-            button2.GetComponent<SpriteRenderer>().sortingOrder = 0;
-            button3.GetComponent<SpriteRenderer>().sortingOrder = 0;
+            healingbar.GetComponent<SpriteRenderer>().sortingOrder = 40;
+            num1.GetComponent<SpriteRenderer>().sortingOrder = 40;
+            button1.GetComponent<SpriteRenderer>().sortingOrder = 40;
+            button2.GetComponent<SpriteRenderer>().sortingOrder = 40;
+            button3.GetComponent<SpriteRenderer>().sortingOrder = 40;
 
             text.text = sentences[i];
         }
@@ -312,14 +312,14 @@ public class TutorialScript : MonoBehaviour
             arrow2.SetActive(false);
             arrow6.SetActive(true);
 
-            pause.GetComponent<SpriteRenderer>().sortingOrder = 2;
+            pause.GetComponent<SpriteRenderer>().sortingOrder = 42;
         }
         else if (i == 10)
         {
             timebox.SetActive(true);
             timecount.SetActive(true);
 
-            pause.GetComponent<SpriteRenderer>().sortingOrder = 0;
+            pause.GetComponent<SpriteRenderer>().sortingOrder = 40;
 
             balloon.transform.position = new Vector2(x4, y4);
             Text.transform.position = new Vector2(x4, y4t);
@@ -327,7 +327,7 @@ public class TutorialScript : MonoBehaviour
             arrow6.SetActive(false);
             arrow4.SetActive(true);
 
-            timebox.GetComponent<SpriteRenderer>().sortingOrder = 2;
+            timebox.GetComponent<SpriteRenderer>().sortingOrder = 42;
         }
     }
     

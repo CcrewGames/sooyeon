@@ -234,8 +234,11 @@ public class MonsterScript : MonoBehaviour
         //난수와 체력바와 효과 이동
         if (heart != 0)
         {
-            ef1.transform.position = new Vector2(transform.position.x - 2.6f, transform.position.y - 1.55f);
-            ef2.transform.position = new Vector2(transform.position.x - 5.1f, transform.position.y - 0.795f);
+            if (attack == true)
+            {
+                ef1.transform.position = new Vector2(transform.position.x - 2.6f, transform.position.y - 1.55f);
+                ef2.transform.position = new Vector2(transform.position.x - 5.1f, transform.position.y - 0.795f);
+            }
 
             if (random > 9 && random <= 99) //십의 자리일 때
             {

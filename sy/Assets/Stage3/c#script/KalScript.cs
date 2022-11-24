@@ -122,13 +122,13 @@ public class KalScript : MonoBehaviour
 
         ef.transform.position = new Vector2(transform.position.x + 2.5f, transform.position.y + 2.5f);
 
-        if (move == 2 && transform.position.x > -7)
+        if (move == 2 && transform.position.x > -7 && tremble == false)
         {
             transform.position = Vector2.MoveTowards(transform.position, new Vector2(-7, transform.position.y), Time.deltaTime * (speed + 2));
             Background.transform.position = new Vector2(Background.transform.position.x - (speed + 2) * Time.deltaTime, Background.transform.position.y);
         }
 
-        if (transform.position.x >= 0 && f == false)
+        if (transform.position.x >= 0 && f == false && tremble == false)
         {
             Background.transform.position = new Vector2(Background.transform.position.x - (speed + 2) * Time.deltaTime, Background.transform.position.y);
         }
